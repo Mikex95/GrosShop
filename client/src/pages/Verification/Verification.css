@@ -1,0 +1,47 @@
+.verification {
+  height: 100%;
+  width: 100%;
+}
+
+.verification-up {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  box-shadow: 7rem 1rem 7rem 1.5rem #0a2533;
+  border-radius: 0rem 0rem 3rem 3rem;
+}
+
+.verification-headline {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.verification-headline h2 {
+  color: #2c3066;
+}
+
+.verification-headline p {
+  color: #777777;
+}
+
+.verification-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.verification-down {
+  background-color: #707070;
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: #555555;
+}
+
+.verification-down span {
+  color: white;
+}

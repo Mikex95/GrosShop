@@ -2,6 +2,8 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import SplashScreen from "./pages/SplashScreen";
 import Onboarding from "./pages/Onboarding";
+import SignIn from "./pages/Verification/SignIn";
+import SignUp from "./pages/Verification/SignUp";
 import TestComponents from "./pages/TestComponents";
 
 function App() {
@@ -22,6 +24,14 @@ function App() {
 							<Route
 								path="/test"
 								element={<TestComponents />}
+							></Route>
+							<Route
+								path="/signin"
+								element={<SignIn />}
+							></Route>
+							<Route
+								path="/signup"
+								element={<SignUp />}
 							></Route>
 						</Routes>
 					</div>
