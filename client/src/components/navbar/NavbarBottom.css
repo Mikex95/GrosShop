@@ -1,0 +1,20 @@
+.navbar-bottom-container {
+	position: relative;
+}
+
+.navbar-bottom {
+	position: fixed;
+	bottom: 134px;
+	right: 50;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	height: 48px;
+	width: 419px;
+	background-color: #e7f0ff;
+}
+
+.navbar-bottom a {
+	bottom: 0;
+	right: 50;
+}

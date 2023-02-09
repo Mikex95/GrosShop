@@ -1,0 +1,19 @@
+.header-time-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 419px;
+	height: 44px;
+}
+
+.header-time-container p {
+	margin: 0 10px 0px;
+}
+
+.green {
+	background-color: #40aa54;
+}
+
+.white {
+	background-color: white;
+}
