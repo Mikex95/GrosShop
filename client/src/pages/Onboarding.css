@@ -1,0 +1,75 @@
+.onboarding {
+  min-height: 100%;
+  position: relative;
+}
+
+.onboarding-screen {
+  min-height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 4rem 0rem;
+}
+
+.onboarding-getStarted {
+  min-height: 40%;
+  border-radius: 3rem 3rem 0rem 0rem;
+  background-color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+  padding: 5rem 3rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.onboarding-getStarted h1 {
+  color: #2c3066;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+.onboarding-getStarted p:nth-of-type(1) {
+  color: #555555;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.onboarding-getStarted a:nth-of-type(1) {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  background-color: rgb(216, 238, 220);
+  width: 100%;
+  height: 6rem;
+  border-radius: 2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 0.6rem;
+}
+
+.onboarding-getStarted a:nth-of-type(2) {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  background-color: #707070;
+  width: 100%;
+  height: 6rem;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 0.6rem;
+}
+
+.onboarding-getStarted a:hover {
+  background-color: #40aa54;
+}

@@ -1,0 +1,10 @@
+.splash-screen {
+  background-color: #40aa54;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
