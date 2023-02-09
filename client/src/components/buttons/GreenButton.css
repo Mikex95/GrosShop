@@ -1,13 +1,12 @@
 .green-button {
-	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
 .green-button-link {
-	position: fixed;
-	bottom: 200px;
+	position: absolute;
+	bottom: 300px;
 	right: 50;
 	display: flex;
 	align-items: center;

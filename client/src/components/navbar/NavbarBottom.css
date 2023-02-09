@@ -1,10 +1,6 @@
-.navbar-bottom-container {
-	position: relative;
-}
-
 .navbar-bottom {
-	position: fixed;
-	bottom: 134px;
+	position: absolute;
+	bottom: 0px;
 	right: 50;
 	display: flex;
 	justify-content: space-around;
@@ -12,9 +8,4 @@
 	height: 48px;
 	width: 419px;
 	background-color: #e7f0ff;
-}
-
-.navbar-bottom a {
-	bottom: 0;
-	right: 50;
 }
