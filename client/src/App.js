@@ -2,6 +2,8 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import SplashScreen from "./pages/SplashScreen";
 import Onboarding from "./pages/Onboarding";
+import SignIn from "./pages/Verification/SignIn";
+import SignUp from "./pages/Verification/SignUp";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
             <Routes>
               <Route path="/" element={<SplashScreen />}></Route>
               <Route path="/onboarding" element={<Onboarding />}></Route>
+              <Route path="/signin" element={<SignIn />}></Route>
+              <Route path="/signup" element={<SignUp />}></Route>
             </Routes>
           </div>
         </div>
