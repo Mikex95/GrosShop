@@ -1,21 +1,17 @@
 .green-button {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .green-button-link {
-  position: fixed;
-  bottom: 200px;
-  right: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 700;
-  background-color: #40aa54;
-  border-radius: 40px;
-  width: 380px;
-  height: 55px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-weight: 700;
+	background-color: #40aa54;
+	border-radius: 40px;
+	width: 380px;
+	height: 55px;
 }
