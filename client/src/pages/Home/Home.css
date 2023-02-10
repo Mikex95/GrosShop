@@ -1,0 +1,41 @@
+.searchbar-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.discount-grid-container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	overflow: scroll;
+}
+
+.image-container-discount {
+	height: 190px;
+	width: 374px;
+	background-image: url("../../img/food-discount.svg");
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-color: gray;
+	border-radius: 10px;
+	margin: 10px;
+}
+
+.image-container-discount h3 {
+	color: white;
+	font-weight: 600;
+	margin-left: 16px;
+	margin-bottom: 16px;
+	font-size: 21px;
+}
+
+.text-container {
+	height: 100%;
+	display: flex;
+	justify-content: left;
+	align-items: end;
+}
+
+.food-dicount {
+	object-fit: cover;
+}
