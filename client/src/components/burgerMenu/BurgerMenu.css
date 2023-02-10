@@ -1,0 +1,45 @@
+label.hamburg {
+	display: inline-block;
+	background: white;
+	width: 75px;
+	height: 50px;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+input#hamburg {
+	display: none;
+}
+
+#line1 {
+	position: absolute;
+	width: 20px;
+}
+.line {
+	position: absolute;
+	left: 10px;
+	height: 4px;
+	width: 30px;
+	background: black;
+	border-radius: 2px;
+	display: block;
+	transition: 0.5s;
+	transform-origin: center;
+}
+
+#hamburg:checked + .hamburg #line:nth-child(1) {
+	width: 40px;
+}
+
+.line:nth-child(1) {
+	top: 12px;
+}
+.line:nth-child(2) {
+	top: 24px;
+}
+.line:nth-child(3) {
+	top: 36px;
+}
