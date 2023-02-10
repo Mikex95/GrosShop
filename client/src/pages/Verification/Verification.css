@@ -1,21 +1,26 @@
 .verification {
   height: 100%;
   width: 100%;
-}
-
-.verification-up {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: 3rem 3rem;
+}
+
+.verification-upper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
   height: 70%;
-  box-shadow: 7rem 1rem 7rem 1.5rem #0a2533;
-  border-radius: 0rem 0rem 3rem 3rem;
 }
 
 .verification-headline {
-  margin-bottom: 2rem;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .verification-headline h2 {
@@ -29,19 +34,64 @@
 .verification-form {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  margin: 2rem 1rem;
+  gap: 1rem;
 }
 
-.verification-down {
+.verification-form input {
+  border: none;
+  border-bottom: 1px solid #707070;
+}
+
+.verification-form input:focus {
+  border: 1px solid lightblue;
+}
+
+.verification-form label {
+  color: #777777;
+}
+
+.verification-form a {
+  margin-top: 3rem;
+}
+
+.verification-to-signin {
   background-color: #707070;
-  height: 30%;
+  color: #555555;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  color: #555555;
+  height: 30%;
+  width: 100%;
 }
 
-.verification-down span {
+.verification-to-signin a {
   color: white;
+}
+
+.hallo {
+  background-color: blue;
+}
+
+/* ==================== Success Page ====================== */
+
+.verfication-success {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #707070;
+}
+
+.verification-container {
+  height: 40%;
+  width: 70%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3rem;
 }

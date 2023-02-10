@@ -11,7 +11,7 @@
   position: relative;
   background-size: cover;
   background-repeat: no-repeat;
-  padding: 4rem 0rem;
+  padding: 20rem 0rem 4rem;
 }
 
 .onboarding-getStarted {
@@ -21,9 +21,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5rem;
+  gap: 2rem;
   padding: 5rem 3rem;
   position: absolute;
   bottom: 0;
@@ -49,11 +47,9 @@
   width: 100%;
   height: 6rem;
   border-radius: 2rem;
-
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 0.6rem;
 }
 
 .onboarding-getStarted a:nth-of-type(2) {
@@ -67,7 +63,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 0.6rem;
 }
 
 .onboarding-getStarted a:hover {
