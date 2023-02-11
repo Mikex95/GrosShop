@@ -1,3 +1,5 @@
+/* ======Home-Top-Area====== */
+
 .searchbar-container {
 	display: flex;
 	justify-content: center;
@@ -8,6 +10,7 @@
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	overflow: scroll;
+	margin: 0px 0 24px;
 }
 
 .image-container-discount {
@@ -18,7 +21,7 @@
 	background-position: 50%;
 	background-color: gray;
 	border-radius: 10px;
-	margin: 10px;
+	margin: 10px 5px 0;
 }
 
 .image-container-discount h3 {
@@ -33,9 +36,49 @@
 	height: 100%;
 	display: flex;
 	justify-content: left;
-	align-items: end;
+	align-items: flex-end;
 }
 
 .food-dicount {
 	object-fit: cover;
+}
+
+/* ===========Categories/Main Area============ */
+
+.categories-grid-home {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	justify-items: center;
+}
+
+.categories-grid-home p {
+	text-align: center;
+	color: #2c3066;
+	font-weight: 500;
+}
+
+.gray-circle {
+	width: 82px;
+	height: 82px;
+	background-color: #c2c2c2;
+	border-radius: 41px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.shadow-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.shadow-categories {
+	width: 51px;
+	height: 7px;
+	background: rgba(0, 0, 0, 0.929412);
+	opacity: 0.14;
+	backdrop-filter: blur(1.5px);
+	clip-path: ellipse(50% 35% at center);
+	margin: 10px 0 13px;
 }
