@@ -4,8 +4,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./Verification.css";
-const dotenv = require("dotenv");
-dotenv.config();
 const SignUp = () => {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -17,7 +15,8 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   function register(event) {
-    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+    const apiBaseUrl =
+      process.env.REACT_APP_API_BASE_URL || "http://localhost:2202/api/";
     event.preventDefault();
     fetch(`${apiBaseUrl}user/signup`, {
       method: "POST",

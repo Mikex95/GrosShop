@@ -19,4 +19,6 @@ const verifyEmail = async (options) => {
   };
   await sgMail.send(message);
 };
-module.exports = verifyEmail;
+module.exports = {
+  verifyEmail: verifyEmail,
+};
