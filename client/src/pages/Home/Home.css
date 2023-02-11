@@ -1,0 +1,107 @@
+/* ======Home-Top-Area====== */
+
+.searchbar-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.discount-grid-container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	overflow: scroll;
+	background-color: #f9faff;
+}
+
+.discount-grid-container::-webkit-scrollbar {
+	height: 15px;
+	width: 0.2em;
+	background-color: #f9faff;
+}
+
+.discount-grid-container::-webkit-scrollbar-thumb {
+	background-color: rgba(245, 222, 179, 0.569);
+}
+
+.discount-grid-container::-webkit-scrollbar-thumb:hover {
+	background-color: #f9faff;
+}
+
+.image-container-discount {
+	height: 190px;
+	width: 374px;
+	background-image: url("../../img/food-discount.svg");
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-color: gray;
+	border-radius: 10px;
+	margin: 10px 5px 0;
+}
+
+.image-container-discount h3 {
+	color: white;
+	font-weight: 600;
+	margin-left: 16px;
+	margin-bottom: 16px;
+	font-size: 21px;
+}
+
+.text-container {
+	height: 100%;
+	display: flex;
+	justify-content: left;
+	align-items: flex-end;
+}
+
+.food-dicount {
+	object-fit: cover;
+}
+
+/* ===========Categories/Main Area============ */
+
+.categories-grid-home {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	justify-items: center;
+	background-color: #f9faff;
+	padding-bottom: 15px;
+}
+
+.categories-grid-home p {
+	text-align: center;
+	color: #2c3066;
+	font-weight: 500;
+}
+
+.gray-circle {
+	width: 82px;
+	height: 82px;
+	background-color: #c2c2c2;
+	border-radius: 41px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.shadow-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.shadow-categories {
+	width: 51px;
+	height: 7px;
+	background: rgba(0, 0, 0, 0.929412);
+	opacity: 0.14;
+	backdrop-filter: blur(1.5px);
+	clip-path: ellipse(50% 35% at center);
+	margin: 10px 0 13px;
+}
+
+.deals {
+	font-weight: 600;
+	font-size: 14px;
+	color: #2c3066;
+	margin: 20px 0 12px 17px;
+}

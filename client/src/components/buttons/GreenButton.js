@@ -1,11 +1,17 @@
-import { Link } from "react-router-dom";
 import "./GreenButton.css";
-const GreenButton = ({ text }) => {
-  return (
-    <div className="green-button">
-      <Link className="green-button-link">{text}</Link>
-    </div>
-  );
+import { Link } from "react-router-dom";
+const GreenButton = ({ text, onClick }) => {
+	return (
+		<Link className="green-button">
+			<button
+				type="submit"
+				className="green-button-link"
+				onClick={onClick}
+			>
+				{text}
+			</button>
+		</Link>
+	);
 };
 
 export default GreenButton;

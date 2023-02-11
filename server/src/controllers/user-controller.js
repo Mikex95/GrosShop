@@ -15,51 +15,51 @@ const { verifyEmail } = require("../Utlis/verify-email");
   └─────────────────────────────────────────────────────────────────────────┘
  */
 const loginUser = async (req, res) => {
-  try {
-    //1-get user inputs
-    const { email, password } = req.body;
-    //2-validate user inputs
-    if (!(email && password)) {
-      return res.status(400).json({ message: "All inputs are required..." });
-    }
-    //3-validate if user exist in Database
-    const user = await User.findOne({ email: email });
-    if (!user) {
-      return res.status(400).json({ message: "email doesn't exist..!!" });
-      //4-otherwise compare password with the one saved on Database
-    }
-    const match = await bcrypt.compare(password, user.password);
-    if (match) {
-      //5-create access and refresh token
-      const payload = {
-        sub: user._id,
-        // email:user.email
-      };
-      const Access_Token_Secrets = process.env.ACCESS_TOKEN_SECRETS;
-      const Refresh_Token_Secrets = process.env.REFRESH_TOKEN_SECRETS;
-      const accessToken = jwt.sign(payload, Access_Token_Secrets, {
-        expiresIn: "10m",
-      });
+	try {
+		//1-get user inputs
+		const { email, password } = req.body;
+		//2-validate user inputs
+		if (!(email && password)) {
+			return res.status(400).json({ message: "All inputs are required..." });
+		}
+		//3-validate if user exist in Database
+		const user = await User.findOne({ email: email });
+		if (!user) {
+			return res.status(400).json({ message: "email doesn't exist..!!" });
+			//4-otherwise compare password with the one saved on Database
+		}
+		const match = await bcrypt.compare(password, user.password);
+		if (match) {
+			//5-create access and refresh token
+			const payload = {
+				sub: user._id,
+				// email:user.email
+			};
+			const Access_Token_Secrets = process.env.ACCESS_TOKEN_SECRETS;
+			const Refresh_Token_Secrets = process.env.REFRESH_TOKEN_SECRETS;
+			const accessToken = jwt.sign(payload, Access_Token_Secrets, {
+				expiresIn: "10m",
+			});
 
-      const refreshToken = jwt.sign(payload, Refresh_Token_Secrets, {
-        expiresIn: "1000m",
-      });
-      res.cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        maxAge: 1000,
-        // signed: true,
-        secure: true,
-      });
-      res
-        .status(200)
-        .json({ accessToken: accessToken, refreshToken: refreshToken });
-    } else {
-      res.status(404).json({ message: "Password doesn't match" });
-    }
-  } catch (err) {
-    console.log(colors.bgRed(err));
-    res.status(500).json({ message: "Error While login attempt..." });
-  }
+			const refreshToken = jwt.sign(payload, Refresh_Token_Secrets, {
+				expiresIn: "1000m",
+			});
+			res.cookie("refreshToken", refreshToken, {
+				httpOnly: true,
+				maxAge: 1000,
+				// signed: true,
+				secure: true,
+			});
+			res
+				.status(200)
+				.json({ accessToken: accessToken, refreshToken: refreshToken });
+		} else {
+			res.status(404).json({ message: "Password doesn't match" });
+		}
+	} catch (err) {
+		console.log(colors.bgRed(err));
+		res.status(500).json({ message: "Error While login attempt..." });
+	}
 };
 
 /* 
@@ -71,6 +71,7 @@ const loginUser = async (req, res) => {
  */
 
 const signupUser = async (req, res) => {
+
   try {
     //1-get user inputs
     const { firstname, lastname, username, email, password } = req.body;
@@ -112,6 +113,7 @@ const signupUser = async (req, res) => {
     console.log(colors.bgRed(err));
     res.status(500).json({ message: "Error while Signing up ..." });
   }
+
 };
 
 /* 
@@ -123,11 +125,11 @@ const signupUser = async (req, res) => {
  */
 
 const logoutUser = async (req, res) => {
-  res.cookie("jwt", "loggedout", {
-    expiresIn: "10m",
-    httpOnly: true,
-  });
-  res.status(200).json({ message: "success..." });
+	res.cookie("jwt", "loggedout", {
+		expiresIn: "10m",
+		httpOnly: true,
+	});
+	res.status(200).json({ message: "success..." });
 };
 
 /* 
@@ -139,6 +141,7 @@ const logoutUser = async (req, res) => {
  */
 
 const forgotPassword = async (req, res) => {
+
   // 1) Get user based on his email
   const { email } = req.body;
   const user = await User.findOne({ email: email });
@@ -179,6 +182,8 @@ const forgotPassword = async (req, res) => {
     user.passwordReset = undefined;
     await user.save({ validateBeforeSave: false });
   }
+
+
 };
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -345,6 +350,7 @@ const getUserCartList = async (req, res) => {
 };
 
 module.exports = {
+
   loginUser: loginUser,
   signupUser: signupUser,
   logoutUser: logoutUser,
@@ -356,4 +362,5 @@ module.exports = {
   addItemToCart: addItemToCart,
   removeItemFromCart: removeItemFromCart,
   getUserCartList: getUserCartList,
+
 };
