@@ -1,0 +1,11 @@
+.headline-details {
+	display: flex;
+	justify-content: flex-start;
+	align-items: baseline;
+	gap: 15px;
+}
+
+.headline-details h5 {
+	font-size: 18px;
+	color: #2c3066;
+}

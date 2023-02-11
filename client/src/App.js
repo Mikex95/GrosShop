@@ -7,6 +7,7 @@ import SignUp from "./pages/Verification/SignUp";
 import Success from "./pages/Verification/Success";
 import TestComponents from "./pages/TestComponents";
 import Home from "./pages/Home/Home";
+import DetailsPage from "./pages/Detailspage/DetailsPage";
 
 function App() {
 	return (
@@ -19,6 +20,10 @@ function App() {
 								path="/"
 								element={<SplashScreen />}
 							></Route>
+							<Route
+								path="/details/:id"
+								element={<DetailsPage />}
+							/>
 							<Route
 								path="/onboarding"
 								element={<Onboarding />}
