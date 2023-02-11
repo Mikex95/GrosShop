@@ -8,7 +8,9 @@ import Location from "../../components/location/Location";
 import vegetables from "../../img/vegetables-home.png";
 import fruits from "../../img/fruits-home.png";
 import meat from "../../img/meat-home.png";
+import fries from "../../img/fries-home.png";
 import arrowright from "../../img/ArrowRight.png";
+import ProductItem from "../../components/productItem/ProductItem";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -84,8 +86,27 @@ const Home = () => {
 					<p>More</p>
 				</div>
 			</section>
+
+			<section className="product-deals-home">
+				<h5 className="deals">Today Grocery Deals</h5>
+				<div className="item-container-home">
+					<ProductItem></ProductItem>
+				</div>
+			</section>
 			<NavbarWishlist />
 			<NavbarBottom></NavbarBottom>
+			<section className="image-fries-home">
+				<img
+					src={fries}
+					alt="fries"
+				/>
+			</section>
+			<section className="product-deals-home">
+				<h5 className="deals">Grocery Member Deals</h5>
+				<div className="item-container-home">
+					<ProductItem></ProductItem>
+				</div>
+			</section>
 		</div>
 	);
 };
