@@ -49,6 +49,7 @@ const SignUp = () => {
 					return;
 				}
 
+
 				return navigate("/success");
 			});
 	}

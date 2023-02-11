@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const productSchema = mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     product_id: {
       type: String,
       unique: true,
@@ -17,6 +22,10 @@ const productSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    product_measurement: {
+      type: String,
+      required: true,
+    },
     product_category: {
       type: String,
     },
@@ -29,7 +38,7 @@ const productSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    product_ating: {
+    product_rating: {
       type: Number,
       min: [1, "Rating must be at least 1"],
       max: [5, "Rating must can not be more than 5"],
@@ -37,5 +46,5 @@ const productSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-const product = mongoose.model("Products", productSchema, "PRODUCTS");
-module.exports = { product: product };
+const Product = mongoose.model("Products", productSchema, "PRODUCTS");
+module.exports = { Product: Product };

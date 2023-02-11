@@ -62,4 +62,6 @@ const sendEmail = async (options) => {
   };
   await sgMail.send(message);
 };
-module.exports = sendEmail;
+module.exports = {
+  sendEmail: sendEmail,
+};

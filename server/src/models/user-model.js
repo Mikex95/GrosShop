@@ -23,19 +23,70 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    resetPasswordToken: {
-      type: String,
-    },
-    resetPasswordExpire: {
-      type: Date,
-    },
     role: {
       type: String,
       enum: ["USER", "ADMIN"],
       default: "USER",
     },
-    wishlish: {
-      type: Array,
+    wishList: [
+      {
+        itemId: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: "Product",
+        },
+        productName: {
+          type: String,
+          required: true,
+        },
+        productPrice: {
+          type: Number,
+          required: true,
+        },
+        productImage: {
+          type: String,
+          required: true,
+        },
+        productRating: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
+    cartList: [
+      {
+        itemId: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: "Product",
+        },
+        productName: {
+          type: String,
+          required: true,
+        },
+        productImage: {
+          type: String,
+          required: true,
+        },
+        productPrice: {
+          type: Number,
+          required: true,
+        },
+        countInStock: {
+          type: Number,
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordExpires: {
+      type: Date,
     },
   },
   { timestamps: true }
