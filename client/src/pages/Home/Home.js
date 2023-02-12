@@ -38,7 +38,10 @@ const Home = () => {
 
 	return (
 		<div>
-			<HeaderTime backgroundcolor="green" />
+			<HeaderTime
+				backgroundcolor="green"
+				color={"white"}
+			/>
 			<Location />
 			<div className="searchbar-container">
 				<BurgerMenu />
