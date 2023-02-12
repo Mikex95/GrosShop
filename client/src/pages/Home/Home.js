@@ -28,8 +28,6 @@ const Home = () => {
 			});
 	}, [currentUrl]);
 
-	console.log(articles);
-
 	if (loading) {
 		return (
 			<div className="loader-container">
@@ -44,7 +42,7 @@ const Home = () => {
 			<Location />
 			<div className="searchbar-container">
 				<BurgerMenu />
-				<SearchBar />
+				<SearchBar fetch={articles} />
 			</div>
 			<div className="discount-grid-container">
 				<div className="image-container-discount">
@@ -62,7 +60,7 @@ const Home = () => {
 			<section className="product-deals-home">
 				<h5 className="deals">Today Grocery Deals</h5>
 				<div className="product-grid">
-					{articles.slice(0, 6).map((article, index) => {
+					{articles.slice(16, 22).map((article, index) => {
 						return (
 							<ProductItem
 								key={index}
@@ -87,7 +85,7 @@ const Home = () => {
 			<section className="product-deals-home">
 				<h5 className="deals">Grocery Member Deals</h5>
 				<div className="product-grid">
-					{articles.slice(0, 3).map((article, index) => {
+					{articles.slice(5, 8).map((article, index) => {
 						return (
 							<ProductItem
 								key={index}

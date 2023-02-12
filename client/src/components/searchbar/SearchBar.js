@@ -2,24 +2,30 @@ import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "../../img/search-symbole.svg";
 import "./SearchBar.css";
-const SearchBar = () => {
+const SearchBar = (props) => {
 	const navigate = useNavigate();
+	const [articles, setArticles] = useState(props.fetch);
 
 	const searchHandler = (event) => {
-		// Neu laden verhindern
 		event.preventDefault();
-
 		// Feld auslesen und leeren
+
 		let inputValue = event.target[0].value.toLowerCase();
 		event.target[0].value = "";
+		if (inputValue.length < 2) {
+			return;
+		}
 
-		// Fetch Pokemon-Daten
-		fetch(`http://localhost:2202/api/products`)
-			.then((response) => response.json())
-			.then((data) => {
-				navigate(`/details/${data._id}`);
-			});
+		const matchingProducts = articles.filter((product) =>
+			product.product_name.toLowerCase().includes(inputValue)
+		);
+
+		if (matchingProducts.length > 0) {
+			navigate(`/${matchingProducts[0]._id}`);
+		} else return;
 	};
+
+	console.log(articles);
 	return (
 		<>
 			<form
