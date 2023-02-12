@@ -21,7 +21,7 @@ function App() {
 								element={<SplashScreen />}
 							></Route>
 							<Route
-								path="/details/:id"
+								path="/:id"
 								element={<DetailsPage />}
 							/>
 							<Route

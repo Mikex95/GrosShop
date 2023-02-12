@@ -5,7 +5,7 @@ import "./ProductItem.css";
 const ProductItem = (props) => {
 	return (
 		<div className="product-container">
-			<Link to={`/details/${props.id}`}>
+			<Link to={`/${props.id}`}>
 				<div className="article-container-home">
 					<div className="images-home-container">
 						<img
