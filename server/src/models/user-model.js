@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const crypto = require("crypto");
+const bcrypt = require("bcrypt");
 
 const userSchema = mongoose.Schema(
   {
@@ -23,11 +25,27 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationCode: {
+      type: String,
+    },
     role: {
       type: String,
       enum: ["USER", "ADMIN"],
       default: "USER",
     },
+    shippingAddress: {
+      fullname: { type: String },
+      address: { type: String },
+      city: { type: String },
+      postalCode: { type: String },
+      state: { type: String },
+      phone: { type: String },
+    },
+
     wishList: [
       {
         itemId: {
@@ -91,6 +109,21 @@ const userSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+userSchema.methods.generateResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(20).toString("hex");
+
+  //hash the resetToken and set it to this.resetPasswordToken
+
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  // const salt = bcrypt.genSalt();
+  // this.resetPasswordToken = bcrypt.hash(resetToken, salt);
+  this.resetPasswordExpires = Date.now() + 100 * 60 * 1000;
+
+  return resetToken;
+};
 
 const User = mongoose.model("User", userSchema, "USER");
 module.exports = { User: User };
