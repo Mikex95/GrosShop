@@ -1,5 +1,5 @@
 .product-container {
-	border: 1px solid #7070702b;
+	border: 1px solid #70707008;
 	padding: 13px;
 }
 .product-container h5 {
@@ -16,6 +16,7 @@
 }
 
 .price-rating-container {
+	color: #2c3066;
 	width: 112px;
 	display: flex;
 	justify-content: space-between;

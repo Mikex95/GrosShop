@@ -49,11 +49,8 @@ const DetailsPage = (props) => {
 						alt={foodDetails.product_name}
 					/>
 				</div>
-				<p className="detail-weight">{foodDetails.product_weight}kg</p>
-				<p className="detail-price">
-					${foodDetails.product_price}
-					{".00"}
-				</p>
+				<p className="detail-weight">{foodDetails.product_weight}gr.</p>
+				<p className="detail-price">${foodDetails.product_price.toFixed(2)}</p>
 				<p className="detail-name">{foodDetails.product_name}</p>
 				<p className="detail-rating">
 					⭐️ {foodDetails.product_rating}

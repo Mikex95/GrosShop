@@ -1,5 +1,6 @@
 import heart from "../../img/heart.png";
 import { Link } from "react-router-dom";
+import { ReactComponent as Star } from "../../img/star7.svg";
 
 import "./ProductItem.css";
 const ProductItem = (props) => {
@@ -27,7 +28,9 @@ const ProductItem = (props) => {
 					<p className="price">
 						{props.price}$ {props.discount}
 					</p>
-					<p className="rating">☆{props.rating}</p>
+					<p className="rating">
+						<Star></Star> {props.rating.toFixed(1)}
+					</p>
 				</div>
 			</Link>
 		</div>
