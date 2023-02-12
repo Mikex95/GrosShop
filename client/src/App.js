@@ -8,6 +8,7 @@ import Success from "./pages/Verification/Success";
 import TestComponents from "./pages/TestComponents";
 import Home from "./pages/Home/Home";
 import DetailsPage from "./pages/Detailspage/DetailsPage";
+import Filter from "./pages/Filter/Filter";
 
 function App() {
 	return (
@@ -31,6 +32,10 @@ function App() {
 							<Route
 								path="/test"
 								element={<TestComponents />}
+							></Route>
+							<Route
+								path="/filter"
+								element={<Filter />}
 							></Route>
 							<Route
 								path="/signin"

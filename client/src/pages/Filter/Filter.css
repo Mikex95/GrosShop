@@ -1,0 +1,91 @@
+.sortby-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 25px 15px 12px;
+}
+
+.filter-checkbox {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+
+	flex-wrap: nowrap;
+	gap: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.filter-container button {
+	text-align: center;
+	border: none;
+	width: 70px;
+	background: #d8eedc;
+	border-radius: 3px;
+	height: 25px;
+	font-size: 12px;
+	font-weight: 400;
+	color: #2c3066;
+	cursor: pointer;
+}
+
+.filter-price {
+	margin: 37px 0 26px 15px;
+}
+
+.range-filter-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.range-filter {
+	width: 387px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+	height: 5px;
+	background: #ddd;
+	border: none;
+	border-radius: 3px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	margin-top: -4px;
+}
+
+input[type="range"]:focus {
+	outline: none;
+}
+
+input[type="range"]:focus::-webkit-slider-runnable-track {
+	background: #ccc;
+}
+
+.input-value-filter {
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 5px;
+}
+
+.price-range {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 15px;
+}
+
+.apply-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 220px;
+}
+
+.apply-button a {
+	cursor: pointer;
+	background: #d8eedc;
+	padding: 14px 100px;
+	border-radius: 5px;
+	text-align: center;
+	color: #2c3066;
+}

@@ -37,7 +37,10 @@ const DetailsPage = (props) => {
 
 	return (
 		<div>
-			<HeaderTime backgroundcolor={"green"} />
+			<HeaderTime
+				backgroundcolor={"green"}
+				color={"white"}
+			/>
 			<div className="headline-details">
 				<BackArrow></BackArrow>
 				<h5>Grocery Deals</h5>

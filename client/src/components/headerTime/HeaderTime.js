@@ -2,7 +2,7 @@ import "./HeaderTime.css";
 import { useEffect, useState } from "react";
 import { ReactComponent as Battery } from "../../img/battery-symbol.svg";
 
-const HeaderTime = ({ backgroundcolor }) => {
+const HeaderTime = ({ backgroundcolor, color }) => {
 	const [time, setTime] = useState(new Date());
 
 	useEffect(() => {
@@ -23,7 +23,7 @@ const HeaderTime = ({ backgroundcolor }) => {
 	}
 	return (
 		<div className={`header-time-container ${backgroundcolor}`}>
-			<p>
+			<p style={{ color: color }}>
 				<span>{hour}</span>:<span>{addZero(minutes)}</span>
 			</p>
 			<p>
