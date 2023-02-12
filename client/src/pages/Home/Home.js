@@ -5,15 +5,39 @@ import HeaderTime from "../../components/headerTime/HeaderTime";
 import BurgerMenu from "../../components/burgerMenu/BurgerMenu";
 import SearchBar from "../../components/searchbar/SearchBar";
 import Location from "../../components/location/Location";
-import vegetables from "../../img/vegetables-home.png";
-import fruits from "../../img/fruits-home.png";
-import meat from "../../img/meat-home.png";
+import CategoriesHome from "../../components/categoriesHome/CategoriesHome";
 import fries from "../../img/fries-home.png";
-import arrowright from "../../img/ArrowRight.png";
 import ProductItem from "../../components/productItem/ProductItem";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+	const [articles, setArticle] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	const [currentUrl, setCurrentUrl] = useState(
+		"http://localhost:2202/api/products"
+	);
+
+	useEffect(() => {
+		setLoading(true);
+		fetch(currentUrl)
+			.then((response) => response.json())
+			.then((data) => {
+				setArticle(data.allProducts);
+				setLoading(false);
+			});
+	}, [currentUrl]);
+
+	console.log(articles);
+
+	if (loading) {
+		return (
+			<div className="loader-container">
+				<div className="loader"></div>
+			</div>
+		);
+	}
+
 	return (
 		<div>
 			<HeaderTime backgroundcolor="green" />
@@ -34,63 +58,22 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
-			<section className="categories-grid-home">
-				<div>
-					<Link to="/vegetables">
-						<img
-							src={vegetables}
-							alt="vegetables"
-						/>
-					</Link>
-					<div className="shadow-container">
-						<div className="shadow-categories"></div>
-					</div>
-					<p>Vegetable</p>
-				</div>
-				<div>
-					<Link to="/fruits">
-						<img
-							src={fruits}
-							alt="fruits"
-						/>
-					</Link>
-					<div className="shadow-container">
-						<div className="shadow-categories"></div>
-					</div>
-					<p>Fruits</p>
-				</div>
-				<div>
-					<Link to="/meat">
-						<img
-							src={meat}
-							alt="meat"
-						/>
-					</Link>
-					<div className="shadow-container">
-						<div className="shadow-categories"></div>
-					</div>
-					<p>Meat</p>
-				</div>
-				<div>
-					<Link to="/categories">
-						<div className="gray-circle">
-							<img
-								src={arrowright}
-								alt="arrow-symbol"
-							/>
-						</div>
-					</Link>
-					<div className="shadow-container">
-						<div className="shadow-categories"></div>
-					</div>
-					<p>More</p>
-				</div>
-			</section>
-
+			<CategoriesHome />
 			<section className="product-deals-home">
 				<h5 className="deals">Today Grocery Deals</h5>
-				<div className="item-container-home">
-					<ProductItem></ProductItem>
+				<div className="product-grid">
+					{articles.slice(0, 6).map((article, index) => {
+						return (
+							<ProductItem
+								key={index}
+								name={article.product_name}
+								price={article.product_price}
+								rating={article.product_rating}
+								image={article.product_image}
+								id={article._id}
+							></ProductItem>
+						);
+					})}
 				</div>
 			</section>
 			<NavbarWishlist />
@@ -103,8 +86,19 @@ const Home = () => {
 			</section>
 			<section className="product-deals-home">
 				<h5 className="deals">Grocery Member Deals</h5>
-				<div className="item-container-home">
-					<ProductItem></ProductItem>
+				<div className="product-grid">
+					{articles.slice(0, 3).map((article, index) => {
+						return (
+							<ProductItem
+								key={index}
+								name={article.product_name}
+								price={article.product_price}
+								rating={article.product_rating}
+								image={article.product_image}
+								id={article._id}
+							></ProductItem>
+						);
+					})}
 				</div>
 			</section>
 		</div>

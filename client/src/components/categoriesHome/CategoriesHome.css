@@ -1,0 +1,39 @@
+.categories-grid-home {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	justify-items: center;
+	background-color: #f9faff;
+	padding-bottom: 15px;
+}
+
+.categories-grid-home p {
+	text-align: center;
+	color: #2c3066;
+	font-weight: 500;
+}
+
+.gray-circle {
+	width: 82px;
+	height: 82px;
+	background-color: #c2c2c2;
+	border-radius: 41px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.shadow-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.shadow-categories {
+	width: 51px;
+	height: 7px;
+	background: rgba(0, 0, 0, 0.929412);
+	opacity: 0.14;
+	backdrop-filter: blur(1.5px);
+	clip-path: ellipse(50% 35% at center);
+	margin: 10px 0 13px;
+}
