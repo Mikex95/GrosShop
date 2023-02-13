@@ -1,13 +1,17 @@
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import BackArrow from "../../components/backArrow/BackArrow";
-import SearchBar from "../../components/searchbar/SearchBar";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import ProductItem from "../../components/productItem/ProductItem";
 import { useState, useEffect } from "react";
 import baguette from "../../img/baguette.png";
 import SearchBarCategory from "../../components/searchbar/SearchBarCategory";
+import { useLocation } from "react-router-dom";
 import "./Category.css";
 const Category = () => {
+	const location = useLocation();
+	const params = new URLSearchParams(location.search);
+	const categoryParams = params.get("category");
+
 	const [filteredProducts, setFilteredProducts] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [allProducts, setAllProducts] = useState([]);
@@ -33,6 +37,11 @@ const Category = () => {
 				setCategories([...data.allProducts]);
 				setAllProducts(data.allProducts);
 				setLoading(false);
+				if (categoryParams) {
+					setSelectedCategory(categoryParams);
+					const index = categoryButtons.indexOf(categoryParams);
+					setIsActive(index >= 0 ? index : 0);
+				}
 			});
 	}, []);
 
@@ -41,7 +50,6 @@ const Category = () => {
 		setCategories(products.length > 0 ? [...products] : [...allProducts]);
 	};
 
-	console.log(categories);
 	const handlerOnClick = (index, event, category) => {
 		event.preventDefault();
 		setIsActive(index);
