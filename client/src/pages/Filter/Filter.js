@@ -3,8 +3,14 @@ import { Link } from "react-router-dom";
 import BackArrow from "../../components/backArrow/BackArrow";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const Filter = () => {
+	const [inputValue, setInputValue] = useState(10);
+	const [activeButton, setActiveButton] = useState(0);
+	const [activeBtnBottom, setActiveBtnBottom] = useState(0);
+	const [filterInput, setFilterInput] = useState([]);
+	const [productFetch, setProductFetch] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const buttonTop = ["Lowest", "Highest", "Best", "Newest"];
 	const buttonBottom = [
 		"Fruits",
@@ -15,9 +21,27 @@ const Filter = () => {
 		"Milk & Egg",
 		"Meat",
 	];
-	const [inputValue, setInputValue] = useState(60);
-	const [activeButton, setActiveButton] = useState(0);
-	const [activeBtnBottom, setActiveBtnBottom] = useState(0);
+	const [currentUrl, setCurrentUrl] = useState(
+		"http://localhost:2202/api/products"
+	);
+
+	useEffect(() => {
+		setLoading(true);
+		fetch(currentUrl)
+			.then((response) => response.json())
+			.then((data) => {
+				setProductFetch(data.allProducts);
+				setLoading(false);
+			});
+	}, [currentUrl]);
+
+	if (loading) {
+		return (
+			<div className="loader-container">
+				<div className="loader"></div>
+			</div>
+		);
+	}
 
 	const eventHandler = (event) => {
 		event.preventDefault();
@@ -33,6 +57,46 @@ const Filter = () => {
 		event.preventDefault();
 		setActiveBtnBottom(index);
 	};
+
+	const filterHandlerApply = () => {
+		const filteredProducts = productFetch.filter((product) => {
+			if (activeButton === 0 && activeBtnBottom < 8 && inputValue) {
+				return (
+					product.product_price <= inputValue &&
+					product.product_category === buttonBottom[activeBtnBottom]
+				);
+			} else if (activeButton === 1 && activeBtnBottom < 8 && inputValue) {
+				return (
+					product.product_price <= inputValue &&
+					product.product_category === buttonBottom[activeBtnBottom]
+				);
+			} else if (activeButton === 2 && activeBtnBottom < 8) {
+				return (
+					product.product_rating >= 4.7 &&
+					product.product_category === buttonBottom[activeBtnBottom]
+				);
+			} else if (activeButton === 3 && activeBtnBottom < 8) {
+				return (
+					product.product_date >= Date.now() - 7 * 24 * 60 * 60 * 1000 &&
+					product.product_category === buttonBottom[activeBtnBottom]
+				);
+			} else if (activeButton === 0 && activeBtnBottom === 8) {
+				return product.product_price >= inputValue;
+			} else if (activeButton === 1 && activeBtnBottom === 8) {
+				return product.product_price <= inputValue;
+			} else if (activeButton === 2 && activeBtnBottom === 8) {
+				return product.product_rating >= 4.7;
+			} else if (activeButton === 3 && activeBtnBottom === 8) {
+				return product.product_date >= Date.now() - 7 * 24 * 60 * 60 * 1000;
+			} else {
+				return true;
+			}
+		});
+
+		setFilterInput(filteredProducts);
+	};
+	console.log(filterInput);
+
 	return (
 		<div className="filter-container">
 			<HeaderTime
@@ -63,7 +127,7 @@ const Filter = () => {
 			</div>
 			<h3 className="filter-price">Price</h3>
 			<div className="price-range">
-				<p>$0</p>
+				<p>$10</p>
 				<p className="input-value-filter">${inputValue}</p>
 				<p>$100</p>
 			</div>
@@ -71,7 +135,7 @@ const Filter = () => {
 				<input
 					type="range"
 					className="range-filter"
-					min="0"
+					min="10"
 					max="100"
 					step={10}
 					onChange={eventHandler}
@@ -96,7 +160,7 @@ const Filter = () => {
 				})}
 			</div>
 			<div className="apply-button">
-				<Link to="/category">Apply</Link>
+				<Link onClick={filterHandlerApply}>Apply</Link>
 			</div>
 			<NavbarBottom></NavbarBottom>
 		</div>
