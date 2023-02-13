@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "../../img/search-symbole.svg";
 import "./SearchBar.css";
 const SearchBar = (props) => {
@@ -8,7 +8,6 @@ const SearchBar = (props) => {
 
 	const searchHandler = (event) => {
 		event.preventDefault();
-		// Feld auslesen und leeren
 
 		let inputValue = event.target[0].value.toLowerCase();
 		event.target[0].value = "";
@@ -25,7 +24,6 @@ const SearchBar = (props) => {
 		} else return;
 	};
 
-	console.log(articles);
 	return (
 		<>
 			<form
