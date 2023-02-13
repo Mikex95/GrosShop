@@ -23,7 +23,7 @@ const ProductItem = (props) => {
 					</div>
 				</div>
 
-				<h5>{props.name}</h5>
+				<h5>{props.name.slice(0, 21)}</h5>
 				<div className="price-rating-container">
 					<p className="price">
 						{props.price}$ {props.discount}
