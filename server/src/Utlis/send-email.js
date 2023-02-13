@@ -57,8 +57,10 @@ const sendEmail = async (options) => {
     from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
     to: options.email,
     subject: options.subject,
-    text: options.message,
-    html: `<a href=${options.url}><button>Click Here</button></a>`,
+    html: `<h3>${options.message}<br><br>
+    or Click on this Button to rest your Password<br>
+    <a href=${options.url}><button>Click Here</button></a><br><br><br>
+    If you didn't forget your password, please ignore this email!</h3>`,
   };
   await sgMail.send(message);
 };

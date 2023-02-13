@@ -1,5 +1,8 @@
 const express = require("express");
-const { Verify_Access_Token } = require("../middlewares/auth-controller");
+const {
+  Verify_Access_Token,
+  Create_New_Access_Token,
+} = require("../middlewares/auth-controller");
 const router = express.Router();
 const {
   loginUser,
@@ -13,6 +16,9 @@ const {
   addItemToCart,
   removeItemFromCart,
   getUserCartList,
+  resetPassword,
+  verificationEmail,
+  getUserProfile,
 } = require("../controllers/user-controller");
 const {
   getAllProducts,
@@ -22,8 +28,15 @@ const {
 //user routes
 router.post("/user/login", loginUser);
 router.post("/user/signup", signupUser);
+router.post("/user/verify-email", verificationEmail);
 router.delete("/user/logout", logoutUser);
 router.post("/user/forgot-password", forgotPassword);
+// router.post("/user/reset-password/:token", resetPassword);
+router.post("/user/reset-password", resetPassword);
+router.get("/user/profile", Verify_Access_Token, getUserProfile);
+
+// create new access token when it expires
+router.post("user/token", Create_New_Access_Token);
 
 //poructs routes
 router.get("/products", getAllProducts);
@@ -37,7 +50,7 @@ router.post(
   addItemToUserWishList
 );
 router.delete(
-  "user/wishlist/deleteitem",
+  "user/wishlist/deleteitems",
   Verify_Access_Token,
   deleteAllItemsFromWishList
 );

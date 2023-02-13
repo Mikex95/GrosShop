@@ -1,11 +1,12 @@
 const bcrypt = require("bcrypt");
 const colors = require("colors");
 const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
+const crypto = require("crypto");
 const dotenv = require("dotenv");
 dotenv.config();
 const { User } = require("../models/user-model");
 const { verifyEmail } = require("../Utlis/verify-email");
+const { sendEmail } = require("../Utlis/send-email");
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -15,51 +16,51 @@ const { verifyEmail } = require("../Utlis/verify-email");
   └─────────────────────────────────────────────────────────────────────────┘
  */
 const loginUser = async (req, res) => {
-	try {
-		//1-get user inputs
-		const { email, password } = req.body;
-		//2-validate user inputs
-		if (!(email && password)) {
-			return res.status(400).json({ message: "All inputs are required..." });
-		}
-		//3-validate if user exist in Database
-		const user = await User.findOne({ email: email });
-		if (!user) {
-			return res.status(400).json({ message: "email doesn't exist..!!" });
-			//4-otherwise compare password with the one saved on Database
-		}
-		const match = await bcrypt.compare(password, user.password);
-		if (match) {
-			//5-create access and refresh token
-			const payload = {
-				sub: user._id,
-				// email:user.email
-			};
-			const Access_Token_Secrets = process.env.ACCESS_TOKEN_SECRETS;
-			const Refresh_Token_Secrets = process.env.REFRESH_TOKEN_SECRETS;
-			const accessToken = jwt.sign(payload, Access_Token_Secrets, {
-				expiresIn: "10m",
-			});
+  try {
+    //1-get user inputs
+    const { email, password } = req.body;
+    //2-validate user inputs
+    if (!(email && password)) {
+      return res.status(400).json({ message: "All inputs are required..." });
+    }
+    //3-validate if user exist in Database
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(400).json({ message: "email doesn't exist..!!" });
+      //4-otherwise compare password with the one saved on Database
+    }
+    const match = await bcrypt.compare(password, user.password);
+    if (match) {
+      //5-create access and refresh token
+      const payload = {
+        sub: user._id,
+        // email:user.email
+      };
+      const Access_Token_Secrets = process.env.ACCESS_TOKEN_SECRETS;
+      const Refresh_Token_Secrets = process.env.REFRESH_TOKEN_SECRETS;
+      const accessToken = jwt.sign(payload, Access_Token_Secrets, {
+        expiresIn: "10m",
+      });
 
-			const refreshToken = jwt.sign(payload, Refresh_Token_Secrets, {
-				expiresIn: "1000m",
-			});
-			res.cookie("refreshToken", refreshToken, {
-				httpOnly: true,
-				maxAge: 1000,
-				// signed: true,
-				secure: true,
-			});
-			res
-				.status(200)
-				.json({ accessToken: accessToken, refreshToken: refreshToken });
-		} else {
-			res.status(404).json({ message: "Password doesn't match" });
-		}
-	} catch (err) {
-		console.log(colors.bgRed(err));
-		res.status(500).json({ message: "Error While login attempt..." });
-	}
+      const refreshToken = jwt.sign(payload, Refresh_Token_Secrets, {
+        expiresIn: "1d",
+      });
+      res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+        // signed: true,
+        secure: true,
+      });
+      res
+        .status(200)
+        .json({ accessToken: accessToken, refreshToken: refreshToken });
+    } else {
+      res.status(404).json({ message: "Password doesn't match" });
+    }
+  } catch (err) {
+    console.log(colors.bgRed(err));
+    res.status(500).json({ message: "Error While login attempt..." });
+  }
 };
 
 /* 
@@ -71,7 +72,6 @@ const loginUser = async (req, res) => {
  */
 
 const signupUser = async (req, res) => {
-
   try {
     //1-get user inputs
     const { firstname, lastname, username, email, password } = req.body;
@@ -90,7 +90,15 @@ const signupUser = async (req, res) => {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     //5-create the new user and save it in the Database
+
+    //random six digit code
+    const randomVerificationCode = crypto
+      .randomInt(0, 999999)
+      .toString()
+      .padStart(6, "0");
     const user = {
+      verificationCode: randomVerificationCode,
+      // resetPasswordExpires: Date.now() + 10 * 60 * 1000,
       firstname,
       lastname,
       username,
@@ -102,7 +110,8 @@ const signupUser = async (req, res) => {
     //6-send a verfication email that the signup was Successful
     const options = {
       email: newUser.email,
-      subject: "Account Verfication",
+      subject: "Account Verification",
+      code: randomVerificationCode,
       name: newUser.firstname,
     };
     await verifyEmail(options);
@@ -113,7 +122,30 @@ const signupUser = async (req, res) => {
     console.log(colors.bgRed(err));
     res.status(500).json({ message: "Error while Signing up ..." });
   }
+};
 
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ //?   @description : Verification Email                                 │
+  │ //?   @method : POST /api/user/verify-email                             │
+  │ //?   @access : public                                                  │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+const verificationEmail = async (req, res) => {
+  const user = await User.findOne({
+    verificationCode: req.body.verificationCode,
+  });
+  if (!user) {
+    return res.status(401).json({ message: "Invalid verification Code !!!" });
+  }
+  if (user.verify) {
+    return res
+      .status(401)
+      .json({ message: "You have already verified. Login to continue..." });
+  }
+  res.status(200).json({ message: "You have Succefully Verified your Email" });
+  user.verify = true;
+  user.save({ validateBeforeSave: false });
 };
 
 /* 
@@ -125,11 +157,12 @@ const signupUser = async (req, res) => {
  */
 
 const logoutUser = async (req, res) => {
-	res.cookie("jwt", "loggedout", {
-		expiresIn: "10m",
-		httpOnly: true,
-	});
-	res.status(200).json({ message: "success..." });
+  // res.clearCookie("refreshToken", "loggedout", {
+  res.clearCookie("refreshToken", refreshToken, {
+    httpONly: true,
+    secure: true,
+  });
+  res.status(200).json({ message: "signout success..." });
 };
 
 /* 
@@ -141,7 +174,6 @@ const logoutUser = async (req, res) => {
  */
 
 const forgotPassword = async (req, res) => {
-
   // 1) Get user based on his email
   const { email } = req.body;
   const user = await User.findOne({ email: email });
@@ -153,37 +185,140 @@ const forgotPassword = async (req, res) => {
   }
 
   // 2) Generate the random reset token
-  const resetToken = user.createResetPasswordToken();
+
+  const resetToken = user.generateResetPasswordToken();
   await user.save();
 
   // 3) Send it to user's email
   const resetURL = `${req.protocol}://${req.get(
     "host"
-  )}/api/user/forgotp-assword/${resetToken}`;
+  )}/api/user/reset-password/?token=${resetToken}`;
 
-  const message = `Forgot your password? Submit a PATCH request before 10 minutes with your New password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
+  const message = `Forgot your password? Submit a PATCH request before 10 minutes with your New password and passwordConfirm to:<br>
+  ${resetURL}`;
   console.log("message:-", message);
 
   try {
     const options = {
       email: user.email,
       subject: "Password reset token ⚠️",
-      message: message,
+      message,
       url: resetURL,
     };
     await sendEmail(options);
 
     res.status(200).json({
-      status: "success",
-      message: "Token sent to email!",
+      message: "ResetPassword Token sent to email...",
     });
   } catch (err) {
-    user.passwordResetToken = undefined;
-    user.passwordReset = undefined;
-    await user.save({ validateBeforeSave: false });
+    console.log(colors.bgGreen(err));
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+  }
+};
+
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ //?   @description : Reset Password Link                                │
+  │ //?   @method : POST /api/user/reset-password                           │
+  │ //?   @access : public                                                  │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+
+const resetPassword = async (req, res) => {
+  const resetToken = crypto
+    .createHash("sha256")
+    // .update(req.params.token)
+    .update(req.body.token)
+    .digest("hex");
+  console.log(colors.bgRed(resetToken));
+  const user = await User.findOne({
+    resetPasswordToken: resetToken,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
+  if (!user) {
+    return res
+      .status(400)
+      .json({ message: "Password reset token is invalid or has been expired" });
+  }
+  const newPassword = req.body.newPassword;
+  const confirmPassword = req.body.confirmPassword;
+  if (newPassword !== confirmPassword) {
+    return res.status(400).json({ message: "Password doesn't match" });
   }
 
+  // Set and hash new password
+  try {
+    const salt = await bcrypt.genSalt();
+    const hashedNewPassword = await bcrypt.hash(newPassword, salt);
+    user.password = hashedNewPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+    res
+      .status(200)
+      .json({ status: "success", message: "Your Password has beed changed" });
+  } catch {
+    res.status(500).json({ message: "Password reset Failed" });
+  }
+};
 
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ //?   @description : Get User Profile                                   │
+  │ //?   @method : GET /api/user/profile                                   │
+  │ //?   @access : private                                                 │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+const getUserProfile = async (req, res) => {
+  const user = await User.findById(req.user._id);
+  if (user) {
+    res.json(user);
+  } else {
+    return res.status(400).json({ message: "User not found" });
+  }
+};
+/* 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ //?   @description : Change User Profile Information                    │
+  │ //?   @method : PUT /api/user/profile-update                            │
+  │ //?   @access : private                                                 │
+  └─────────────────────────────────────────────────────────────────────────┘
+ */
+const changeUserProfile = async (req, res) => {
+  const user = await User.findById(req.user._id);
+  if (user) {
+    user.username = req.body.username;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+    const { address, city, postalCode, state, phone, fullname } = req.body;
+    if (address) {
+      user.shippingAddress.address = address;
+    }
+    if (city) {
+      user.shippingAddress.city = city;
+    }
+    if (postalCode) {
+      user.shippingAddress.postalCode = postalCode;
+    }
+    if (state) {
+      user.shippingAddress.state = state;
+    }
+    if (phone) {
+      user.shippingAddress.phone = phone;
+    }
+    if (fullname) {
+      user.shippingAddress.fullname = fullname;
+    }
+    await user.save();
+    res.status(200).json(user);
+  } else {
+    return res
+      .status(404)
+      .json({ message: "This is not suppose to be happening" });
+  }
 };
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -350,11 +485,13 @@ const getUserCartList = async (req, res) => {
 };
 
 module.exports = {
-
   loginUser: loginUser,
   signupUser: signupUser,
+  verificationEmail: verificationEmail,
   logoutUser: logoutUser,
   forgotPassword: forgotPassword,
+  resetPassword: resetPassword,
+  getUserProfile: getUserProfile,
   getWishListItems: getWishListItems,
   addItemToUserWishList: addItemToUserWishList,
   deleteAnItemFromWishList: deleteAnItemFromWishList,
@@ -362,5 +499,4 @@ module.exports = {
   addItemToCart: addItemToCart,
   removeItemFromCart: removeItemFromCart,
   getUserCartList: getUserCartList,
-
 };
