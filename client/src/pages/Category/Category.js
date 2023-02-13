@@ -5,9 +5,12 @@ import NavbarBottom from "../../components/navbar/NavbarBottom";
 import ProductItem from "../../components/productItem/ProductItem";
 import { useState, useEffect } from "react";
 import baguette from "../../img/baguette.png";
+import SearchBarCategory from "../../components/searchbar/SearchBarCategory";
 import "./Category.css";
 const Category = () => {
+	const [filteredProducts, setFilteredProducts] = useState([]);
 	const [categories, setCategories] = useState([]);
+	const [allProducts, setAllProducts] = useState([]);
 	const [selectedCategory, setSelectedCategory] = useState("All");
 
 	const [loading, setLoading] = useState(true);
@@ -27,11 +30,18 @@ const Category = () => {
 		fetch("http://localhost:2202/api/products")
 			.then((response) => response.json())
 			.then((data) => {
-				setCategories(data.allProducts);
+				setCategories([...data.allProducts]);
+				setAllProducts(data.allProducts);
 				setLoading(false);
 			});
 	}, []);
 
+	const handleFilteredProducts = (products) => {
+		setFilteredProducts(products);
+		setCategories(products.length > 0 ? [...products] : [...allProducts]);
+	};
+
+	console.log(categories);
 	const handlerOnClick = (index, event, category) => {
 		event.preventDefault();
 		setIsActive(index);
@@ -53,8 +63,6 @@ const Category = () => {
 
 	const filteredList = getFilteredList();
 
-	console.log({ filteredList });
-
 	if (loading) {
 		return (
 			<div className="loader-container">
@@ -72,7 +80,10 @@ const Category = () => {
 			</div>
 			<div className="headline-category">
 				<BackArrow></BackArrow>
-				<SearchBar fetch={filteredList} />
+				<SearchBarCategory
+					fetch={allProducts}
+					onFilter={handleFilteredProducts}
+				/>
 			</div>
 			<div className="category-buttons">
 				{categoryButtons.map((category, index) => {
