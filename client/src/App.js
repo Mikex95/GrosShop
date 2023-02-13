@@ -9,6 +9,7 @@ import TestComponents from "./pages/TestComponents";
 import Home from "./pages/Home/Home";
 import DetailsPage from "./pages/Detailspage/DetailsPage";
 import Filter from "./pages/Filter/Filter";
+import Category from "./pages/Category/Category";
 
 function App() {
 	return (
@@ -46,8 +47,8 @@ function App() {
 								element={<SignUp />}
 							></Route>
 							<Route
-								path="/signin"
-								element={<SignIn />}
+								path="/categories"
+								element={<Category />}
 							></Route>
 							<Route
 								path="/success"
