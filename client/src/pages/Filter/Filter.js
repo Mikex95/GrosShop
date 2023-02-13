@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import BackArrow from "../../components/backArrow/BackArrow";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
+import ProductItem from "../../components/productItem/ProductItem";
 import { useState, useEffect } from "react";
 const Filter = () => {
 	const [inputValue, setInputValue] = useState(10);
@@ -11,15 +12,16 @@ const Filter = () => {
 	const [filterInput, setFilterInput] = useState([]);
 	const [productFetch, setProductFetch] = useState([]);
 	const [loading, setLoading] = useState(true);
-	const buttonTop = ["Lowest", "Highest", "Best", "Newest"];
+	const buttonTop = ["Lowest", "Highest", "Best", "All"];
 	const buttonBottom = [
 		"Fruits",
 		"Seafood",
 		"Bread",
-		"Frozen",
+		"Vegetables",
 		"Organic",
 		"Milk & Egg",
 		"Meat",
+		"All",
 	];
 	const [currentUrl, setCurrentUrl] = useState(
 		"http://localhost:2202/api/products"
@@ -34,6 +36,15 @@ const Filter = () => {
 				setLoading(false);
 			});
 	}, [currentUrl]);
+
+	useEffect(() => {
+		if (activeButton === 3) {
+			setActiveBtnBottom(7);
+		}
+		if (activeButton !== 3) {
+			setActiveBtnBottom(0);
+		}
+	}, [activeButton]);
 
 	if (loading) {
 		return (
@@ -58,38 +69,28 @@ const Filter = () => {
 		setActiveBtnBottom(index);
 	};
 
-	const filterHandlerApply = () => {
+	const filterHandlerApply = (event) => {
+		event.preventDefault();
+
 		const filteredProducts = productFetch.filter((product) => {
-			if (activeButton === 0 && activeBtnBottom < 8 && inputValue) {
+			if (activeButton === 0 && activeBtnBottom <= 8 && inputValue) {
 				return (
 					product.product_price <= inputValue &&
 					product.product_category === buttonBottom[activeBtnBottom]
 				);
-			} else if (activeButton === 1 && activeBtnBottom < 8 && inputValue) {
+			} else if (activeButton === 1 && activeBtnBottom <= 8 && inputValue) {
 				return (
-					product.product_price <= inputValue &&
+					product.product_price >= inputValue &&
 					product.product_category === buttonBottom[activeBtnBottom]
 				);
-			} else if (activeButton === 2 && activeBtnBottom < 8) {
+			} else if (activeButton === 2 && activeBtnBottom <= 8) {
 				return (
 					product.product_rating >= 4.7 &&
-					product.product_category === buttonBottom[activeBtnBottom]
+					product.product_category === buttonBottom[activeBtnBottom] &&
+					product.product_price <= inputValue
 				);
-			} else if (activeButton === 3 && activeBtnBottom < 8) {
-				return (
-					product.product_date >= Date.now() - 7 * 24 * 60 * 60 * 1000 &&
-					product.product_category === buttonBottom[activeBtnBottom]
-				);
-			} else if (activeButton === 0 && activeBtnBottom === 8) {
-				return product.product_price >= inputValue;
-			} else if (activeButton === 1 && activeBtnBottom === 8) {
-				return product.product_price <= inputValue;
-			} else if (activeButton === 2 && activeBtnBottom === 8) {
-				return product.product_rating >= 4.7;
-			} else if (activeButton === 3 && activeBtnBottom === 8) {
-				return product.product_date >= Date.now() - 7 * 24 * 60 * 60 * 1000;
-			} else {
-				return true;
+			} else if (activeButton === 3 && activeBtnBottom <= 7) {
+				return product.product_category && product.product_price <= inputValue;
 			}
 		});
 
@@ -156,6 +157,20 @@ const Filter = () => {
 						>
 							{category}
 						</button>
+					);
+				})}
+			</div>
+			<div className="product-grid-filter">
+				{filterInput.map((article, index) => {
+					return (
+						<ProductItem
+							key={index}
+							name={article.product_name}
+							price={article.product_price}
+							rating={article.product_rating}
+							image={article.product_image}
+							id={article._id}
+						></ProductItem>
 					);
 				})}
 			</div>

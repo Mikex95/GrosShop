@@ -13,6 +13,7 @@
 	gap: 10px;
 	margin-left: 10px;
 	margin-right: 10px;
+	margin-bottom: 5px;
 }
 
 .filter-container button {
@@ -29,7 +30,7 @@
 }
 
 .filter-price {
-	margin: 37px 0 26px 15px;
+	margin: 37px 0 10px 15px;
 }
 
 .range-filter-container {
@@ -39,7 +40,8 @@
 }
 
 .range-filter {
-	width: 387px;
+	margin-top: 10px;
+	width: 390px;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
@@ -75,10 +77,14 @@ input[type="range"]:focus::-webkit-slider-runnable-track {
 }
 
 .apply-button {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 220px;
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	bottom: 75px;
+	text-align: center;
+	z-index: 2;
 }
 
 .apply-button a {
@@ -88,4 +94,12 @@ input[type="range"]:focus::-webkit-slider-runnable-track {
 	border-radius: 5px;
 	text-align: center;
 	color: #2c3066;
+}
+
+.product-grid-filter {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	justify-items: center;
+	margin-top: 25px;
+	margin-bottom: 150px;
 }
