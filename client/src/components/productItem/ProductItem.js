@@ -1,12 +1,55 @@
 import heart from "../../img/heart.png";
+import heartRed from "../../img/heart-red.png";
 import { Link } from "react-router-dom";
 import { ReactComponent as Star } from "../../img/star7.svg";
+import { useState } from "react";
 
 import "./ProductItem.css";
 const ProductItem = (props) => {
+	const [isChecked, setIsChecked] = useState(true);
+
+	const toggleCheck = (event) => {
+		event.preventDefault();
+		setIsChecked(!isChecked);
+		if (!isChecked) {
+			addItemToWishList();
+		}
+	};
+
+	const addItemToWishList = () => {
+		// Test
+		const accessToken = localStorage.getItem("accessToken");
+
+		// Test
+		const product = {
+			id: props._id,
+			name: props.product_name,
+			price: props.product_price,
+			image: props.product_image,
+			weight: props.product_weight,
+			rating: props.product_rating,
+		};
+
+		fetch("http://localhost:2202/user/wishlist/additem", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${accessToken}`,
+			},
+			body: JSON.stringify(product),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+			});
+	};
+
 	return (
 		<div className="product-container">
-			<Link to={`/${props.id}`}>
+			<Link to={`/product/${props.id}`}>
 				<div className="article-container-home">
 					<div className="images-home-container">
 						<img
@@ -16,14 +59,15 @@ const ProductItem = (props) => {
 						/>
 
 						<img
+							onClick={toggleCheck}
 							className="heart-home"
-							src={heart}
+							src={isChecked ? heart : heartRed}
 							alt={props.name}
 						/>
 					</div>
 				</div>
 
-				<h5>{props.name}</h5>
+				<h5>{props.name.slice(0, 21)}</h5>
 				<div className="price-rating-container">
 					<p className="price">
 						{props.price}$ {props.discount}

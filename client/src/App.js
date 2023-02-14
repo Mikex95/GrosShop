@@ -10,6 +10,8 @@ import Home from "./pages/Home/Home";
 import DetailsPage from "./pages/Detailspage/DetailsPage";
 import Filter from "./pages/Filter/Filter";
 import Category from "./pages/Category/Category";
+import OrderHistory from "./pages/OrderHistory/OrderHistory";
+import Error404 from "./pages/Error/Error404";
 
 function App() {
 	return (
@@ -23,7 +25,7 @@ function App() {
 								element={<SplashScreen />}
 							></Route>
 							<Route
-								path="/:id"
+								path="/product/:id"
 								element={<DetailsPage />}
 							/>
 							<Route
@@ -58,6 +60,14 @@ function App() {
 								path="/home"
 								element={<Home />}
 							></Route>
+							<Route
+								path="/order-history"
+								element={<OrderHistory />}
+							/>
+							<Route
+								path="*"
+								element={<Error404 />}
+							/>
 						</Routes>
 					</div>
 				</div>

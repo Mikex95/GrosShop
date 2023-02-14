@@ -1,13 +1,20 @@
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import BackArrow from "../../components/backArrow/BackArrow";
-import SearchBar from "../../components/searchbar/SearchBar";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import ProductItem from "../../components/productItem/ProductItem";
 import { useState, useEffect } from "react";
 import baguette from "../../img/baguette.png";
+import SearchBarCategory from "../../components/searchbar/SearchBarCategory";
+import { useLocation } from "react-router-dom";
 import "./Category.css";
 const Category = () => {
+	const location = useLocation();
+	const params = new URLSearchParams(location.search);
+	const categoryParams = params.get("category");
+
+	const [filteredProducts, setFilteredProducts] = useState([]);
 	const [categories, setCategories] = useState([]);
+	const [allProducts, setAllProducts] = useState([]);
 	const [selectedCategory, setSelectedCategory] = useState("All");
 
 	const [loading, setLoading] = useState(true);
@@ -27,10 +34,21 @@ const Category = () => {
 		fetch("http://localhost:2202/api/products")
 			.then((response) => response.json())
 			.then((data) => {
-				setCategories(data.allProducts);
+				setCategories([...data.allProducts]);
+				setAllProducts(data.allProducts);
 				setLoading(false);
+				if (categoryParams) {
+					setSelectedCategory(categoryParams);
+					const index = categoryButtons.indexOf(categoryParams);
+					setIsActive(index >= 0 ? index : 0);
+				}
 			});
 	}, []);
+
+	const handleFilteredProducts = (products) => {
+		setFilteredProducts(products);
+		setCategories(products.length > 0 ? [...products] : [...allProducts]);
+	};
 
 	const handlerOnClick = (index, event, category) => {
 		event.preventDefault();
@@ -53,8 +71,6 @@ const Category = () => {
 
 	const filteredList = getFilteredList();
 
-	console.log({ filteredList });
-
 	if (loading) {
 		return (
 			<div className="loader-container">
@@ -72,7 +88,10 @@ const Category = () => {
 			</div>
 			<div className="headline-category">
 				<BackArrow></BackArrow>
-				<SearchBar fetch={filteredList} />
+				<SearchBarCategory
+					fetch={allProducts}
+					onFilter={handleFilteredProducts}
+				/>
 			</div>
 			<div className="category-buttons">
 				{categoryButtons.map((category, index) => {
