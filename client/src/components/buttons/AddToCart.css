@@ -1,19 +1,19 @@
 .btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .btn-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  color: white;
-  font-weight: 600;
-  font-size: 18px;
-  background-color: #40aa54;
-  border-radius: 15px;
-  width: 260px;
-  height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	color: white;
+	font-weight: 600;
+	font-size: 18px;
+	background-color: #40aa54;
+	border-radius: 15px;
+	width: 260px;
+	height: 50px;
 }
