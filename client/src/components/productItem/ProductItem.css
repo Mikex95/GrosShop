@@ -1,5 +1,5 @@
 .product-container {
-	border: 1px solid #70707008;
+	border: 1px solid #7070701a;
 	padding: 13px;
 }
 .product-container h5 {
@@ -7,7 +7,7 @@
 	color: #2c3066;
 	margin-top: 5px;
 	margin-bottom: 5px;
-	height: 50px;
+	height: 35px;
 }
 
 .image-item {
@@ -19,7 +19,7 @@
 	color: #2c3066;
 	width: 112px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 
 .images-home-container {

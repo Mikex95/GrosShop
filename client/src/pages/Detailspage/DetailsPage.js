@@ -2,7 +2,6 @@ import "./DetailsPage.css";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import BackArrow from "../../components/backArrow/BackArrow";
-import BrokkoliDetail from "../../img/brokkoli-detail.png";
 import { ReactComponent as CartDetails } from "../../img/shopping-cart-detail.svg";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -52,12 +51,11 @@ const DetailsPage = (props) => {
 						alt={foodDetails.product_name}
 					/>
 				</div>
-				<p className="detail-weight">{foodDetails.product_weight}gr.</p>
-				<p className="detail-price">${foodDetails.product_price.toFixed(2)}</p>
+				<p className="detail-weight">{foodDetails.product_weight} gr.</p>
+				<p className="detail-price">$ {foodDetails.product_price.toFixed(2)}</p>
 				<p className="detail-name">{foodDetails.product_name}</p>
 				<p className="detail-rating">
-					⭐️ {foodDetails.product_rating}
-					{".0"}
+					⭐️ {foodDetails.product_rating.toFixed(1)}
 				</p>
 			</section>
 			<section className="quantity-container">

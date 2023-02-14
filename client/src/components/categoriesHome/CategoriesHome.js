@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import vegetables from "../../img/vegetables-home.png";
 import fruits from "../../img/fruits-home.png";
 import meat from "../../img/meat-home.png";
@@ -8,8 +9,14 @@ const CategoriesHome = () => {
 	return (
 		<section className="categories-grid-home">
 			<div>
-				<Link to="/vegetables">
+				<Link
+					to={{
+						pathname: "/categories",
+						search: `?category=Vegetables`,
+					}}
+				>
 					<img
+						className="category-effect"
 						src={vegetables}
 						alt="vegetables"
 					/>
@@ -20,8 +27,14 @@ const CategoriesHome = () => {
 				<p>Vegetables</p>
 			</div>
 			<div>
-				<Link to="/fruits">
+				<Link
+					to={{
+						pathname: "/categories",
+						search: `?category=Fruits`,
+					}}
+				>
 					<img
+						className="category-effect"
 						src={fruits}
 						alt="fruits"
 					/>
@@ -32,8 +45,14 @@ const CategoriesHome = () => {
 				<p>Fruits</p>
 			</div>
 			<div>
-				<Link to="/meat">
+				<Link
+					to={{
+						pathname: "/categories",
+						search: `?category=Meat`,
+					}}
+				>
 					<img
+						className="category-effect"
 						src={meat}
 						alt="meat"
 					/>
@@ -45,7 +64,7 @@ const CategoriesHome = () => {
 			</div>
 			<div>
 				<Link to="/categories">
-					<div className="gray-circle">
+					<div className="gray-circle category-effect">
 						<img
 							src={arrowright}
 							alt="arrow-symbol"
