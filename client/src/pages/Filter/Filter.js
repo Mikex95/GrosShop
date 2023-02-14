@@ -41,7 +41,7 @@ const Filter = () => {
 		if (activeButton === 3) {
 			setActiveBtnBottom(7);
 		}
-		if (activeButton !== 3) {
+		if (activeButton != 3) {
 			setActiveBtnBottom(0);
 		}
 	}, [activeButton]);
