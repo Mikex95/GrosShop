@@ -10,6 +10,7 @@ import Home from "./pages/Home/Home";
 import DetailsPage from "./pages/Detailspage/DetailsPage";
 import Filter from "./pages/Filter/Filter";
 import Category from "./pages/Category/Category";
+import OrderHistory from "./pages/OrderHistory/OrderHistory";
 
 function App() {
 	return (
@@ -58,6 +59,10 @@ function App() {
 								path="/home"
 								element={<Home />}
 							></Route>
+							<Route
+								path="/order-history"
+								element={<OrderHistory />}
+							/>
 						</Routes>
 					</div>
 				</div>
