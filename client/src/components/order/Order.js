@@ -17,7 +17,7 @@ const Order = (props) => {
 	useEffect(() => {
 		setColor(statusColors[props.status] || "");
 		setColorPaid(statusColors[props.paid]);
-	}, [props.status, statusColors]);
+	}, [props.status, statusColors, props.paid]);
 
 	return (
 		<div className="order-history-component">

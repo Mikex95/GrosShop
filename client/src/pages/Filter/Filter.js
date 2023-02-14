@@ -41,7 +41,7 @@ const Filter = () => {
 		if (activeButton === 3) {
 			setActiveBtnBottom(7);
 		}
-		if (activeButton != 3) {
+		if (activeButton !== 3) {
 			setActiveBtnBottom(0);
 		}
 	}, [activeButton]);
@@ -71,7 +71,6 @@ const Filter = () => {
 
 	const filterHandlerApply = (event) => {
 		event.preventDefault();
-
 		const filteredProducts = productFetch.filter((product) => {
 			if (activeButton === 0 && activeBtnBottom <= 8 && inputValue) {
 				return (
