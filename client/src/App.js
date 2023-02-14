@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useState } from "react";
 import SplashScreen from "./pages/SplashScreen";
 import Onboarding from "./pages/Onboarding";
 import SignIn from "./pages/Verification/SignIn";
@@ -17,18 +18,25 @@ import Cart from "./pages/Cart/Cart";
 import Profile from "./pages/Profile/Profile";
 
 function App() {
+
+  const [token, setToken] = useState(null);
+  console.log(Date.now(), token);
+
+
   return (
     <div className="App">
       <BrowserRouter>
         <div className="tablet">
           <div className="content">
             <Routes>
-              <Route path="/" element={<SplashScreen />}></Route>
+              <Route path="/" element={<SplashScreen />}></Route>       
               <Route path="/product/:id" element={<DetailsPage />} />
               <Route path="/onboarding" element={<Onboarding />}></Route>
               <Route path="/test" element={<TestComponents />}></Route>
               <Route path="/filter" element={<Filter />}></Route>
-              <Route path="/signin" element={<SignIn />}></Route>
+              <Route
+                path="/signin"
+                element={<SignIn setToken={setToken} />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
               <Route path="/categories" element={<Category />}></Route>
               <Route path="/success" element={<Success />}></Route>

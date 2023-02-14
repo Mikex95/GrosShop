@@ -10,7 +10,7 @@ const { sendEmail } = require("../Utlis/send-email");
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
-  │ //?   @description : login user & get access&refresh-token              │
+  │ //?   @description : login user & get access & refresh-token            │
   │ //?   @method : POST /api/user/login                                    │
   │ //?   @access : public                                                  │
   └─────────────────────────────────────────────────────────────────────────┘
@@ -48,6 +48,7 @@ const loginUser = async (req, res) => {
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
+        samsite: true,
         // signed: true,
         secure: true,
       });
@@ -178,7 +179,6 @@ const forgotPassword = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email: email });
   if (!user) {
-    console.log(colors.bgRed(err));
     return res
       .status(404)
       .json({ message: "No user found with email ${email}" });
@@ -190,14 +190,14 @@ const forgotPassword = async (req, res) => {
   await user.save();
 
   // 3) Send it to user's email
-  const resetURL = `${req.protocol}://${req.get(
-    "host"
-  )}/api/user/reset-password/?token=${resetToken}`;
+  // const resetURL = `${ req.protocol }://${ req.get(
+  const resetURL = `http://localhost3000/reset-password/?token=${resetToken}`; //später kommt eine richtige frontendseite
+  //   "host"
+  // )}/api/user/reset-password/?token=${resetToken}`;
 
   const message = `Forgot your password? Submit a PATCH request before 10 minutes with your New password and passwordConfirm to:<br>
   ${resetURL}`;
   console.log("message:-", message);
-
   try {
     const options = {
       email: user.email,
@@ -229,8 +229,8 @@ const forgotPassword = async (req, res) => {
 const resetPassword = async (req, res) => {
   const resetToken = crypto
     .createHash("sha256")
-    // .update(req.params.token)
-    .update(req.body.token)
+    .update(req.query.token)
+    // .update(req.body.token)
     .digest("hex");
   console.log(colors.bgRed(resetToken));
   const user = await User.findOne({
@@ -290,9 +290,9 @@ const changeUserProfile = async (req, res) => {
   const user = await User.findById(req.user._id);
   if (user) {
     user.username = req.body.username;
-    if (req.body.password) {
-      user.password = req.body.password;
-    }
+    // if (req.body.password) {
+    //   user.password = req.body.password;
+    // }
     const { address, city, postalCode, state, phone, fullname } = req.body;
     if (address) {
       user.shippingAddress.address = address;
@@ -329,12 +329,12 @@ const changeUserProfile = async (req, res) => {
  */
 
 const getWishListItems = async (req, res) => {
-  const user = await User.findById(req, user._id);
+  const user = await User.findById(req, user._id).populate("wishList").exec();
   if (user) {
     const theWishList = [...user.wishList];
     res.status(200).send(theWishList);
   } else {
-    res.stauts(404).json({ meseage: "User doesn't exist" });
+    res.stauts(404).json({ message: "User doesn't exist" });
   }
 };
 
