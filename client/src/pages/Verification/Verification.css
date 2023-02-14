@@ -1,30 +1,35 @@
 .verification {
+  background-color: #707070;
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 3rem 3rem;
 }
 
 .verification-upper {
+  width: 100%;
+  background-color: white;
   display: flex;
+  gap: 2rem;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   height: 70%;
+  border-radius: 0 0 3rem 3rem;
 }
 
 .verification-headline {
   display: flex;
+  gap: 1rem;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
 }
 
 .verification-headline h2 {
   color: #2c3066;
+
 }
 
 .verification-headline p {
@@ -34,20 +39,22 @@
 .verification-form {
   display: flex;
   flex-direction: column;
-  margin: 2rem 1rem;
   gap: 1rem;
 }
 
 .verification-form input {
+  font-size: 1.6rem;
+  padding: 1rem 0 0.5rem 0;
   border: none;
   border-bottom: 1px solid #707070;
 }
 
-.verification-form input:focus {
-  border: 1px solid lightblue;
+input:focus {
+  outline: 1px solid lightblue;
 }
 
 .verification-form label {
+  font-size: 1.2rem;
   color: #777777;
 }
 
@@ -56,7 +63,7 @@
 }
 
 .verification-to-signin {
-  background-color: #707070;
+  /* background-color: #707070; */
   color: #555555;
   display: flex;
   align-items: center;
@@ -68,10 +75,6 @@
 
 .verification-to-signin a {
   color: white;
-}
-
-.hallo {
-  background-color: blue;
 }
 
 /* ==================== Success Page ====================== */

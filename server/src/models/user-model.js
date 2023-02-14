@@ -46,29 +46,36 @@ const userSchema = mongoose.Schema(
       phone: { type: String },
     },
 
+    // wishList: [
+    //   {
+    //     itemId: {
+    //       type: mongoose.Schema.Types.ObjectId,
+    //       required: true,
+    //       ref: "Product",
+    //     },
+    //     productName: {
+    //       type: String,
+    //       required: true,
+    //     },
+    //     productPrice: {
+    //       type: Number,
+    //       required: true,
+    //     },
+    //     productImage: {
+    //       type: String,
+    //       required: true,
+    //     },
+    //     productRating: {
+    //       type: Number,
+    //       required: true,
+    //     },
+    //   },
+    // ],
     wishList: [
       {
-        itemId: {
-          type: mongoose.Schema.Types.ObjectId,
-          required: true,
-          ref: "Product",
-        },
-        productName: {
-          type: String,
-          required: true,
-        },
-        productPrice: {
-          type: Number,
-          required: true,
-        },
-        productImage: {
-          type: String,
-          required: true,
-        },
-        productRating: {
-          type: Number,
-          required: true,
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "Product",
       },
     ],
     cartList: [

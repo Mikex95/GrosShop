@@ -7,17 +7,17 @@ import SearchBar from "../components/searchbar/SearchBar";
 import BurgerMenu from "../components/burgerMenu/BurgerMenu";
 
 const TestComponents = () => {
-	return (
-		<div>
-			<HeaderTime backgroundcolor="white" />
-			<BackArrow />
-			<BurgerMenu />
-			<SearchBar />
-			<GreenButton text="Sign In" />
-			<NavbarWishlist />
-			<NavbarBottom />
-		</div>
-	);
+  return (
+    <div>
+      <HeaderTime backgroundcolor="white" />
+      <BackArrow />
+      <BurgerMenu />
+      <SearchBar />
+      <GreenButton text="Sign In" />
+      <NavbarWishlist />
+      <NavbarBottom />
+    </div>
+  );
 };
 
 export default TestComponents;

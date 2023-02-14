@@ -10,12 +10,15 @@ dotenv.config();
 // required component
 const { connectDB } = require("./src/database/connectDB");
 connectDB();
-const { router } = require("./src/routes/routes");
 
-app.use(cors());
+//middlewares
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
+
+//routes
+const { router } = require("./src/routes/routes");
 app.use("/api", router);
 
 const PORT = process.env.PORT || 2202;
