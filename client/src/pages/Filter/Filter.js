@@ -12,7 +12,7 @@ const Filter = () => {
 	const [filterInput, setFilterInput] = useState([]);
 	const [productFetch, setProductFetch] = useState([]);
 	const [loading, setLoading] = useState(true);
-	const buttonTop = ["Lowest", "Highest", "Best", "All"];
+	const buttonTop = ["Lowest", "Highest", "Best"];
 	const buttonBottom = [
 		"Fruits",
 		"Seafood",
@@ -21,7 +21,6 @@ const Filter = () => {
 		"Organic",
 		"Milk & Egg",
 		"Meat",
-		"All",
 	];
 	const [currentUrl, setCurrentUrl] = useState(
 		"http://localhost:2202/api/products"
@@ -36,15 +35,6 @@ const Filter = () => {
 				setLoading(false);
 			});
 	}, [currentUrl]);
-
-	useEffect(() => {
-		if (activeButton === 3) {
-			setActiveBtnBottom(7);
-		}
-		if (activeButton !== 3) {
-			setActiveBtnBottom(0);
-		}
-	}, [activeButton]);
 
 	if (loading) {
 		return (
@@ -88,8 +78,6 @@ const Filter = () => {
 					product.product_category === buttonBottom[activeBtnBottom] &&
 					product.product_price <= inputValue
 				);
-			} else if (activeButton === 3 && activeBtnBottom <= 7) {
-				return product.product_category && product.product_price <= inputValue;
 			}
 		});
 

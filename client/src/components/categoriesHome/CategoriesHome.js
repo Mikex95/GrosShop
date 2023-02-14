@@ -16,6 +16,7 @@ const CategoriesHome = () => {
 					}}
 				>
 					<img
+						className="category-effect"
 						src={vegetables}
 						alt="vegetables"
 					/>
@@ -33,6 +34,7 @@ const CategoriesHome = () => {
 					}}
 				>
 					<img
+						className="category-effect"
 						src={fruits}
 						alt="fruits"
 					/>
@@ -50,6 +52,7 @@ const CategoriesHome = () => {
 					}}
 				>
 					<img
+						className="category-effect"
 						src={meat}
 						alt="meat"
 					/>
@@ -61,7 +64,7 @@ const CategoriesHome = () => {
 			</div>
 			<div>
 				<Link to="/categories">
-					<div className="gray-circle">
+					<div className="gray-circle category-effect">
 						<img
 							src={arrowright}
 							alt="arrow-symbol"

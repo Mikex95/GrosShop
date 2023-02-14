@@ -50,24 +50,24 @@ const ProductItem = (props) => {
 	return (
 		<div className="product-container">
 			<Link to={`/product/${props.id}`}>
-				<div className="article-container-home">
+				<div className="article-container-home category-effect">
 					<div className="images-home-container">
 						<img
-							className="image-item"
+							className="image-item category-effect"
 							src={props.image}
 							alt={props.name}
 						/>
 
 						<img
 							onClick={toggleCheck}
-							className="heart-home"
+							className="heart-home category-effect"
 							src={isChecked ? heart : heartRed}
 							alt={props.name}
 						/>
 					</div>
+					<h5>{props.name.slice(0, 21)}</h5>
 				</div>
 
-				<h5>{props.name.slice(0, 21)}</h5>
 				<div className="price-rating-container">
 					<p className="price">
 						{props.price}$ {props.discount}
