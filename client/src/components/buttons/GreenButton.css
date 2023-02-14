@@ -15,4 +15,13 @@
 	border-radius: 40px;
 	width: 380px;
 	height: 55px;
+	cursor: pointer;
+}
+
+.category-subhead {
+	transition: 300ms;
+}
+
+.category-subhead:hover {
+	transform: scale(1.03);
 }
