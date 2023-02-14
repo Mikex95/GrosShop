@@ -45,14 +45,16 @@ const SignUp = () => {
     })
       .then((res) => res.json())
       .then(({ status, error }) => {
+        // setErrorMessage(error.message);
         if (status === "error") {
           setErrorMessage(error.message);
+          // console.log(error.message);
           return;
         }
-
         return navigate("/success");
       });
   }
+  console.log(errorMessage);
 
   return (
     <div className="verification">

@@ -83,6 +83,7 @@ const signupUser = async (req, res) => {
     //3-check if the user exists and validate in database
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
+      // throw new Error("user already exists.please login");
       return res
         .status(409)
         .json({ message: "User Already Exists. pleasde Login...." });
@@ -322,8 +323,8 @@ const changeUserProfile = async (req, res) => {
 };
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
-  │ //?   @description : Add an Item to the wishList                        │
-  │ //?   @method : POST /api/user/wishlist/additem                         │
+  │ //?   @description : Get wishList Items                                 │
+  │ //?   @method : GET /api/user/wishlist                                  │
   │ //?   @access : private                                                 │
   └─────────────────────────────────────────────────────────────────────────┘
  */
