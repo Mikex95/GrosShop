@@ -24,5 +24,5 @@ app.use("/api", router);
 const PORT = process.env.PORT || 2202;
 
 app.listen(PORT, () => {
-  console.log(colors.bgGreen("Server is running on PORT :", PORT));
+	console.log(colors.bgGreen("Server is running on PORT :", PORT));
 });
