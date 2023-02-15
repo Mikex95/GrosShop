@@ -17,6 +17,7 @@ import Wishlist from "./pages/Wishlist/Wishlist";
 import Cart from "./pages/Cart/Cart";
 import Profile from "./pages/Profile/Profile";
 import TypeCode from "./pages/Verification/TypeCode";
+import SuccessVerify from "./pages/Verification/SuccessVerify";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -41,6 +42,7 @@ function App() {
               <Route path="/categories" element={<Category />}></Route>
               <Route path="/success" element={<Success />}></Route>
               <Route path="/verify" element={<TypeCode />}></Route>
+              <Route path="/successverify" element={<SuccessVerify />}></Route>
               <Route path="/home" element={<Home />}></Route>
               <Route path="/wishlist" element={<Wishlist />}></Route>
               <Route path="/cart" element={<Cart />}></Route>

@@ -1,15 +1,15 @@
-import { ReactComponent as Image } from "../../img/success.svg";
+import "./Verification.css";
+import { ReactComponent as Lock } from "../../img/lock.svg";
 import { Link } from "react-router-dom";
-import GreenButton from "../../components/buttons/GreenButton";
 import VerifyBtn from "../../components/buttons/VerifyBtn";
 
 const TypeCode = () => {
   return (
     <div className="verfication-success">
       <div className="verification-container">
-        <Image />
+        <Lock />
         <div className="verification-headline">
-          <h2>Type Your Verification Code</h2>
+          <h2>Type Your Code</h2>
           <input type="text" />
           <VerifyBtn text="Verify" />
         </div>
