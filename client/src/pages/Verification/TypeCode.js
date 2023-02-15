@@ -1,22 +1,21 @@
-import "./Verification.css";
 import { ReactComponent as Image } from "../../img/success.svg";
 import { Link } from "react-router-dom";
+import GreenButton from "../../components/buttons/GreenButton";
+import VerifyBtn from "../../components/buttons/VerifyBtn";
 
-const Success = () => {
+const TypeCode = () => {
   return (
     <div className="verfication-success">
       <div className="verification-container">
         <Image />
         <div className="verification-headline">
-          <h2>Welcome GrosShop</h2>
-          <p>Successfully created your GrosShop account</p>
-          <Link to="/verify">
-            Check your E-Mail and type your verification code &rarr;
-          </Link>
+          <h2>Type Your Verification Code</h2>
+          <input type="text" />
+          <VerifyBtn text="Verify" />
         </div>
       </div>
     </div>
   );
 };
 
-export default Success;
+export default TypeCode;
