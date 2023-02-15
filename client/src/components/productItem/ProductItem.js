@@ -17,13 +17,10 @@ const ProductItem = (props) => {
 			removeItemFromWishList(event);
 		}
 	};
-
+	// Add Item to Wishlist
 	const addItemToWishList = (event) => {
 		event.preventDefault();
-		// Test
-		const accessToken =
-			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY0NTg4NjAsImV4cCI6MTY3NjQ2NDg2MH0.QIz8-55mz4waVzUZcNe9k4FztcPopt3PxwBDn4ucr48";
-		// Test
+
 		const product = {
 			itemId: props.id,
 		};
@@ -31,7 +28,7 @@ const ProductItem = (props) => {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: "Bearer " + accessToken,
+				Authorization: "Bearer " + props.accessToken,
 			},
 			body: JSON.stringify(product),
 		})
@@ -40,21 +37,17 @@ const ProductItem = (props) => {
 				console.log(data);
 			})
 			.catch((error) => {
-				console.error("Error:", error);
+				console.log("Error:", error);
 			});
 	};
-
+	// Remove Item by ID
 	const removeItemFromWishList = (event) => {
 		event.preventDefault();
-		// Test
-		const accessToken =
-			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY0NTg4NjAsImV4cCI6MTY3NjQ2NDg2MH0.QIz8-55mz4waVzUZcNe9k4FztcPopt3PxwBDn4ucr48";
-		// Test
 		const productId = props.id;
 		fetch(`http://localhost:2202/api/user/wishlist/deleteitem/${productId}`, {
 			method: "DELETE",
 			headers: {
-				Authorization: "Bearer " + accessToken,
+				Authorization: "Bearer " + props.accessToken,
 			},
 		})
 			.then((response) => response.json())
@@ -62,7 +55,7 @@ const ProductItem = (props) => {
 				console.log(data);
 			})
 			.catch((error) => {
-				console.error("Error:", error);
+				console.log("Error:", error);
 			});
 	};
 
