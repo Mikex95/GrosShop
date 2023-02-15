@@ -7,13 +7,6 @@ import { useState } from "react";
 import "./ProductItem.css";
 const ProductItem = (props) => {
 	const [isChecked, setIsChecked] = useState(true);
-	//   const toggleCheck = (event) => {
-	//     event.preventDefault();
-	//     setIsChecked(!isChecked);
-	//     if (!isChecked) {
-	//       addItemToWishList();
-	//     }
-	//   };
 
 	const toggleCheck = (event) => {
 		event.preventDefault();

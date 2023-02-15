@@ -2,3 +2,10 @@
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
 }
+
+.backarrow-trash-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	padding-right: 10px;
+}

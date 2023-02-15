@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SplashScreen from "./pages/SplashScreen";
 import Onboarding from "./pages/Onboarding";
 import SignIn from "./pages/Verification/SignIn";
@@ -20,11 +20,34 @@ import TypeCode from "./pages/Verification/TypeCode";
 import SuccessVerify from "./pages/Verification/SuccessVerify";
 
 function App() {
-
 	const [token, setToken] = useState(
-		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY0NjI2OTMsImV4cCI6MTY3NjQ2ODY5M30.3jWcIqiZWIxevc5hzVOje2CZzsyqB0rLc-aTzHzFO7c"
+		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY0NzU1MDAsImV4cCI6MTY3NjQ4MTUwMH0.i1te-43lvAqzNujqL3NCOHOCLt-_p7DHkJYwULnVlvA"
 	);
 	console.log(Date.now(), token);
+
+	const [articles, setArticle] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	const [currentUrl, setCurrentUrl] = useState(
+		"http://localhost:2202/api/products"
+	);
+	useEffect(() => {
+		setLoading(true);
+		fetch(currentUrl)
+			.then((response) => response.json())
+			.then((data) => {
+				setArticle(data.allProducts);
+				setLoading(false);
+			});
+	}, [currentUrl]);
+
+	if (loading) {
+		return (
+			<div className="loader-container">
+				<div className="loader"></div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="App">
@@ -70,15 +93,30 @@ function App() {
 							></Route>
 							<Route
 								path="/home"
-								element={<Home accessToken={token} />}
+								element={
+									<Home
+										accessToken={token}
+										productFetch={articles}
+									/>
+								}
 							></Route>
 							<Route
 								path="/wishlist"
-								element={<Wishlist accessToken={token} />}
+								element={
+									<Wishlist
+										accessToken={token}
+										productFetch={articles}
+									/>
+								}
 							></Route>
 							<Route
 								path="/cart"
-								element={<Cart />}
+								element={
+									<Cart
+										accessToken={token}
+										productFetch={articles}
+									/>
+								}
 							></Route>
 							<Route
 								path="/profile"
@@ -92,8 +130,14 @@ function App() {
 								path="*"
 								element={<Error404 />}
 							/>
-              <Route path="/verify" element={<TypeCode />}></Route>
-               <Route path="/successverify" element={<SuccessVerify />}></Route>
+							<Route
+								path="/verify"
+								element={<TypeCode />}
+							></Route>
+							<Route
+								path="/successverify"
+								element={<SuccessVerify />}
+							></Route>
 						</Routes>
 					</div>
 				</div>
@@ -104,7 +148,6 @@ function App() {
 			</BrowserRouter>
 		</div>
 	);
-
 }
 
 export default App;

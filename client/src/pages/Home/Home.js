@@ -8,33 +8,8 @@ import Location from "../../components/location/Location";
 import CategoriesHome from "../../components/categoriesHome/CategoriesHome";
 import fries from "../../img/fries-home.png";
 import ProductItem from "../../components/productItem/ProductItem";
-import { useEffect, useState } from "react";
 
-const Home = ({ accessToken }) => {
-	const [articles, setArticle] = useState([]);
-	const [loading, setLoading] = useState(true);
-
-	const [currentUrl, setCurrentUrl] = useState(
-		"http://localhost:2202/api/products"
-	);
-	useEffect(() => {
-		setLoading(true);
-		fetch(currentUrl)
-			.then((response) => response.json())
-			.then((data) => {
-				setArticle(data.allProducts);
-				setLoading(false);
-			});
-	}, [currentUrl]);
-
-	if (loading) {
-		return (
-			<div className="loader-container">
-				<div className="loader"></div>
-			</div>
-		);
-	}
-
+const Home = ({ accessToken, productFetch }) => {
 	return (
 		<div>
 			<HeaderTime
@@ -44,7 +19,7 @@ const Home = ({ accessToken }) => {
 			<Location />
 			<div className="searchbar-container">
 				<BurgerMenu />
-				<SearchBar fetch={articles} />
+				<SearchBar fetch={productFetch} />
 			</div>
 			<div className="discount-grid-container">
 				<div className="image-container-discount">
@@ -62,7 +37,7 @@ const Home = ({ accessToken }) => {
 			<section className="product-deals-home">
 				<h5 className="deals">Today Grocery Deals</h5>
 				<div className="product-grid">
-					{articles.slice(16, 22).map((article, index) => {
+					{productFetch.slice(16, 22).map((article, index) => {
 						return (
 							<ProductItem
 								key={index}
@@ -88,10 +63,11 @@ const Home = ({ accessToken }) => {
 			<section className="product-deals-home">
 				<h5 className="deals">Grocery Member Deals</h5>
 				<div className="product-grid">
-					{articles.slice(5, 8).map((article, index) => {
+					{productFetch.slice(5, 8).map((article, index) => {
 						return (
 							<ProductItem
 								key={index}
+								accessToken={accessToken}
 								name={article.product_name}
 								price={article.product_price}
 								rating={article.product_rating}
