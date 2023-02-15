@@ -6,7 +6,14 @@ import { useState } from "react";
 
 import "./ProductItem.css";
 const ProductItem = (props) => {
-	const [isChecked, setIsChecked] = useState(true);
+  const [isChecked, setIsChecked] = useState(true);
+  const toggleCheck = (event) => {
+    event.preventDefault();
+    setIsChecked(!isChecked);
+    if (!isChecked) {
+      addItemToWishList();
+    }
+  };
 
 	const toggleCheck = (event) => {
 		event.preventDefault();
@@ -87,17 +94,17 @@ const ProductItem = (props) => {
 					<h5>{props.name.slice(0, 21)}</h5>
 				</div>
 
-				<div className="price-rating-container">
-					<p className="price">
-						{props.price}$ {props.discount}
-					</p>
-					<p className="rating">
-						<Star></Star> {props.rating.toFixed(1)}
-					</p>
-				</div>
-			</Link>
-		</div>
-	);
+        <div className="price-rating-container">
+          <p className="price">
+            {props.price}$ {props.discount}
+          </p>
+          <p className="rating">
+            <Star></Star> {props.rating.toFixed(1)}
+          </p>
+        </div>
+      </Link>
+    </div>
+  );
 };
 
 export default ProductItem;

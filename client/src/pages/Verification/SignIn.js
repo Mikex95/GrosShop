@@ -32,6 +32,7 @@ const SignIn = ({ setToken }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        // localStorage.setItem("accessToken", data.accessToken);
         setToken(data.accessToken);
         return navigate("/test");
       });
