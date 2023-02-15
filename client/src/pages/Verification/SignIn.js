@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { apiBaseUrl } from "../../api";
 
 import "./Verification.css";
+import BackArrow from "../../components/backArrow/BackArrow";
+import HeaderTime from "../../components/headerTime/HeaderTime";
 
 const SignIn = ({ setToken }) => {
   const [email, setEmail] = useState("");
@@ -38,7 +40,11 @@ const SignIn = ({ setToken }) => {
 
   return (
     <div className="verification">
+      <HeaderTime backgroundcolor="white" />
       <div className="verification-upper">
+        <div className="verification-arrow">
+          <BackArrow backgroundcolor="white" />
+        </div>
         <div className="verification-image">
           <Image />
         </div>
