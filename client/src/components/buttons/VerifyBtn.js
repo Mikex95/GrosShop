@@ -1,13 +1,13 @@
-import "./VerifyBtn.css";
 import { Link } from "react-router-dom";
+import "./VerifyBtn.css";
 
 const VerifyBtn = ({ text, onClick, color, size }) => {
   return (
-    <Link to="/successverify" className="green-button">
+    <Link to="/successverify" className="verify-green-button">
       <button
         style={{ color: color, fontSize: size }}
         type="submit"
-        className="green-button-link category-subhead"
+        className="verify-green-button-link verify-category-subhead"
         onClick={onClick}
       >
         {text}
