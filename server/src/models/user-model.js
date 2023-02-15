@@ -73,9 +73,11 @@ const userSchema = mongoose.Schema(
     // ],
     wishList: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: "Product",
+        itemId: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: "Product",
+        },
       },
     ],
     cartList: [
@@ -85,26 +87,26 @@ const userSchema = mongoose.Schema(
           required: true,
           ref: "Product",
         },
-        productName: {
-          type: String,
-          required: true,
-        },
-        productImage: {
-          type: String,
-          required: true,
-        },
-        productPrice: {
-          type: Number,
-          required: true,
-        },
-        countInStock: {
-          type: Number,
-          required: true,
-        },
-        quantity: {
-          type: Number,
-          required: true,
-        },
+        //   productName: {
+        //     type: String,
+        //     required: true,
+        //   },
+        //   productImage: {
+        //     type: String,
+        //     required: true,
+        //   },
+        //   productPrice: {
+        //     type: Number,
+        //     required: true,
+        //   },
+        //   countInStock: {
+        //     type: Number,
+        //     required: true,
+        //   },
+        //   quantity: {
+        //     type: Number,
+        //     required: true,
+        //   },
       },
     ],
     resetPasswordToken: {

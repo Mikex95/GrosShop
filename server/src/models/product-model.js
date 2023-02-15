@@ -6,10 +6,10 @@ const productSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
-    product_id: {
-      type: String,
-      unique: true,
-    },
+    // product_id: {
+    //   type: String,
+    //   unique: true,
+    // },
     product_name: {
       type: String,
       required: true,
