@@ -12,9 +12,8 @@
   width: 100%;
   background-color: white;
   display: flex;
-
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 80%;
   border-radius: 0 0 3rem 3rem;
