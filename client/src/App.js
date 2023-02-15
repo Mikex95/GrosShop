@@ -16,8 +16,11 @@ import Error404 from "./pages/Error/Error404";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import Cart from "./pages/Cart/Cart";
 import Profile from "./pages/Profile/Profile";
+import TypeCode from "./pages/Verification/TypeCode";
+import SuccessVerify from "./pages/Verification/SuccessVerify";
 
 function App() {
+
 	const [token, setToken] = useState(
 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY0NjI2OTMsImV4cCI6MTY3NjQ2ODY5M30.3jWcIqiZWIxevc5hzVOje2CZzsyqB0rLc-aTzHzFO7c"
 	);
@@ -89,6 +92,8 @@ function App() {
 								path="*"
 								element={<Error404 />}
 							/>
+              <Route path="/verify" element={<TypeCode />}></Route>
+               <Route path="/successverify" element={<SuccessVerify />}></Route>
 						</Routes>
 					</div>
 				</div>
@@ -99,6 +104,7 @@ function App() {
 			</BrowserRouter>
 		</div>
 	);
+
 }
 
 export default App;
