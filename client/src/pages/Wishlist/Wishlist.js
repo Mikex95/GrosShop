@@ -7,11 +7,12 @@ import { ReactComponent as Trash } from "../../img/trash.svg";
 import AddToCart from "../../components/buttons/AddToCart";
 import { useState, useEffect } from "react";
 import HeaderTime from "../../components/headerTime/HeaderTime";
+import WishlistItem from "./Wishlistitem";
 
-const Wishlist = ({ accessToken }) => {
-	const [cart, setCart] = useState([]);
+const Wishlist = ({ accessToken, productFetch }) => {
 	const [wishlistData, setWishlistData] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [filteredProducts, setFilteredProducts] = useState([]);
 
 	useEffect(() => {
 		setLoading(true);
@@ -28,7 +29,14 @@ const Wishlist = ({ accessToken }) => {
 			});
 	}, []);
 
-	console.log(wishlistData);
+	useEffect(() => {
+		const filtered = productFetch.filter((product) => {
+			return wishlistData.some((wishlist) => wishlist.itemId === product._id);
+		});
+
+		setFilteredProducts(filtered);
+	}, [wishlistData, productFetch]);
+
 	if (loading) {
 		return (
 			<div className="loader-container">
@@ -37,40 +45,31 @@ const Wishlist = ({ accessToken }) => {
 		);
 	}
 
-	// const addToCart = (product) => {
-	//   let newCart = [...cart];
-	//   let itemInCart = newCart.find((item) => product.name === item.name);
-	//   if (itemInCart) {
-	//     itemInCart.quantity++;
-	//   } else {
-	//     itemInCart = {
-	//       ...product,
-	//       quantity: 1,
-	//     };
-	//     newCart.push(itemInCart);
-	//   }
-	//   setCart(newCart);
-	// };
-
-	// const removeFromCart = (productToRemove) => {
-	//   setCart(cart.filter((product) => product !== productToRemove));
-	// };
-
-	// ==== Anzahl der CatItems=====
-	// const getCartTotal = () => {
-	//   return cart.reduce((sum, { quantity }) => sum + quantity, 0);
-	// };
-
 	return (
 		<div>
 			<HeaderTime backgroundcolor={"green"} />
-			<div className="headline-details">
-				<BackArrow></BackArrow>
-				<h5>My Wishlist</h5>
-				<Trash />
+			<div className="backarrow-trash-container">
+				<div className="headline-details">
+					<BackArrow></BackArrow>
+					<h5>My Wishlist</h5>
+				</div>
 			</div>
 			<div className="grid-cart-item">
-				<CartItem name={"hallo"} />
+				{filteredProducts.map((wishlistProduct, index) => {
+					return (
+						<WishlistItem
+							key={index}
+							id={wishlistProduct._id}
+							name={wishlistProduct.product_name}
+							weight={wishlistProduct.product_weight}
+							price={wishlistProduct.product_price}
+							rating={wishlistProduct.product_rating}
+							image={wishlistProduct.product_image}
+							accessToken={accessToken}
+							setWishlistData={setWishlistData}
+						/>
+					);
+				})}
 			</div>
 			<AddToCart text="Add to Cart" />
 			<NavbarWishlist />
