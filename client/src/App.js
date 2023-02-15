@@ -18,10 +18,8 @@ import Cart from "./pages/Cart/Cart";
 import Profile from "./pages/Profile/Profile";
 
 function App() {
-
   const [token, setToken] = useState(null);
   console.log(Date.now(), token);
-
 
   return (
     <div className="App">
@@ -29,7 +27,7 @@ function App() {
         <div className="tablet">
           <div className="content">
             <Routes>
-              <Route path="/" element={<SplashScreen />}></Route>       
+              <Route path="/" element={<SplashScreen />}></Route>
               <Route path="/product/:id" element={<DetailsPage />} />
               <Route path="/onboarding" element={<Onboarding />}></Route>
               <Route path="/test" element={<TestComponents />}></Route>

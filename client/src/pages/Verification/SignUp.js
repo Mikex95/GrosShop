@@ -14,20 +14,13 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
 
   const [showErrorMessage, setShowErrorMessage] = useState("");
+  console.log("error Messages", showErrorMessage);
   const navigate = useNavigate();
 
   function register(event) {
     event.preventDefault();
-    if (
-      firstname === "" ||
-      lastname === "" ||
-      email === "" ||
-      password === "" ||
-      username === ""
-    ) {
-      // setShowErrorMessage("Data is required");
-      return;
-    }
+    // setShowErrorMessage("Data is required");
+
     const apiBaseUrl =
       process.env.REACT_APP_API_BASE_URL || "http://localhost:2202/api/";
     fetch(`${apiBaseUrl}user/signup`, {
@@ -42,15 +35,18 @@ const SignUp = () => {
         email,
         password,
       }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const errorMessages = data.message;
-        console.log(errorMessages);
-        setShowErrorMessage(data.message);
-        console.log("error Messages", showErrorMessage);
-      });
-    return navigate("/success");
+    }).then((res) => {
+      if (res.status !== 200) {
+        res.json().then((data) => {
+          // console.log(data);
+          setShowErrorMessage(data.message);
+        });
+      } else {
+        return navigate("/success");
+      }
+    });
+
+    // return navigate("/success");;
   }
 
   return (
@@ -72,7 +68,7 @@ const SignUp = () => {
             name="Email"
             value={firstname}
             onChange={(e) => setFirstName(e.target.value)}
-            required
+            // required
           />
           <label htmlFor="Email">Name</label>
           <input
@@ -81,7 +77,7 @@ const SignUp = () => {
             name="Email"
             value={lastname}
             onChange={(e) => setLastName(e.target.value)}
-            required
+            // required
           />
           <label htmlFor="text">Username</label>
           <input
@@ -90,7 +86,7 @@ const SignUp = () => {
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
+            // required
           />
           <label htmlFor="Email">Email</label>
           <input
@@ -99,7 +95,7 @@ const SignUp = () => {
             name="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+            // required
           />
           <label htmlFor="Email">Password</label>
           <input
@@ -108,7 +104,7 @@ const SignUp = () => {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
+            // required
           />
           <GreenButton text="Sign Up" onClick={(event) => register(event)} />
           {showErrorMessage && (
