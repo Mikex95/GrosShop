@@ -11,32 +11,51 @@ const ProductItem = (props) => {
 	const toggleCheck = (event) => {
 		event.preventDefault();
 		setIsChecked(!isChecked);
-		if (!isChecked) {
-			addItemToWishList();
+		if (isChecked) {
+			addItemToWishList(event);
+		} else {
+			removeItemFromWishList(event);
 		}
 	};
 
-	const addItemToWishList = () => {
+	const addItemToWishList = (event) => {
+		event.preventDefault();
 		// Test
-		const accessToken = localStorage.getItem("accessToken");
-
+		const accessToken =
+			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY0NTg4NjAsImV4cCI6MTY3NjQ2NDg2MH0.QIz8-55mz4waVzUZcNe9k4FztcPopt3PxwBDn4ucr48";
 		// Test
 		const product = {
-			id: props._id,
-			name: props.product_name,
-			price: props.product_price,
-			image: props.product_image,
-			weight: props.product_weight,
-			rating: props.product_rating,
+			itemId: props.id,
 		};
-
-		fetch("http://localhost:2202/user/wishlist/additem", {
+		fetch("http://localhost:2202/api/user/wishlist/additem", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${accessToken}`,
+				Authorization: "Bearer " + accessToken,
 			},
 			body: JSON.stringify(product),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+			});
+	};
+
+	const removeItemFromWishList = (event) => {
+		event.preventDefault();
+		// Test
+		const accessToken =
+			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY0NTg4NjAsImV4cCI6MTY3NjQ2NDg2MH0.QIz8-55mz4waVzUZcNe9k4FztcPopt3PxwBDn4ucr48";
+		// Test
+		const productId = props.id;
+		fetch(`http://localhost:2202/api/user/wishlist/deleteitem/${productId}`, {
+			method: "DELETE",
+			headers: {
+				Authorization: "Bearer " + accessToken,
+			},
 		})
 			.then((response) => response.json())
 			.then((data) => {
@@ -61,7 +80,7 @@ const ProductItem = (props) => {
 						<img
 							onClick={toggleCheck}
 							className="heart-home category-effect"
-							src={isChecked ? heart : heartRed}
+							src={isChecked === false ? heartRed : heart}
 							alt={props.name}
 						/>
 					</div>
