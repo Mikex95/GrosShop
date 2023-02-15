@@ -2,23 +2,23 @@ import "./BurgerMenu.css";
 import { Link } from "react-router-dom";
 const BurgerMenu = () => {
 	return (
-		<div class="hamburger-menu">
-			<div class="row">
+		<div className="hamburger-menu">
+			<div className="row">
 				<input
 					type="checkbox"
 					id="hamburg"
 				/>
 				<Link to="/filter">
 					<label
-						for="hamburg"
-						class="hamburg"
+						htmlFor="hamburg"
+						className="hamburg"
 					>
 						<span
-							class="line"
+							className="line"
 							id="line1"
 						></span>
-						<span class="line"></span>
-						<span class="line"></span>
+						<span className="line"></span>
+						<span className="line"></span>
 					</label>
 				</Link>
 			</div>
