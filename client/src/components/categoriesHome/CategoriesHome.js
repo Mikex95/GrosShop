@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import vegetables from "../../img/vegetables-home.png";
 import fruits from "../../img/fruits-home.png";
 import meat from "../../img/meat-home.png";

@@ -21,7 +21,7 @@ import SuccessVerify from "./pages/Verification/SuccessVerify";
 
 function App() {
 	const [token, setToken] = useState(
-		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY0ODI2MjQsImV4cCI6MTY3NjQ4ODYyNH0.FBMfjoX506QXNpGQbTqQOngJ4oGWld42J7-YFMTdwTk"
+		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY0ODM5MzksImV4cCI6MTY3NjQ4OTkzOX0.POKTRMOxNNok894XqZiGCKnjtWcxW_js1HBq9rw5BPk"
 	);
 	console.log(Date.now(), token);
 
