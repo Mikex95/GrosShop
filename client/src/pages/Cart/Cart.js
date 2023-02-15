@@ -13,7 +13,7 @@ const Cart = () => {
 
   return (
     <div>
-      <HeaderTime />
+      <HeaderTime backgroundcolor={"green"} />
       <div className="headline-details">
         <BackArrow></BackArrow>
         <h5>My Cart</h5>

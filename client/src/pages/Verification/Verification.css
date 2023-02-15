@@ -12,12 +12,16 @@
   width: 100%;
   background-color: white;
   display: flex;
-  gap: 2rem;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  height: 70%;
+  height: 80%;
   border-radius: 0 0 3rem 3rem;
+}
+
+.verification-arrow {
+  display: flex;
+  align-self: flex-start;
 }
 
 .verification-headline {
@@ -25,11 +29,11 @@
   gap: 1rem;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 2rem;
 }
 
 .verification-headline h2 {
   color: #2c3066;
-
 }
 
 .verification-headline p {
@@ -50,7 +54,8 @@
 }
 
 input:focus {
-  outline: 1px solid lightblue;
+  outline: 2px solid lightblue;
+  border-radius: 0.5rem;
 }
 
 .verification-form label {
@@ -59,7 +64,7 @@ input:focus {
 }
 
 .verification-form a {
-  margin-top: 3rem;
+  margin: 1rem 0rem 5rem;
 }
 
 .verification-to-signin {

@@ -56,10 +56,10 @@ const SignUp = () => {
   return (
     <div className="verification">
       <HeaderTime backgroundcolor="white" />
-      <div>
-        <BackArrow backgroundcolor="white" />
-      </div>
       <div className="verification-upper">
+        <div className="verification-arrow">
+          <BackArrow backgroundcolor="white" />
+        </div>
         <div className="verification-headline">
           <h2>Create New Account</h2>
           <p>Enter Your details to create account</p>
