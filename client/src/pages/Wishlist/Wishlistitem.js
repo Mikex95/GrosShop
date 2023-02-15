@@ -1,4 +1,5 @@
 import "../Home/Home.css";
+import "../Cart/Cart.css";
 import "./WishlistItem.css";
 import { useState, useEffect } from "react";
 import { ReactComponent as Trash } from "../../img/trash.svg";
@@ -67,9 +68,9 @@ const WishlistItem = (props) => {
 						<button onClick={increase}>+</button>
 					</div>
 				</div>
-				<div className="trash-item">
-					<Trash onClick={handleDelete} />
-				</div>
+			</div>
+			<div className="trash-item">
+				<Trash onClick={handleDelete} />
 			</div>
 		</div>
 	);
