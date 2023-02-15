@@ -1,22 +1,11 @@
 import "./Cart.css";
 import "../Home/Home.css";
-import { apiBaseUrl } from "../../api";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import heart from "../../img/heart.png";
-import { Link } from "react-router-dom";
 import { ReactComponent as Star } from "../../img/star7.svg";
 
 const CartItem = (props) => {
 	const [counter, setCounter] = useState(0);
-	// const [product, setProduct] = useState();
-	// const { id: productId } = useParams();
-
-	// useEffect(() => {
-	//   fetch(`${apiBaseUrl}/products/${productId}`)
-	//     .then((res) => res.json())
-	//     .then((productResult) => setProduct(productResult));
-	// }, [productId]);
 
 	const increase = () => {
 		setCounter((count) => count + 1);

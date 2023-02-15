@@ -7,7 +7,7 @@ import baguette from "../../img/baguette.png";
 import SearchBarCategory from "../../components/searchbar/SearchBarCategory";
 import { useLocation } from "react-router-dom";
 import "./Category.css";
-const Category = () => {
+const Category = ({ accessToken }) => {
 	const location = useLocation();
 	const params = new URLSearchParams(location.search);
 	const categoryParams = params.get("category");
@@ -112,6 +112,7 @@ const Category = () => {
 				{filteredList.slice(0, 6).map((article, index) => {
 					return (
 						<ProductItem
+							accessToken={accessToken}
 							key={index}
 							name={article.product_name}
 							price={article.product_price}

@@ -21,7 +21,7 @@ import SuccessVerify from "./pages/Verification/SuccessVerify";
 
 function App() {
 	const [token, setToken] = useState(
-		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY0NzU1MDAsImV4cCI6MTY3NjQ4MTUwMH0.i1te-43lvAqzNujqL3NCOHOCLt-_p7DHkJYwULnVlvA"
+		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY0ODI2MjQsImV4cCI6MTY3NjQ4ODYyNH0.FBMfjoX506QXNpGQbTqQOngJ4oGWld42J7-YFMTdwTk"
 	);
 	console.log(Date.now(), token);
 
@@ -85,7 +85,7 @@ function App() {
 							></Route>
 							<Route
 								path="/categories"
-								element={<Category />}
+								element={<Category accessToken={token} />}
 							></Route>
 							<Route
 								path="/success"

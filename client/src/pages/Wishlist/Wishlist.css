@@ -1,3 +1,15 @@
+.wishlist-container {
+	background-color: #f9faff;
+	height: 100%;
+	padding-bottom: 200px;
+	overflow: scroll;
+}
+
+.wishlist-container::-webkit-scrollbar {
+	height: 15px;
+	width: 0.2em;
+	background-color: #f9faff;
+}
 .grid-cart-item {
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
