@@ -7,31 +7,23 @@ import AddToCart from "../../components/buttons/AddToCart";
 import { useState } from "react";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 
-const PAGE_PRODUCTS = "products";
-const PAGE_CART = "cart";
-
 const Wishlist = () => {
   const [cart, setCart] = useState([]);
-  const [page, setPage] = useState(PAGE_PRODUCTS);
 
-  const navigateTo = (nextPage) => {
-    setPage(nextPage);
-  };
-
-  const addToCart = (product) => {
-    let newCart = [...cart];
-    let itemInCart = newCart.find((item) => product.name === item.name);
-    if (itemInCart) {
-      itemInCart.quantity++;
-    } else {
-      itemInCart = {
-        ...product,
-        quantity: 1,
-      };
-      newCart.push(itemInCart);
-    }
-    setCart(newCart);
-  };
+  // const addToCart = (product) => {
+  //   let newCart = [...cart];
+  //   let itemInCart = newCart.find((item) => product.name === item.name);
+  //   if (itemInCart) {
+  //     itemInCart.quantity++;
+  //   } else {
+  //     itemInCart = {
+  //       ...product,
+  //       quantity: 1,
+  //     };
+  //     newCart.push(itemInCart);
+  //   }
+  //   setCart(newCart);
+  // };
 
   // const removeFromCart = (productToRemove) => {
   //   setCart(cart.filter((product) => product !== productToRemove));
@@ -44,7 +36,7 @@ const Wishlist = () => {
 
   return (
     <div>
-      <HeaderTime />
+      <HeaderTime backgroundcolor={"green"} />
       <div className="headline-details">
         <BackArrow></BackArrow>
         <h5>My Wishlist</h5>
