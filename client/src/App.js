@@ -16,12 +16,12 @@ import Error404 from "./pages/Error/Error404";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import Cart from "./pages/Cart/Cart";
 import Profile from "./pages/Profile/Profile";
+import TypeCode from "./pages/Verification/TypeCode";
+import SuccessVerify from "./pages/Verification/SuccessVerify";
 
 function App() {
-
   const [token, setToken] = useState(null);
   console.log(Date.now(), token);
-
 
   return (
     <div className="App">
@@ -29,17 +29,20 @@ function App() {
         <div className="tablet">
           <div className="content">
             <Routes>
-              <Route path="/" element={<SplashScreen />}></Route>       
+              <Route path="/" element={<SplashScreen />}></Route>
               <Route path="/product/:id" element={<DetailsPage />} />
               <Route path="/onboarding" element={<Onboarding />}></Route>
               <Route path="/test" element={<TestComponents />}></Route>
               <Route path="/filter" element={<Filter />}></Route>
               <Route
                 path="/signin"
-                element={<SignIn setToken={setToken} />}></Route>
+                element={<SignIn setToken={setToken} />}
+              ></Route>
               <Route path="/signup" element={<SignUp />}></Route>
               <Route path="/categories" element={<Category />}></Route>
               <Route path="/success" element={<Success />}></Route>
+              <Route path="/verify" element={<TypeCode />}></Route>
+              <Route path="/successverify" element={<SuccessVerify />}></Route>
               <Route path="/home" element={<Home />}></Route>
               <Route path="/wishlist" element={<Wishlist />}></Route>
               <Route path="/cart" element={<Cart />}></Route>
