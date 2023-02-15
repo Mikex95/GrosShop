@@ -1,11 +1,15 @@
 import "./GreenButton.css";
 import { Link } from "react-router-dom";
-const GreenButton = ({ text, onClick }) => {
+const GreenButton = ({ text, onClick, color, size }) => {
 	return (
-		<Link className="green-button">
+		<Link
+			to="/signin"
+			className="green-button"
+		>
 			<button
+				style={{ color: color, fontSize: size }}
 				type="submit"
-				className="green-button-link"
+				className="green-button-link category-subhead"
 				onClick={onClick}
 			>
 				{text}

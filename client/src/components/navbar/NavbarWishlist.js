@@ -10,21 +10,24 @@ const NavbarWishlist = () => {
 	return (
 		<div className="navbar-wishlist-container">
 			<div className="navbar-wishlist">
-				<Link>
+				<Link to="/home">
 					<HomeButton></HomeButton> <p>Home</p>
 				</Link>
-				<Link>
+				<Link to="/order-history">
 					<Orders></Orders>
 					<p>Orders</p>
 				</Link>
-				<Link className="cart-button spin circle button">
+				<Link
+					to="/cart"
+					className="cart-button spin circle button"
+				>
 					<Cart></Cart>
 				</Link>
-				<Link>
+				<Link to="/wishlist">
 					<Heart></Heart>
 					<p>Wishlist</p>
 				</Link>
-				<Link>
+				<Link to="/profile">
 					<Profile></Profile> <p>Profile</p>
 				</Link>
 			</div>

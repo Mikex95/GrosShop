@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const { User } = require("../models/user-model");
+const colors = require("colors");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -15,11 +17,15 @@ const Verify_Access_Token = async (req, res, next) => {
       .json({ message: "a token is required for authentication" });
   }
   try {
-    const decodeToken = jwt.verify(accessToken, Access_Token_Secrets);
-    req.user = await User.findbyId(decodeToken._id);
+    const decoded = jwt.verify(accessToken, Access_Token_Secrets);
+    console.log(colors.bgRed(decoded.sub));
+    console.log(colors.bgGreen(decoded));
+    req.user = await User.findById(decoded.sub);
+    // console.log(colors.bgYellow(req.user));
+    // req.user = decoded.sub;
     next();
   } catch (err) {
-    console.log("the error is", err);
+    console.log(err);
   }
 };
 

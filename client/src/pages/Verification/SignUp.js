@@ -13,7 +13,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [showErrorMessage, setShowErrorMessage] = useState("");
   const navigate = useNavigate();
 
   function register(event) {
@@ -25,7 +25,7 @@ const SignUp = () => {
       password === "" ||
       username === ""
     ) {
-      setErrorMessage("Data is required");
+      // setShowErrorMessage("Data is required");
       return;
     }
     const apiBaseUrl =
@@ -44,17 +44,14 @@ const SignUp = () => {
       }),
     })
       .then((res) => res.json())
-      .then(({ status, error }) => {
-        // setErrorMessage(error.message);
-        if (status === "error") {
-          setErrorMessage(error.message);
-          // console.log(error.message);
-          return;
-        }
-        return navigate("/success");
+      .then((data) => {
+        const errorMessages = data.message;
+        console.log(errorMessages);
+        setShowErrorMessage(data.message);
+        console.log("error Messages", showErrorMessage);
       });
+    return navigate("/success");
   }
-  console.log(errorMessage);
 
   return (
     <div className="verification">
@@ -114,9 +111,9 @@ const SignUp = () => {
             required
           />
           <GreenButton text="Sign Up" onClick={(event) => register(event)} />
-          {errorMessage && (
+          {showErrorMessage && (
             <p className="error-message" style={{ color: "red" }}>
-              {errorMessage}
+              {showErrorMessage}
             </p>
           )}
         </form>

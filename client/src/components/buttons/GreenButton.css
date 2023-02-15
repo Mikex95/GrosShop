@@ -8,10 +8,20 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	border: none;
 	color: white;
 	font-weight: 700;
 	background-color: #40aa54;
 	border-radius: 40px;
 	width: 380px;
 	height: 55px;
+	cursor: pointer;
+}
+
+.category-subhead {
+	transition: 300ms;
+}
+
+.category-subhead:hover {
+	transform: scale(1.03);
 }

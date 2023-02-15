@@ -1,0 +1,31 @@
+.order-history-component {
+	border-radius: 10px;
+	background-color: white;
+	margin: 0 10px;
+}
+.order-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 70px;
+	padding: 10px;
+	width: 394px;
+}
+
+.status-container {
+	display: flex;
+	justify-content: flex-end;
+	color: white;
+}
+
+.status-container p {
+	border-radius: 3px;
+	padding: 5px 5px;
+}
+
+.price-container-order {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px 20px;
+}

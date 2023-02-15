@@ -2,6 +2,7 @@ const express = require("express");
 const {
   Verify_Access_Token,
   Create_New_Access_Token,
+  Verify_User,
 } = require("../middlewares/auth-controller");
 const router = express.Router();
 const {
@@ -45,26 +46,26 @@ router.get("/product/:id", getProductById);
 
 //user wish list routes
 router.post(
-  "user/wishlist/additem",
+  "/user/wishlist/additem",
   Verify_Access_Token,
   addItemToUserWishList
 );
 router.delete(
-  "user/wishlist/deleteitems",
+  "/user/wishlist/deleteitems",
   Verify_Access_Token,
   deleteAllItemsFromWishList
 );
 router.delete(
-  "user/wishlist/deleteitem/:id",
+  "/user/wishlist/deleteitem/:id",
   Verify_Access_Token,
   deleteAnItemFromWishList
 );
-router.get("user/wishlist", Verify_Access_Token, getWishListItems);
+router.get("/user/wishlist", Verify_Access_Token, getWishListItems);
 
 //user cart routes
-router.post("user/cart/additem", Verify_Access_Token, addItemToCart);
+router.post("/user/cart/additem", Verify_Access_Token, addItemToCart);
 router.delete(
-  "user/cart/removeitem/:id",
+  "/user/cart/removeitem/:id",
   Verify_Access_Token,
   removeItemFromCart
 );
