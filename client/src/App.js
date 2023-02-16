@@ -19,8 +19,9 @@ import Cart from "./pages/Cart/Cart";
 import Profile from "./pages/Profile/Profile";
 import TypeCode from "./pages/Verification/TypeCode";
 import SuccessVerify from "./pages/Verification/SuccessVerify";
-import ResetPassword from "./pages/Verification/ResetPassword";
 
+import ResetPassword from "./pages/Verification/ResetPassword";
+import Checkout from "./pages/Checkout/Checkout";
 function App() {
 	const [token, setToken] = useState(
 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY1MDY5NjcsImV4cCI6MTY3NjU0Mjk2N30.fK_YfFfsxteGcW0up1OySOJhCf_Fzw37X_0d5tDKjPQ"
@@ -101,6 +102,7 @@ function App() {
 								path="/success"
 								element={<Success />}
 							></Route>
+                <Route path="/checkout" element={<Checkout />}></Route>
 							<Route
 								path="/home"
 								element={
@@ -158,6 +160,7 @@ function App() {
 			</BrowserRouter>
 		</div>
 	);
+
 }
 
 export default App;
