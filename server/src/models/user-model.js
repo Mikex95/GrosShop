@@ -103,10 +103,10 @@ const userSchema = mongoose.Schema(
         //     type: Number,
         //     required: true,
         //   },
-        //   quantity: {
-        //     type: Number,
-        //     required: true,
-        //   },
+        quantity: {
+          type: Number,
+          required: true,
+        },
       },
     ],
     resetPasswordToken: {
@@ -123,10 +123,7 @@ userSchema.methods.generateResetPasswordToken = function () {
 
   //hash the resetToken and set it to this.resetPasswordToken
 
-  this.resetPasswordToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+  this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
   // const salt = bcrypt.genSalt();
   // this.resetPasswordToken = bcrypt.hash(resetToken, salt);
   this.resetPasswordExpires = Date.now() + 100 * 60 * 1000;
