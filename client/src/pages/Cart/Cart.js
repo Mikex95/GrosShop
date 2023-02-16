@@ -25,7 +25,7 @@ const Cart = ({ accessToken, productFetch }) => {
         setCartData(data);
         setLoading(false);
       });
-  }, []);
+  }, [accessToken]);
 
   useEffect(() => {
     const filtered = productFetch.filter((product) => {

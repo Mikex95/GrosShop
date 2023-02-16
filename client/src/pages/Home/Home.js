@@ -8,12 +8,24 @@ import Location from "../../components/location/Location";
 import CategoriesHome from "../../components/categoriesHome/CategoriesHome";
 import fries from "../../img/fries-home.png";
 import ProductItem from "../../components/productItem/ProductItem";
+import { useState, useEffect } from "react";
 
 const Home = ({ accessToken, productFetch }) => {
-  if (!accessToken) {
-    return null;
-  }
+  const [changeToggle, setChangeToggle] = useState(false);
+  const [wishlist, setWishList] = useState([]);
 
+  useEffect(() => {
+    fetch("http://localhost:2202/api/user/wishlist", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setWishList(data);
+      });
+  }, []);
   return (
     <div>
       <HeaderTime backgroundcolor="green" color={"white"} />

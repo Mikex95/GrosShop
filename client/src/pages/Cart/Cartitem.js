@@ -22,6 +22,8 @@ const CartItem = (props) => {
   const handleDelete = () => {
     const productId = props.id;
     const productPrice = props.price;
+    const quantity = props.counter;
+    console.log(quantity);
     console.log(productId);
     fetch(`http://localhost:2202/api/user/cart/removeitem/${productId}`, {
       method: "DELETE",
@@ -33,7 +35,7 @@ const CartItem = (props) => {
       .then((data) => {
         console.log(data);
         setIsDeleted(true);
-        props.setTotal((total) => total - productPrice);
+        props.setTotal((total) => total - productPrice * quantity);
       })
       .catch((err) => console.log(err));
   };

@@ -2,11 +2,26 @@ import heart from "../../img/heart.png";
 import heartRed from "../../img/heart-red.png";
 import { Link } from "react-router-dom";
 import { ReactComponent as Star } from "../../img/star7.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./ProductItem.css";
 const ProductItem = (props) => {
   const [isChecked, setIsChecked] = useState(true);
+
+  useEffect(() => {
+    const fetchWishlistData = async () => {
+      const response = await fetch("http://localhost:2202/api/user/wishlist", {
+        headers: {
+          Authorization: `Bearer ${props.accessToken}`,
+        },
+      });
+      const data = await response.json();
+      const productIds = data.map((product) => product.itemId);
+      setIsChecked(!productIds.includes(props.id));
+    };
+
+    fetchWishlistData();
+  }, [props.accessToken, props.id]);
 
   const toggleCheck = (event) => {
     event.preventDefault();
