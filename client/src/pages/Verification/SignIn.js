@@ -12,7 +12,7 @@ import HeaderTime from "../../components/headerTime/HeaderTime";
 const SignIn = ({ setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [showErrorMessage, setShowErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -28,14 +28,20 @@ const SignIn = ({ setToken }) => {
       },
       body: JSON.stringify({ email, password }),
       credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        // localStorage.setItem("accessToken", data.accessToken);
-        setToken(data.accessToken);
-        return navigate("/test");
-      });
+    }).then((res) => {
+      if (res.status !== 200) {
+        res.json().then((data) => {
+          // console.log(data);
+          setShowErrorMessage(data.message);
+        });
+      } else {
+        res.json().then((data) => {
+          navigate("/home");
+          console.log(data);
+          setToken(data.accessToken);
+        });
+      }
+    });
   }
 
   return (
@@ -57,7 +63,13 @@ const SignIn = ({ setToken }) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <label htmlFor="Email">Password</label>
+          <label htmlFor="Email">
+            Password
+            <span>
+              <Link to="/forgot-password"> forgot your password? </Link>
+            </span>
+          </label>
+
           <input
             type="password"
             placeholder="Type your password"
@@ -66,7 +78,9 @@ const SignIn = ({ setToken }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <GreenButton text="Sign In" onClick={login} />
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {showErrorMessage && (
+            <p className="error-message">{showErrorMessage}</p>
+          )}
         </form>
       </div>
       <div className="verification-to-signin">

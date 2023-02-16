@@ -38,7 +38,7 @@ const SignUp = () => {
     }).then((res) => {
       if (res.status !== 200) {
         res.json().then((data) => {
-          // console.log(data);
+          console.log(data);
           setShowErrorMessage(data.message);
         });
       } else {
