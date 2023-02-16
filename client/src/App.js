@@ -24,7 +24,6 @@ import ResetPassword from "./pages/Verification/ResetPassword";
 import Checkout from "./pages/Checkout/Checkout";
 function App() {
   const [token, setToken] = useState(null);
-
   console.log(Date.now(), token);
 
   const [articles, setArticle] = useState([]);
@@ -39,7 +38,7 @@ function App() {
         setArticle(data.allProducts);
         setLoading(false);
       });
-  }, [currentUrl, token]);
+  }, [currentUrl]);
 
   if (loading) {
     return (
@@ -66,7 +65,6 @@ function App() {
               <Route path="/signup" element={<SignUp />}></Route>
               <Route path="/categories" element={<Category accessToken={token} />}></Route>
               <Route path="/success" element={<Success />}></Route>
-              <Route path="/checkout" element={<Checkout />}></Route>
               <Route path="/home" element={<Home accessToken={token} productFetch={articles} />}></Route>
               <Route path="/wishlist" element={<Wishlist accessToken={token} productFetch={articles} />}></Route>
               <Route path="/cart" element={<Cart accessToken={token} productFetch={articles} />}></Route>
