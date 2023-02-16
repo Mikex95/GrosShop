@@ -27,6 +27,8 @@ const Cart = ({ accessToken, productFetch }) => {
       });
   }, [accessToken]);
 
+  console.log(cartData);
+
   useEffect(() => {
     const filtered = productFetch.filter((product) => {
       return cartData.some((cartList) => cartList.itemId === product._id);
