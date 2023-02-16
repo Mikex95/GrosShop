@@ -82,6 +82,14 @@ function App() {
 								element={<SignIn setToken={setToken} />}
 							></Route>
 							<Route
+								path="/forgot-password"
+								element={<ForgotPassword />}
+							></Route>
+							<Route
+								path="/reset-password"
+								element={<ResetPassword />}
+							></Route>
+							<Route
 								path="/signup"
 								element={<SignUp />}
 							></Route>
