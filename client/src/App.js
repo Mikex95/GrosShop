@@ -55,7 +55,7 @@ function App() {
           <div className="content">
             <Routes>
               <Route path="/" element={<SplashScreen />}></Route>
-              <Route path="/product/:id" element={<DetailsPage />} />
+              <Route path="/product/:id" element={<DetailsPage accessToken={token} productFetch={articles} />} />
               <Route path="/onboarding" element={<Onboarding />}></Route>
               <Route path="/test" element={<TestComponents />}></Route>
               <Route path="/filter" element={<Filter />}></Route>
