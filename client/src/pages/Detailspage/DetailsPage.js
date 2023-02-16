@@ -4,15 +4,34 @@ import HeaderTime from "../../components/headerTime/HeaderTime";
 import BackArrow from "../../components/backArrow/BackArrow";
 import { ReactComponent as CartDetails } from "../../img/shopping-cart-detail.svg";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const DetailsPage = ({ productFetch, accessToken }) => {
   const [count, setCount] = useState(1);
   const [cartListData, setCartListData] = useState([]);
+  const [cartCounter, setCartCounter] = useState([]);
+  const [cartLength, setCartLength] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
-
   const foodDetails = productFetch.find((product) => product._id === id);
+
+  useEffect(() => {
+    fetch("http://localhost:2202/api/user/cart", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCartCounter(data);
+        const quantities = data.map((product) => product.quantity);
+        const sum = quantities.reduce((accumulator, currentValue) => {
+          return accumulator + currentValue;
+        }, 0);
+        setCartLength(sum);
+      });
+  }, [accessToken]);
 
   const eventHandler = (e) => {
     e.preventDefault();
@@ -87,7 +106,7 @@ const DetailsPage = ({ productFetch, accessToken }) => {
         <div className="cart-icon-container">
           <div>
             <CartDetails className="cart-details" />
-            <p>{count}</p>
+            <p>{cartLength}</p>
           </div>
         </div>
         <div className="button-details-container">
