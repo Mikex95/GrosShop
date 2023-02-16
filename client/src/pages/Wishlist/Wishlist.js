@@ -1,9 +1,7 @@
-import CartItem from "./Wishlistitem";
 import "./Wishlist.css";
 import NavbarWishlist from "../../components/navbar/NavbarWishlist";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import BackArrow from "../../components/backArrow/BackArrow";
-import { ReactComponent as Trash } from "../../img/trash.svg";
 import AddToCart from "../../components/buttons/AddToCart";
 import { useState, useEffect } from "react";
 import HeaderTime from "../../components/headerTime/HeaderTime";
@@ -13,6 +11,8 @@ const Wishlist = ({ accessToken, productFetch }) => {
 	const [wishlistData, setWishlistData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [filteredProducts, setFilteredProducts] = useState([]);
+	const [counterValues, setCounterValues] = useState({});
+	const [cartListData, setCartListData] = useState([]);
 
 	useEffect(() => {
 		setLoading(true);
@@ -37,6 +37,45 @@ const Wishlist = ({ accessToken, productFetch }) => {
 		setFilteredProducts(filtered);
 	}, [wishlistData, productFetch]);
 
+	const cartProduct = filteredProducts.map((product) => ({
+		itemId: product._id,
+		productName: product.product_name,
+		productImage: product.product_image,
+		productPrice: product.product_price,
+		countInStock: product.product_stock,
+		quantity: counterValues[product._id] || 0,
+	}));
+
+	console.log(cartProduct);
+	const eventHandler = (e) => {
+		e.preventDefault();
+
+		cartProduct.forEach((item) => {
+			fetch("http://localhost:2202/api/user/cart/additem", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: "Bearer " + accessToken,
+				},
+				body: JSON.stringify(item),
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					setCartListData(data);
+				})
+				.catch((error) => {
+					console.log("Error:", error);
+				});
+		});
+	};
+
+	const handleCounterChange = (productId, newCounter) => {
+		setCounterValues((prevValues) => ({
+			...prevValues,
+			[productId]: newCounter,
+		}));
+	};
+
 	if (loading) {
 		return (
 			<div className="loader-container">
@@ -44,6 +83,7 @@ const Wishlist = ({ accessToken, productFetch }) => {
 			</div>
 		);
 	}
+	console.log(filteredProducts);
 
 	return (
 		<div className="wishlist-container">
@@ -66,12 +106,15 @@ const Wishlist = ({ accessToken, productFetch }) => {
 							rating={wishlistProduct.product_rating}
 							image={wishlistProduct.product_image}
 							accessToken={accessToken}
-							setWishlistData={setWishlistData}
+							onCounterChange={handleCounterChange}
 						/>
 					);
 				})}
 			</div>
-			<AddToCart text="Add to Cart" />
+			<AddToCart
+				text={"Add to Cart"}
+				onClick={eventHandler}
+			/>
 			<NavbarWishlist />
 			<NavbarBottom />
 		</div>

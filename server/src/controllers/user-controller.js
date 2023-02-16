@@ -416,8 +416,8 @@ const addItemToCart = async (req, res) => {
 	const {
 		itemId,
 		productName,
-		porductImage,
-		porductPrice,
+		productImage,
+		productPrice,
 		countInStock,
 		quantity,
 	} = req.body;
@@ -425,8 +425,8 @@ const addItemToCart = async (req, res) => {
 		const theItem = {
 			itemId,
 			productName,
-			porductImage,
-			porductPrice,
+			productImage,
+			productPrice,
 			countInStock,
 			quantity,
 		};

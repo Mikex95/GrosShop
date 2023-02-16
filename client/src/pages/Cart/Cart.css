@@ -1,3 +1,17 @@
+.cart-container {
+	background-color: #f9faff;
+	height: 100%;
+	padding-bottom: 200px;
+	overflow: scroll;
+	width: 420px;
+}
+
+.cart-container::-webkit-scrollbar {
+	height: 15px;
+	width: 0.2em;
+	background-color: #f9faff;
+}
+
 .cartitem-container {
 	display: flex;
 	justify-content: space-between;
