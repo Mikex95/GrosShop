@@ -19,8 +19,9 @@ import Cart from "./pages/Cart/Cart";
 import Profile from "./pages/Profile/Profile";
 import TypeCode from "./pages/Verification/TypeCode";
 import SuccessVerify from "./pages/Verification/SuccessVerify";
-import ResetPassword from "./pages/Verification/ResetPassword";
 
+import ResetPassword from "./pages/Verification/ResetPassword";
+import Checkout from "./pages/Checkout/Checkout";
 function App() {
   const [token, setToken] = useState(null);
   console.log(Date.now(), token);
@@ -48,6 +49,7 @@ function App() {
       </div>
     );
   }
+
 
   return (
     <div className="App">
@@ -99,6 +101,7 @@ function App() {
       </BrowserRouter>
     </div>
   );
+
 }
 
 export default App;
