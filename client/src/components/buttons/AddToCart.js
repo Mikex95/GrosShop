@@ -1,9 +1,11 @@
 import "./AddToCart.css";
 import { Link } from "react-router-dom";
-
 const AddToCart = ({ text, onClick }) => {
 	return (
-		<Link className="btn">
+		<Link
+			to={"/cart"}
+			className="btn"
+		>
 			<div>
 				<button
 					type="submit"
@@ -16,5 +18,4 @@ const AddToCart = ({ text, onClick }) => {
 		</Link>
 	);
 };
-
 export default AddToCart;

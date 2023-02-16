@@ -146,7 +146,8 @@ const verificationEmail = async (req, res) => {
 	}
 	res.status(200).json({ message: "You have Succefully Verified your Email" });
 	user.verify = true;
-	user.save({ validateBeforeSave: false });
+	user.save();
+	// user.save({ validateBeforeSave: false });
 };
 
 /* 
@@ -416,8 +417,8 @@ const addItemToCart = async (req, res) => {
 	const {
 		itemId,
 		productName,
-		porductImage,
-		porductPrice,
+		productImage,
+		productPrice,
 		countInStock,
 		quantity,
 	} = req.body;
@@ -425,8 +426,8 @@ const addItemToCart = async (req, res) => {
 		const theItem = {
 			itemId,
 			productName,
-			porductImage,
-			porductPrice,
+			productImage,
+			productPrice,
 			countInStock,
 			quantity,
 		};
