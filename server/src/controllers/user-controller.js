@@ -331,16 +331,18 @@ const getWishListItems = async (req, res) => {
  */
 
 const addItemToUserWishList = async (req, res) => {
-  // const { itemId, productName, productPrice, productImage, productRating } =
-  //   req.body;
-  const { itemId } = req.body;
-  const user = await User.findOne(req.user);
-  const theItem = { itemId };
-  console.log(colors.bgGreen(theItem));
-  user.wishList.push(theItem);
-  await user.save();
-  console.log(colors.bgBlue(user));
-  return res.status(200).send(user);
+  try {
+    const { itemId } = req.body;
+    const user = req.user;
+    const theItem = { itemId };
+    user.wishList.push(theItem);
+    const UniqueArr = Object.values(user.wishList.reduce((acc, cur) => Object.assign(acc, { [cur.itemId]: cur }), {}));
+    user.wishList = UniqueArr;
+    await user.save();
+    res.status(200).json({ success: true, message: "Item added to wishlist successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to add item to wishlist", error: error.message });
+  }
 };
 
 /* 
@@ -375,7 +377,7 @@ const deleteAnItemFromWishList = async (req, res) => {
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ //?   @description : Delete all Items from the wishList                 │
-  │ //?   @method : DELETE /api/user/wishlist/deleteitem                    │
+  │ //?   @method : DELETE /api/user/wishlist/deleteitems                    │
   │ //?   @access : private                                                 │
   └─────────────────────────────────────────────────────────────────────────┘
  */
@@ -386,6 +388,7 @@ const deleteAllItemsFromWishList = async (req, res) => {
     user.wishList = [];
     await user.save();
     res.status(200).send("Clear all items in the wish list successfully");
+    res.status(200).json({ success: true });
   } else {
     res.status(404).json({ message: "Can't find the user that you are looking for" });
   }
@@ -414,7 +417,7 @@ const addItemToCart = async (req, res) => {
     const savedUser = await user.save();
     res.status(200).send(savedUser);
   } else {
-    res.stauts(404).json({ message: "can't find the user" });
+    res.status(404).json({ message: "can't find the user" });
   }
 };
 /* 
@@ -438,7 +441,7 @@ const removeItemFromCart = async (req, res) => {
     }
     user.cartList.splice(deletedIndex, 1);
     await user.save();
-    res.status(200).send("Delete item from cartList successfully");
+    res.status(200).json({ message: "Item successfully deleted from cartList" });
   } else {
     res.status(404).json({ message: "User is not existed" });
   }
