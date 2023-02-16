@@ -68,7 +68,7 @@ function App() {
               <Route path="/home" element={<Home accessToken={token} productFetch={articles} />}></Route>
               <Route path="/wishlist" element={<Wishlist accessToken={token} productFetch={articles} />}></Route>
               <Route path="/cart" element={<Cart accessToken={token} productFetch={articles} />}></Route>
-              <Route path="/profile" element={<Profile />}></Route>
+              <Route path="/profile" element={<Profile accessToken={token} />}></Route>
               <Route path="/order-history" element={<OrderHistory />} />
               <Route path="*" element={<Error404 />} />
               <Route path="/verify" element={<TypeCode />}></Route>
