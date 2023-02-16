@@ -1,7 +1,7 @@
 import GreenButton from "../../components/buttons/GreenButton";
 import { Link } from "react-router-dom";
 import { ReactComponent as Image } from "../../img/Logo-Login.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiBaseUrl } from "../../api";
 
@@ -78,9 +78,7 @@ const SignIn = ({ setToken }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <GreenButton text="Sign In" onClick={login} />
-          {showErrorMessage && (
-            <p className="error-message">{showErrorMessage}</p>
-          )}
+          {showErrorMessage && <p className="error-message">{showErrorMessage}</p>}
         </form>
       </div>
       <div className="verification-to-signin">
