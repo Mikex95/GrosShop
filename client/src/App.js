@@ -23,143 +23,84 @@ import SuccessVerify from "./pages/Verification/SuccessVerify";
 import ResetPassword from "./pages/Verification/ResetPassword";
 import Checkout from "./pages/Checkout/Checkout";
 function App() {
-	const [token, setToken] = useState(
-		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ViYzljM2FlNzIxZDQxNDQ3YTI1ZDEiLCJpYXQiOjE2NzY1MDY5NjcsImV4cCI6MTY3NjU0Mjk2N30.fK_YfFfsxteGcW0up1OySOJhCf_Fzw37X_0d5tDKjPQ"
-	);
-	console.log(Date.now(), token);
+  const [token, setToken] = useState(null);
+  console.log(Date.now(), token);
 
-	const [articles, setArticle] = useState([]);
-	const [loading, setLoading] = useState(true);
+  const [articles, setArticle] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-	const [currentUrl, setCurrentUrl] = useState(
-		"http://localhost:2202/api/products"
-	);
-	useEffect(() => {
-		setLoading(true);
-		fetch(currentUrl)
-			.then((response) => response.json())
-			.then((data) => {
-				setArticle(data.allProducts);
-				setLoading(false);
-			});
-	}, [currentUrl]);
+  const [currentUrl, setCurrentUrl] = useState(
+    "http://localhost:2202/api/products"
+  );
+  useEffect(() => {
+    setLoading(true);
+    fetch(currentUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        setArticle(data.allProducts);
+        setLoading(false);
+      });
+  }, [currentUrl]);
 
-	if (loading) {
-		return (
-			<div className="loader-container">
-				<div className="loader"></div>
-			</div>
-		);
-	}
+  if (loading) {
+    return (
+      <div className="loader-container">
+        <div className="loader"></div>
+      </div>
+    );
+  }
 
-	return (
-		<div className="App">
-			<BrowserRouter>
-				<div className="tablet">
-					<div className="content">
-						<Routes>
-							<Route
-								path="/"
-								element={<SplashScreen />}
-							></Route>
-							<Route
-								path="/product/:id"
-								element={<DetailsPage />}
-							/>
-							<Route
-								path="/onboarding"
-								element={<Onboarding />}
-							></Route>
-							<Route
-								path="/test"
-								element={<TestComponents />}
-							></Route>
-							<Route
-								path="/filter"
-								element={<Filter />}
-							></Route>
-							<Route
-								path="/signin"
-								element={<SignIn setToken={setToken} />}
-							></Route>
-							<Route
-								path="/forgot-password"
-								element={<ForgotPassword />}
-							></Route>
-							<Route
-								path="/reset-password"
-								element={<ResetPassword />}
-							></Route>
-							<Route
-								path="/signup"
-								element={<SignUp />}
-							></Route>
-							<Route
-								path="/categories"
-								element={<Category accessToken={token} />}
-							></Route>
-							<Route
-								path="/success"
-								element={<Success />}
-							></Route>
-                <Route path="/checkout" element={<Checkout />}></Route>
-							<Route
-								path="/home"
-								element={
-									<Home
-										accessToken={token}
-										productFetch={articles}
-									/>
-								}
-							></Route>
-							<Route
-								path="/wishlist"
-								element={
-									<Wishlist
-										accessToken={token}
-										productFetch={articles}
-									/>
-								}
-							></Route>
-							<Route
-								path="/cart"
-								element={
-									<Cart
-										accessToken={token}
-										productFetch={articles}
-									/>
-								}
-							></Route>
-							<Route
-								path="/profile"
-								element={<Profile />}
-							></Route>
-							<Route
-								path="/order-history"
-								element={<OrderHistory />}
-							/>
-							<Route
-								path="*"
-								element={<Error404 />}
-							/>
-							<Route
-								path="/verify"
-								element={<TypeCode />}
-							></Route>
-							<Route
-								path="/successverify"
-								element={<SuccessVerify />}
-							></Route>
-						</Routes>
-					</div>
-				</div>
-				<Link
-					to={"/home"}
-					className="home-btn"
-				></Link>
-			</BrowserRouter>
-		</div>
-	);
+
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <div className="tablet">
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<SplashScreen />}></Route>
+              <Route path="/product/:id" element={<DetailsPage />} />
+              <Route path="/onboarding" element={<Onboarding />}></Route>
+              <Route path="/test" element={<TestComponents />}></Route>
+              <Route path="/filter" element={<Filter />}></Route>
+              <Route
+                path="/signin"
+                element={<SignIn setToken={setToken} />}></Route>
+              <Route
+                path="/forgot-password"
+                element={<ForgotPassword />}></Route>
+              <Route path="/reset-password" element={<ResetPassword />}></Route>
+              <Route path="/signup" element={<SignUp />}></Route>
+              <Route
+                path="/categories"
+                element={<Category accessToken={token} />}></Route>
+              <Route path="/success" element={<Success />}></Route>
+              <Route
+                path="/home"
+                element={
+                  <Home accessToken={token} productFetch={articles} />
+                }></Route>
+              <Route
+                path="/wishlist"
+                element={
+                  <Wishlist accessToken={token} productFetch={articles} />
+                }></Route>
+              <Route
+                path="/cart"
+                element={
+                  <Cart accessToken={token} productFetch={articles} />
+                }></Route>
+              <Route path="/profile" element={<Profile />}></Route>
+              <Route path="/order-history" element={<OrderHistory />} />
+              <Route path="*" element={<Error404 />} />
+              <Route path="/verify" element={<TypeCode />}></Route>
+              <Route path="/successverify" element={<SuccessVerify />}></Route>
+            </Routes>
+          </div>
+        </div>
+        <Link to={"/home"} className="home-btn"></Link>
+      </BrowserRouter>
+    </div>
+  );
 
 }
 

@@ -1,29 +1,29 @@
 const express = require("express");
 const {
-	Verify_Access_Token,
-	Create_New_Access_Token,
-	Verify_User,
+  Verify_Access_Token,
+  Create_New_Access_Token,
+  Verify_User,
 } = require("../middlewares/auth-controller");
 const router = express.Router();
 const {
-	loginUser,
-	signupUser,
-	logoutUser,
-	forgotPassword,
-	addItemToUserWishList,
-	deleteAllItemsFromWishList,
-	deleteAnItemFromWishList,
-	getWishListItems,
-	addItemToCart,
-	removeItemFromCart,
-	getUserCartList,
-	resetPassword,
-	verificationEmail,
-	getUserProfile,
+  loginUser,
+  signupUser,
+  logoutUser,
+  forgotPassword,
+  addItemToUserWishList,
+  deleteAllItemsFromWishList,
+  deleteAnItemFromWishList,
+  getWishListItems,
+  addItemToCart,
+  removeItemFromCart,
+  getUserCartList,
+  resetPassword,
+  verificationEmail,
+  getUserProfile,
 } = require("../controllers/user-controller");
 const {
-	getAllProducts,
-	getProductById,
+  getAllProducts,
+  getProductById,
 } = require("../controllers/product-controller");
 
 //user routes
@@ -37,7 +37,7 @@ router.post("/user/reset-password", resetPassword);
 router.get("/user/profile", Verify_Access_Token, getUserProfile);
 
 // create new access token when it expires
-router.post("user/token", Create_New_Access_Token);
+router.post("user/silent-refresh", Create_New_Access_Token);
 
 //poructs routes
 router.get("/products", getAllProducts);
@@ -46,28 +46,28 @@ router.get("/product/:id", getProductById);
 
 //user wish list routes
 router.post(
-	"/user/wishlist/additem",
-	Verify_Access_Token,
-	addItemToUserWishList
+  "/user/wishlist/additem",
+  Verify_Access_Token,
+  addItemToUserWishList
 );
 router.delete(
-	"/user/wishlist/deleteitems",
-	Verify_Access_Token,
-	deleteAllItemsFromWishList
+  "/user/wishlist/deleteitems",
+  Verify_Access_Token,
+  deleteAllItemsFromWishList
 );
 router.delete(
-	"/user/wishlist/deleteitem/:id",
-	Verify_Access_Token,
-	deleteAnItemFromWishList
+  "/user/wishlist/deleteitem/:id",
+  Verify_Access_Token,
+  deleteAnItemFromWishList
 );
 router.get("/user/wishlist", Verify_Access_Token, getWishListItems);
 
 //user cart routes
 router.post("/user/cart/additem", Verify_Access_Token, addItemToCart);
 router.delete(
-	"/user/cart/removeitem/:id",
-	Verify_Access_Token,
-	removeItemFromCart
+  "/user/cart/removeitem/:id",
+  Verify_Access_Token,
+  removeItemFromCart
 );
 router.get("/user/cart", Verify_Access_Token, getUserCartList);
 
