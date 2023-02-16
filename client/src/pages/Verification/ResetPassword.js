@@ -59,12 +59,12 @@ const ResetPassword = () => {
           <label htmlFor="new Password">New Password</label>
           <input
             type="password"
-            placeholder="NEW Password"
+            placeholder="Type new Password"
             name="new Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
-          <label htmlFor="confirm Password">confirm Password</label>
+          <label htmlFor="confirm new Password">Confirm Password</label>
 
           <input
             type="password"
@@ -73,7 +73,7 @@ const ResetPassword = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <GreenButton text="save changes" onClick={saveYourNewPassword} />
+          <GreenButton text="Save Changes" onClick={saveYourNewPassword} />
           {showErrorMessage && (
             <p className="error-message">{showErrorMessage}</p>
           )}

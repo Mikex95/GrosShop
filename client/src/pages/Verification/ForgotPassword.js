@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Verification.css";
-import { ReactComponent as Email } from "../../img/email.svg";
+import { ReactComponent as Email } from "../../img/ResetPassword.svg";
 import GetPasswordResetLink from "../../components/buttons/GetPasswordResetLink";
 
 const ForgotPassword = () => {
@@ -29,7 +29,7 @@ const ForgotPassword = () => {
       <div className="verification-container">
         <Email />
         <div className="verification-headline">
-          <h2>Please Enter Your Email</h2>
+          <h2>Enter Your E-mail</h2>
           <input
             type="text"
             value={email}
@@ -38,7 +38,7 @@ const ForgotPassword = () => {
             }}
           />
           <GetPasswordResetLink
-            text="Get Password Reset Link"
+            text="Get Link"
             onClick={(e) => handleSubmitYourEmail(e)}
           />
           {showErrorMessage && (
