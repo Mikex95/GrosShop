@@ -9,13 +9,16 @@ import { ReactComponent as Star } from "../../img/star7.svg";
 const WishlistItem = (props) => {
 	const [counter, setCounter] = useState(0);
 	const [isDeleted, setIsDeleted] = useState(false);
+
 	const increase = () => {
 		setCounter((count) => count + 1);
+		props.onCounterChange(counter + 1);
 	};
 
 	const decrease = () => {
 		if (counter > 0) {
 			setCounter((count) => count - 1);
+			props.onCounterChange(counter - 1);
 		}
 	};
 	const handleDelete = () => {
