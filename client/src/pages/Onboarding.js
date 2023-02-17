@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { ReactComponent as Image } from "../img/onboarding.svg";
+import HeaderTimeWhite from "../components/headerTime/HeaderTimeWhite";
 import "./Onboarding.css";
 
 const Onboarding = () => {
   return (
     <section className="onboarding">
+      <HeaderTimeWhite></HeaderTimeWhite>
       <div className="onboarding-screen">
         <Image />
       </div>

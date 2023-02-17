@@ -86,7 +86,7 @@ const Wishlist = ({ accessToken, productFetch }) => {
   };
   return (
     <div className="wishlist-container">
-      <HeaderTime backgroundcolor={"green"} />
+      <HeaderTime backgroundcolor={"green"} color={"white"} />
       <div className="backarrow-trash-container">
         <div className="headline-details">
           <BackArrow></BackArrow>

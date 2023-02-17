@@ -12,23 +12,12 @@ const Profile = ({ accessToken }) => {
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const pseudoUser = {
-    firstname: "Fadi",
-    lastname: "Michael",
-    email: "fadi3@fadi.com",
-    straße: "Musterstraße 7",
-    stadt: "Musterhausen",
-    plz: "1234",
-    telefon: "666 666",
-  };
-
   const eventOnClick = (event) => {
     event.preventDefault();
     console.log("hallo");
     // Hier wird der Fetch mit "PUT" eingefügt!
   };
 
-  // der richtige Fetch für später =  fetch("http://localhost:2202/api/user/profile", requestOptions)
   console.log(user);
   useEffect(() => {
     fetch("http://localhost:2202/api/user/profile", {

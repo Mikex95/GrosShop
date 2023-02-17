@@ -31,9 +31,7 @@ function App() {
   const [articles, setArticle] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [currentUrl, setCurrentUrl] = useState(
-    "http://localhost:2202/api/products"
-  );
+  const [currentUrl, setCurrentUrl] = useState("http://localhost:2202/api/products");
   useEffect(() => {
     setLoading(true);
     fetch(currentUrl)
@@ -59,48 +57,21 @@ function App() {
           <div className="content">
             <Routes>
               <Route path="/" element={<SplashScreen />}></Route>
-              <Route
-                path="/product/:id"
-                element={
-                  <DetailsPage accessToken={token} productFetch={articles} />
-                }
-              />
+              <Route path="/product/:id" element={<DetailsPage accessToken={token} productFetch={articles} />} />
               <Route path="/onboarding" element={<Onboarding />}></Route>
               <Route path="/test" element={<TestComponents />}></Route>
               <Route path="/filter" element={<Filter />}></Route>
-              <Route
-                path="/signin"
-                element={<SignIn setToken={setToken} />}
-              ></Route>
-              <Route
-                path="/forgot-password"
-                element={<ForgotPassword />}
-              ></Route>
+              <Route path="/signin" element={<SignIn setToken={setToken} />}></Route>
+              <Route path="/forgot-password" element={<ForgotPassword />}></Route>
               <Route path="/reset-password" element={<ResetPassword />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
-              <Route
-                path="/categories"
-                element={<Category accessToken={token} />}
-              ></Route>
+              <Route path="/categories" element={<Category accessToken={token} />}></Route>
               <Route path="/success" element={<Success />}></Route>
-              <Route
-                path="/home"
-                element={<Home accessToken={token} productFetch={articles} />}
-              ></Route>
-              <Route
-                path="/wishlist"
-                element={
-                  <Wishlist accessToken={token} productFetch={articles} />
-                }
-              ></Route>
-              <Route
-                path="/cart"
-                element={<Cart accessToken={token} productFetch={articles} />}
-              ></Route>
-              <Route
-                path="/profile"
-                element={<Profile accessToken={token} />}
-              ></Route>
+              <Route path="/home" element={<Home accessToken={token} productFetch={articles} />}></Route>
+              <Route path="/wishlist" element={<Wishlist accessToken={token} productFetch={articles} />}></Route>
+              <Route path="/cart" element={<Cart accessToken={token} productFetch={articles} />}></Route>
+              <Route path="/profile" element={<Profile accessToken={token} />}></Route>
+              <Route path="/checkout" element={<Checkout accessToken={token} productFetch={articles} />}></Route>
               <Route path="/update-profile" element={<Update />}></Route>
               <Route path="/order-history" element={<OrderHistory />} />
               <Route path="*" element={<Error404 />} />

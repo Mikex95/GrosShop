@@ -6,12 +6,14 @@ import BackArrow from "../../components/backArrow/BackArrow";
 import Checkout from "../../components/buttons/Checkout";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Cart = ({ accessToken, productFetch }) => {
   const [cartData, setCartData] = useState([]);
   const [total, setTotal] = useState("");
   const [loading, setLoading] = useState(true);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
     fetch("http://localhost:2202/api/user/cart", {
@@ -49,6 +51,11 @@ const Cart = ({ accessToken, productFetch }) => {
     setTotal(total);
   }, [cartData, filteredProducts]);
 
+  const switchToCheckout = (event) => {
+    event.preventDefault();
+    navigate("/checkout");
+  };
+
   if (loading) {
     return (
       <div className="loader-container">
@@ -83,7 +90,7 @@ const Cart = ({ accessToken, productFetch }) => {
           );
         })}
       </div>
-      <Checkout text={`Check Out - Total $${total}`} />
+      <Checkout text={`Check Out - Total $${total}`} onClick={switchToCheckout} />
       <NavbarWishlist />
       <NavbarBottom />
     </div>

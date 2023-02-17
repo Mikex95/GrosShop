@@ -7,7 +7,7 @@ import { apiBaseUrl } from "../../api";
 
 import "./Verification.css";
 import BackArrow from "../../components/backArrow/BackArrow";
-import HeaderTime from "../../components/headerTime/HeaderTime";
+import HeaderTimeWhite from "../../components/headerTime/HeaderTimeWhite";
 
 const SignIn = ({ setToken }) => {
   const [email, setEmail] = useState("");
@@ -46,7 +46,7 @@ const SignIn = ({ setToken }) => {
 
   return (
     <div className="verification">
-      <HeaderTime backgroundcolor="white" />
+      <HeaderTimeWhite backgroundcolor="white" />
       <div className="verification-upper">
         <div className="verification-arrow">
           <BackArrow backgroundcolor="white" />
@@ -81,9 +81,7 @@ const SignIn = ({ setToken }) => {
           </div>
 
           <GreenButton text="Sign In" onClick={login} />
-          {showErrorMessage && (
-            <p className="error-message">{showErrorMessage}</p>
-          )}
+          {showErrorMessage && <p className="error-message">{showErrorMessage}</p>}
         </form>
       </div>
       <div className="verification-to-signin">
