@@ -3,6 +3,9 @@ import UpdateProfile from "../../components/buttons/UpdateProfile";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import NavbarWishlist from "../../components/navbar/NavbarWishlist";
+import Paypal from "../../img/Paypal.svg";
+import Klarna from "../../img/Klarna.svg";
+import Stripe from "../../img/Stripe.svg";
 import Camera from "../../img/Camera.svg";
 import Edit from "../../img/edit.svg";
 import { useState, useEffect } from "react";
@@ -53,6 +56,7 @@ const Update = () => {
           <BackArrow></BackArrow>
           <h5>Edit Profile</h5>
         </div>
+
         <div>
           <div className="profile-image">
             <img
@@ -65,31 +69,55 @@ const Update = () => {
           </div>
         </div>
       </div>
-      <div className="profile-edit-link">
-        <p>Save Changes</p>
-        <img src={Edit} alt="" width={20} />
-      </div>
-
-      <div className="profile-data">
-        <div className="profile-item">
-          <p>Name </p>
-          <input type="text" />
-        </div>
-        <div className="profile-item">
-          <p>E-Mail</p>
-          <p>{user.email}</p>
-        </div>
-        <div className="profile-item">
-          <p>Adresse</p>
-          <p>
+      <div>
+        <div className="profile-data">
+          <h3>Shipping Information</h3>
+          <div className="profile-item">
+            <p>Vorname </p>
             <input type="text" />
-          </p>
-        </div>
-        <div className="profile-item">
-          <p>Telefon</p>
-          <input type="text" />
+          </div>
+          <div className="profile-item">
+            <p>Nachname </p>
+            <input type="text" />
+          </div>
+          <div className="profile-item">
+            <p>E-Mail</p>
+            <p>{user.email}</p>
+          </div>
+          <div className="profile-item">
+            <p>Telefon</p>
+            <input type="text" />
+          </div>
+          <div className="profile-item">
+            <label htmlFor="">Adresse:</label>
+            <div className="profile-item-input">
+              <div className="profile-item-adresse">
+                <p>Straße</p>
+                <input type="text" name="Straße" />
+                <p>Hausnummer</p>
+                <input type="text" name="Hausnummer" />
+              </div>
+              <p>Stadt</p>
+              <input type="text" name="Stadt" />
+              <p>Postleitzahl</p>
+              <input type="text" name="Stadt" />
+              <p>Land</p>
+              <input type="text" name="Land" />
+            </div>
+
+            <div>
+              <h3>Payment Information</h3>
+              <p>Wähle eine Zahlungsmethode:</p>
+              <div className="profile-payment-icons">
+                <img src={Paypal} alt="" width={20} />
+                <img src={Klarna} alt="" width={30} />
+                <img src={Stripe} alt="" width={50} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <UpdateProfile text="Update Profile" onClick={eventOnClick} />
       <NavbarWishlist />
       <NavbarBottom />
     </div>
