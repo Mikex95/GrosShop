@@ -1,6 +1,6 @@
 import BackArrow from "../../components/backArrow/BackArrow";
 import GreenButton from "../../components/buttons/GreenButton";
-import HeaderTime from "../../components/headerTime/HeaderTime";
+import HeaderTimeWhite from "../../components/headerTime/HeaderTime";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -21,8 +21,7 @@ const SignUp = () => {
     event.preventDefault();
     // setShowErrorMessage("Data is required");
 
-    const apiBaseUrl =
-      process.env.REACT_APP_API_BASE_URL || "http://localhost:2202/api/";
+    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:2202/api/";
     fetch(`${apiBaseUrl}user/signup`, {
       method: "POST",
       headers: {
@@ -51,7 +50,7 @@ const SignUp = () => {
 
   return (
     <div className="verification">
-      <HeaderTime backgroundcolor="white" />
+      <HeaderTimeWhite backgroundcolor="white" />
       <div className="verification-upper">
         <div className="verification-arrow">
           <BackArrow backgroundcolor="white" />

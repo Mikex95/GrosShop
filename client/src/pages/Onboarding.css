@@ -1,6 +1,6 @@
 .onboarding {
   min-height: 100%;
-  position: relative;
+  background-color: #f9faff;
 }
 
 .onboarding-screen {
@@ -17,7 +17,7 @@
 .onboarding-getStarted {
   min-height: 40%;
   border-radius: 3rem 3rem 0rem 0rem;
-  background-color: white;
+  background-color: #f9faff;
   text-align: center;
   display: flex;
   flex-direction: column;
