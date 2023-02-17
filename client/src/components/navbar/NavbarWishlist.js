@@ -6,7 +6,7 @@ import { ReactComponent as Cart } from "../../img/Cart.svg";
 import OrdersIcon from "../../img/orders.svg";
 import HomeIcon from "../../img/Home.svg";
 import HeartIcon from "../../img/Heart.svg";
-import ProfileIcon from "../../img/Profile.svg";
+import ProfileIcon from "../../img/ProfileNav.svg";
 import ProfileGreenIcon from "../../img/ProfileGreen.svg";
 import HeartGreenIcon from "../../img/HeartGreen.svg";
 import OrdersGreenIcon from "../../img/DocumentGreen.svg";
@@ -30,7 +30,9 @@ const NavbarWishlist = () => {
         </Link>
         <Link to="/order-history" onClick={toggleCheck}>
           <div>
-            <img src={ordersIsChecked === false ? OrdersGreenIcon : OrdersIcon} />
+            <img
+              src={ordersIsChecked === false ? OrdersGreenIcon : OrdersIcon}
+            />
             <p>Orders</p>
           </div>
         </Link>
@@ -42,7 +44,9 @@ const NavbarWishlist = () => {
           <p>Wishlist</p>
         </Link>
         <Link to="/profile" onClick={toggleCheck}>
-          <img src={profileIsChecked === false ? ProfileGreenIcon : ProfileIcon} />
+          <img
+            src={profileIsChecked === false ? ProfileGreenIcon : ProfileIcon}
+          />
           <p>Profile</p>
         </Link>
       </div>
