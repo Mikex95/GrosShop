@@ -3,11 +3,10 @@ import UpdateProfile from "../../components/buttons/UpdateProfile";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import NavbarWishlist from "../../components/navbar/NavbarWishlist";
-import Camera from "../../img/Camera.svg";
 import { useState, useEffect } from "react";
 import "./Profile.css";
 
-const Profile = ({ accessToken }) => {
+const Update = ({ accessToken }) => {
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -64,16 +63,12 @@ const Profile = ({ accessToken }) => {
           <BackArrow></BackArrow>
           <h5>My Profile</h5>
         </div>
-        <div>
-          <div className="profile-image">
-            <img
-              src="https://tse3.mm.bing.net/th?id=OIP.0l7k5zqRUVQ5Yq9eTpW2LgHaLJ&pid=Api"
-              alt=""
-              width="150px"
-              height="150px"
-            />
-            <img src={Camera} />
-          </div>
+        <div className="profile-image">
+          <img
+            src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/5d2629105341497.5f770032e210d.png"
+            alt=""
+            width="150px"
+          />
         </div>
       </div>
       <div className="profile-data">
@@ -105,4 +100,4 @@ const Profile = ({ accessToken }) => {
   );
 };
 
-export default Profile;
+export default Update;
