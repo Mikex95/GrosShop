@@ -5,6 +5,7 @@ import NavbarBottom from "../../components/navbar/NavbarBottom";
 import NavbarWishlist from "../../components/navbar/NavbarWishlist";
 import Camera from "../../img/Camera.svg";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Profile.css";
 
 const Profile = ({ accessToken }) => {
@@ -72,7 +73,6 @@ const Profile = ({ accessToken }) => {
               width="150px"
               height="150px"
             />
-            <img src={Camera} />
           </div>
         </div>
       </div>
@@ -98,7 +98,9 @@ const Profile = ({ accessToken }) => {
           <p>{user.telefon}</p>
         </div>
       </div>
-      <UpdateProfile text="Update Profile" onClick={eventOnClick} />
+      <Link to="/update-profile">
+        <UpdateProfile text="Update Profile" onClick={eventOnClick} />
+      </Link>
       <NavbarWishlist />
       <NavbarBottom />
     </div>

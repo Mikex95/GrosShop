@@ -3,22 +3,14 @@ import UpdateProfile from "../../components/buttons/UpdateProfile";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import NavbarWishlist from "../../components/navbar/NavbarWishlist";
+import Camera from "../../img/Camera.svg";
+import Edit from "../../img/edit.svg";
 import { useState, useEffect } from "react";
 import "./Profile.css";
 
-const Update = ({ accessToken }) => {
+const Update = () => {
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const pseudoUser = {
-    firstname: "Fadi",
-    lastname: "Michael",
-    email: "fadi3@fadi.com",
-    straße: "Musterstraße 7",
-    stadt: "Musterhausen",
-    plz: "1234",
-    telefon: "666 666",
-  };
 
   const eventOnClick = (event) => {
     event.preventDefault();
@@ -31,9 +23,7 @@ const Update = ({ accessToken }) => {
   useEffect(() => {
     fetch("http://localhost:2202/api/user/profile", {
       method: "GET",
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
+      headers: {},
     })
       .then((response) => response.json())
       .then((data) => {
@@ -61,22 +51,29 @@ const Update = ({ accessToken }) => {
       <div className="profile-container">
         <div className="headline-details">
           <BackArrow></BackArrow>
-          <h5>My Profile</h5>
+          <h5>Edit Profile</h5>
         </div>
-        <div className="profile-image">
-          <img
-            src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/5d2629105341497.5f770032e210d.png"
-            alt=""
-            width="150px"
-          />
+        <div>
+          <div className="profile-image">
+            <img
+              src="https://tse3.mm.bing.net/th?id=OIP.0l7k5zqRUVQ5Yq9eTpW2LgHaLJ&pid=Api"
+              alt=""
+              width="150px"
+              height="150px"
+            />
+            <img src={Camera} />
+          </div>
         </div>
       </div>
+      <div className="profile-edit-link">
+        <p>Save Changes</p>
+        <img src={Edit} alt="" width={20} />
+      </div>
+
       <div className="profile-data">
         <div className="profile-item">
           <p>Name </p>
-          <p>
-            {user.lastname} {user.firstname}
-          </p>
+          <input type="text" />
         </div>
         <div className="profile-item">
           <p>E-Mail</p>
@@ -85,15 +82,14 @@ const Update = ({ accessToken }) => {
         <div className="profile-item">
           <p>Adresse</p>
           <p>
-            {user.straße}, {user.stadt}
+            <input type="text" />
           </p>
         </div>
         <div className="profile-item">
           <p>Telefon</p>
-          <p>{user.telefon}</p>
+          <input type="text" />
         </div>
       </div>
-      <UpdateProfile text="Update Profile" onClick={eventOnClick} />
       <NavbarWishlist />
       <NavbarBottom />
     </div>
