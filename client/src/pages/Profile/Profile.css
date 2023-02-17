@@ -5,9 +5,12 @@
 }
 .profile-container {
   background: rgb(64, 170, 84);
-  background: linear-gradient(340deg, rgba(64, 170, 84, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  background: linear-gradient(
+    340deg,
+    rgba(64, 170, 84, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
   height: 259px;
-  width: 100%;
   border-radius: 0px 0px 30px 30px;
   display: flex;
   flex-direction: column;
@@ -17,10 +20,34 @@
   margin: 25px 16px 0 35px;
 }
 
+.profile-data input {
+  font-size: 1.6rem;
+  padding: 1rem 0 0.5rem 0;
+  border: none;
+  border-bottom: 1px solid #707070;
+  width: 100%;
+}
+
 .profile-image {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+}
+
+.profile-image img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-image img:nth-of-type(1) {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px #40aa54 solid;
+}
+
+.profile-image img:nth-of-type(2) {
+  margin: 0rem -3rem;
+  cursor: pointer;
 }
 
 .profile-item {
@@ -37,4 +64,11 @@
   color: #2d2e4a;
   font-size: 15px;
   margin-bottom: 1rem;
+}
+
+.profile-edit-link {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin: 1rem 2rem;
 }
