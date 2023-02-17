@@ -98,9 +98,7 @@ const Profile = ({ accessToken }) => {
           <p>{user.telefon}</p>
         </div>
       </div>
-      <Link to="/update-profile">
-        <UpdateProfile text="Update Profile" onClick={eventOnClick} />
-      </Link>
+      <UpdateProfile text="Update Profile" onClick={eventOnClick} />
       <NavbarWishlist />
       <NavbarBottom />
     </div>
