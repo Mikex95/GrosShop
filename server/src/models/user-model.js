@@ -38,12 +38,12 @@ const userSchema = mongoose.Schema(
       default: "USER",
     },
     shippingAddress: {
-      fullname: { type: String },
-      address: { type: String },
-      city: { type: String },
-      postalCode: { type: String },
-      state: { type: String },
-      phone: { type: String },
+      fullname: { type: String, default: "" },
+      address: { type: String, default: "" },
+      city: { type: String, default: "" },
+      postalCode: { type: String, default: "" },
+      state: { type: String, default: "" },
+      phone: { type: String, default: "" },
     },
 
     // wishList: [
