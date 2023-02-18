@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { ReactComponent as Image } from "../../img/Logo-Login.svg";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import showPasswordImg from "../../img/show-password.svg";
+import hidePasswordImg from "../../img/hide-password.svg";
 import { apiBaseUrl } from "../../api";
 
 import "./Verification.css";
@@ -12,6 +14,7 @@ import HeaderTimeWhite from "../../components/headerTime/HeaderTimeWhite";
 const SignIn = ({ setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState("");
 
   const navigate = useNavigate();
@@ -37,7 +40,7 @@ const SignIn = ({ setToken }) => {
       } else {
         res.json().then((data) => {
           navigate("/home");
-          console.log(data);
+          // console.log(data);
           setToken(data.accessToken);
         });
       }
@@ -56,6 +59,7 @@ const SignIn = ({ setToken }) => {
         </div>
         <form className="verification-form">
           <label htmlFor="Email">Email</label>
+
           <input
             type="email"
             placeholder="Type your E-Mail"
@@ -64,13 +68,30 @@ const SignIn = ({ setToken }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
 
+          <label htmlFor="Email">
+            Password
+            <span>
+              <Link to="/forgot-password"> forgot your password? </Link>
+            </span>
+          </label>
+
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Type your password"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
+          <div className="eye">
+            <img
+              title={showPassword ? "Hide Password" : "Show Password"}
+              alt="show or Hide Password"
+              src={showPassword ? hidePasswordImg : showPasswordImg}
+              onClick={() => setShowPassword((prevState) => !prevState)}
+            />
+          </div>
+
           <div className="verification-forgotpw">
             <label htmlFor="Email">
               Password
@@ -79,6 +100,7 @@ const SignIn = ({ setToken }) => {
               </span>
             </label>
           </div>
+
 
           <GreenButton text="Sign In" onClick={login} />
           {showErrorMessage && <p className="error-message">{showErrorMessage}</p>}

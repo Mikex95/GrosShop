@@ -1,5 +1,5 @@
 import "./Wishlist.css";
-import NavbarWishlist from "../../components/navbar/NavbarWishlist";
+import NavbarWishlist1 from "../../components/navbar/NavbarWishlist1";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import BackArrow from "../../components/backArrow/BackArrow";
 import AddToCart from "../../components/buttons/AddToCart";
@@ -14,7 +14,9 @@ const Wishlist = ({ accessToken, productFetch }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [counterValues, setCounterValues] = useState({});
   const [cartListData, setCartListData] = useState([]);
+
   const navigate = useNavigate();
+
 
   useEffect(() => {
     setLoading(true);
@@ -38,6 +40,7 @@ const Wishlist = ({ accessToken, productFetch }) => {
 
     setFilteredProducts(filtered);
   }, [wishlistData, productFetch]);
+
 
   const handleCounterChange = (id, value) => {
     const newCounterValues = { ...counterValues, [id]: value || 0 };
@@ -87,6 +90,7 @@ const Wishlist = ({ accessToken, productFetch }) => {
   return (
     <div className="wishlist-container">
       <HeaderTime backgroundcolor={"green"} color={"white"} />
+
       <div className="backarrow-trash-container">
         <div className="headline-details">
           <BackArrow></BackArrow>
@@ -105,14 +109,18 @@ const Wishlist = ({ accessToken, productFetch }) => {
               rating={wishlistProduct.product_rating}
               image={wishlistProduct.product_image}
               accessToken={accessToken}
+
               setFilteredProducts={setFilteredProducts}
               onCounterChange={(value) => handleCounterChange(wishlistProduct._id, value)}
+
             />
           );
         })}
       </div>
       <AddToCart text={"Add to Cart"} onClick={eventHandler} />
-      <NavbarWishlist />
+
+      <NavbarWishlist1 />
+
       <NavbarBottom />
     </div>
   );

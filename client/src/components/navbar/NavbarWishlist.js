@@ -13,10 +13,13 @@ import OrdersGreenIcon from "../../img/DocumentGreen.svg";
 import HomeGreenIcon from "../../img/HomeGreen.svg";
 
 const NavbarWishlist = () => {
+
+
   const [homeIsChecked, setHomeIsChecked] = useState(true);
   const [ordersIsChecked, setOrdersIsChecked] = useState(true);
   const [wishIsChecked, setWishIsChecked] = useState(true);
   const [profileIsChecked, setProfileIsChecked] = useState(true);
+
 
   const toggleCheck = () => {
     // setIsChecked(!isChecked);

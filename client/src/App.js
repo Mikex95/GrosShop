@@ -21,12 +21,89 @@ import TypeCode from "./pages/Verification/TypeCode";
 import SuccessVerify from "./pages/Verification/SuccessVerify";
 import ResetPassword from "./pages/Verification/ResetPassword";
 import Checkout from "./pages/Checkout/Checkout";
+
+import TypeCode2 from "./pages/Verification/Typecode2";
+import AddCreditCard from "./pages/AddCreditCard/AddCreditCard";
+// import { apiBaseUrl } from "./api";
+
 import UpdateProfile from "./components/buttons/UpdateProfile";
 import Update from "./pages/Profile/Udate";
+
 
 function App() {
   const [token, setToken] = useState(null);
   console.log(Date.now(), token);
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+    // refresh token before it expires
+    const tokenPayloadBase64Str = token.split(".")[1];
+    const tokenPayloadJsonStr = atob(tokenPayloadBase64Str);
+    const tokenPayload = JSON.parse(tokenPayloadJsonStr);
+    const exp = tokenPayload.exp;
+    const nowInSeconds = Math.floor(Date.now() / 1000);
+
+    const tenSecondsBefore = 10;
+    const triggerSilentTokenRefreshInSeconds =
+      exp - nowInSeconds - tenSecondsBefore;
+
+    console.log({ triggerSilentTokenRefreshInSeconds });
+
+    //setTimeout to triger the silent refresh 10 senonds but
+    //it take time in milli senods that is why triggerSilentTokenRefreshInSeconds * 1000
+    const refreshTokenTimeoutID = setTimeout(() => {
+      console.log("about to do SILENT REFRESH");
+      const apiBaseUrl =
+        process.env.REACT_APP_API_BASE_URL || "http://localhost:2202/api/";
+      fetch(`${apiBaseUrl}user/silent-refresh`, {
+        method: "POST",
+        credentials: "include",
+        // here: take refresh token from httpOnly secure cookie and send it
+        // withCredentials: true,
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          setToken(result?.accessToken);
+        });
+    }, triggerSilentTokenRefreshInSeconds * 1000);
+    console.log({ refreshTokenTimeoutID });
+    return () => {
+      clearTimeout(refreshTokenTimeoutID);
+    };
+  }, [token]);
+  // const [token, setToken] = useState(null);
+  // // console.log(Date.now(), token);
+  // useEffect(() => {
+  //   if (!token) {
+  //     return;
+  //   }
+  //   //refresh access Token before it expires
+  //   // access Token =>>>[header   payload   signature]
+  //   const accessTokenPayloadPart = token.split(".")[1];
+  //   const accessTokenDecodedPayload = atob(accessTokenPayloadPart);
+  //   const PayloadStingToJSON = JSON.parse(accessTokenDecodedPayload);
+  //   const accessTokenExpiration = PayloadStringToJSON.exp;
+  //   const nowInSeconds = Math.floor(Date.now() / 1000);
+
+  //   const triggerSilentAccessTokenRefreshInSeconds =
+  //     accessTokenExpiration - nowInSeconds - 10;
+  //   console.log(triggerSilentAccessTokenRefreshInSeconds);
+
+  //   const refreshTokenTimeoutID = setTimeout(() => {
+  //     console.log("App is about to do a SILENT REFRESH");
+
+  //     fetch(`${apiBaseUrl}user/silent-refresh`, {
+  //       method: "POST",
+  //       credentials: "include", // here take refresh Token from httpOnly secure cookie and send it
+  //     })
+  //       .then((res) => res.json())
+  //       .then(({ data }) => {
+  //         setToken(data?.accessToken);
+  //       });
+  //   }, { triggerSilentAccessTokenRefreshInSeconds } * 1000);
+  //   return () => clearTimeout(refreshTokenTimeoutID);
+  // }, [token]);
 
   const [articles, setArticle] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -76,7 +153,9 @@ function App() {
               <Route path="/order-history" element={<OrderHistory />} />
               <Route path="*" element={<Error404 />} />
               <Route path="/verify" element={<TypeCode />}></Route>
+              <Route path="/verify1" element={<TypeCode2 />}></Route>
               <Route path="/successverify" element={<SuccessVerify />}></Route>
+              <Route path="/addcredit" element={<AddCreditCard />}></Route>
             </Routes>
           </div>
         </div>

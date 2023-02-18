@@ -1,6 +1,7 @@
 import "./Home.css";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
-import NavbarWishlist from "../../components/navbar/NavbarWishlist";
+// import NavbarWishlist from "../../components/navbar/NavbarWishlist";
+import NavbarWishlist1 from "../../components/navbar/NavbarWishlist1";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import BurgerMenu from "../../components/burgerMenu/BurgerMenu";
 import SearchBar from "../../components/searchbar/SearchBar";
@@ -8,6 +9,9 @@ import Location from "../../components/location/Location";
 import CategoriesHome from "../../components/categoriesHome/CategoriesHome";
 import fries from "../../img/fries-home.png";
 import ProductItem from "../../components/productItem/ProductItem";
+
+
+
 import { useState, useEffect } from "react";
 
 const Home = ({ accessToken, productFetch }) => {
@@ -26,6 +30,7 @@ const Home = ({ accessToken, productFetch }) => {
         setWishList(data);
       });
   }, []);
+
   return (
     <div>
       <HeaderTime backgroundcolor="green" color={"white"} />
@@ -64,7 +69,10 @@ const Home = ({ accessToken, productFetch }) => {
           })}
         </div>
       </section>
-      <NavbarWishlist />
+
+
+      <NavbarWishlist1 />
+
       <NavbarBottom></NavbarBottom>
       <section className="image-fries-home">
         <img src={fries} alt="fries" />

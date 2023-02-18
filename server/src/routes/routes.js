@@ -2,7 +2,6 @@ const express = require("express");
 const {
   Verify_Access_Token,
   Create_New_Access_Token,
-  Verify_User,
 } = require("../middlewares/auth-controller");
 const router = express.Router();
 const {
@@ -36,8 +35,8 @@ router.post("/user/forgot-password", forgotPassword);
 router.post("/user/reset-password", resetPassword);
 router.get("/user/profile", Verify_Access_Token, getUserProfile);
 
-// create new access token when it expires
-router.post("user/silent-refresh", Create_New_Access_Token);
+// silent refresh
+router.post("/user/silent-refresh", Create_New_Access_Token);
 
 //poructs routes
 router.get("/products", getAllProducts);

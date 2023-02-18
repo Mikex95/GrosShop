@@ -2,15 +2,18 @@ import BackArrow from "../../components/backArrow/BackArrow";
 import UpdateProfile from "../../components/buttons/UpdateProfile";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
-import NavbarWishlist from "../../components/navbar/NavbarWishlist";
+import NavbarWishlist1 from "../../components/navbar/NavbarWishlist1";
 import Camera from "../../img/Camera.svg";
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Profile.css";
 
+
 const Profile = ({ accessToken }) => {
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
+
 
   const eventOnClick = (event) => {
     event.preventDefault();
@@ -54,6 +57,7 @@ const Profile = ({ accessToken }) => {
           <BackArrow></BackArrow>
           <h5>My Profile</h5>
         </div>
+
         <div>
           <div className="profile-image">
             <img
@@ -63,13 +67,18 @@ const Profile = ({ accessToken }) => {
               height="150px"
             />
           </div>
+
         </div>
       </div>
       <div className="profile-data">
         <div className="profile-item">
           <p>Name </p>
           <p>
+
+   
+
             {user.lastname} {user.firstname}
+
           </p>
         </div>
         <div className="profile-item">
@@ -88,7 +97,9 @@ const Profile = ({ accessToken }) => {
         </div>
       </div>
       <UpdateProfile text="Update Profile" onClick={eventOnClick} />
-      <NavbarWishlist />
+
+      <NavbarWishlist1 />
+
       <NavbarBottom />
     </div>
   );

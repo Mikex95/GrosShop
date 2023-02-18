@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import GreenButton from "../../components/buttons/GreenButton";
 import "./Verification.css";
+import showPasswordImg from "../../img/show-password.svg";
+import hidePasswordImg from "../../img/hide-password.svg";
 import BackArrow from "../../components/backArrow/BackArrow";
 import { ReactComponent as Image } from "../../img/Logo-Login.svg";
 
@@ -10,14 +12,15 @@ import HeaderTime from "../../components/headerTime/HeaderTime";
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  // fixme: user params to get params but what to get query???????
-  const { resetPasswordToken } = useParams();
-  console.log(resetPasswordToken);
-
-  const saveYourNewPassword = (e) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const resetPasswordToken = searchParams.get("token");
+  console.log({ resetPasswordToken });
+  // nimmt den token von query und setet das in body direkt
+  const saveChanges = (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
       setShowErrorMessage("Password must match");
@@ -33,6 +36,7 @@ const ResetPassword = () => {
       body: JSON.stringify({
         newPassword,
         confirmPassword,
+        resetPasswordToken, // soll gelesden werden im back and mit req.body.resetPasswordToken
       }),
     }).then((res) => {
       if (res.status !== 200) {
@@ -58,22 +62,46 @@ const ResetPassword = () => {
         <form className="verification-form">
           <label htmlFor="new Password">New Password</label>
           <input
-            type="password"
-            placeholder="Type new Password"
+
+            type={showPassword ? "text" : "password"}
+            placeholder="NEW Password"
+
             name="new Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
+
+          <div className="eye1">
+            <img
+              title={showPassword ? "Hide Password" : "Show Password"}
+              alt="show or Hide Password"
+              src={showPassword ? hidePasswordImg : showPasswordImg}
+              onClick={() => setShowPassword((prevState) => !prevState)}
+            />
+          </div>
           <label htmlFor="confirm new Password">Confirm Password</label>
 
+          
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Confirm password"
             name="confirm Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <GreenButton text="Save Changes" onClick={saveYourNewPassword} />
+
+          <div className="eye2">
+            <img
+              title={showPassword ? "Hide Password" : "Show Password"}
+              alt="show or Hide Password"
+              src={showPassword ? hidePasswordImg : showPasswordImg}
+              onClick={() => setShowPassword((prevState) => !prevState)}
+            />
+          </div>
+          <GreenButton text="Save Changes" onClick={saveChanges} />
+
+          
+
           {showErrorMessage && (
             <p className="error-message">{showErrorMessage}</p>
           )}
