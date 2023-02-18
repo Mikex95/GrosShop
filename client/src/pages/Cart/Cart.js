@@ -1,6 +1,6 @@
 import CartItem from "./Cartitem";
 import "./Cart.css";
-import NavbarWishlist1 from "../../components/navbar/NavbarWishlist1";
+import NavbarWishlist from "../../components/navbar/NavbarWishlist";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import BackArrow from "../../components/backArrow/BackArrow";
 import Checkout from "../../components/buttons/Checkout";
@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 const Cart = ({ accessToken, productFetch }) => {
   const [cartData, setCartData] = useState([]);
-
   const [total, setTotal] = useState("");
   const [loading, setLoading] = useState(true);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -40,8 +39,6 @@ const Cart = ({ accessToken, productFetch }) => {
     setFilteredProducts(filtered);
   }, [cartData, productFetch]);
 
-
-
   useEffect(() => {
     const total = filteredProducts.reduce((acc, curr) => {
       const cartItem = cartData.find((item) => item.itemId === curr._id);
@@ -59,7 +56,6 @@ const Cart = ({ accessToken, productFetch }) => {
     navigate("/checkout");
   };
 
-
   if (loading) {
     return (
       <div className="loader-container">
@@ -76,11 +72,10 @@ const Cart = ({ accessToken, productFetch }) => {
       </div>
       <div className="grid-cart-item">
         {filteredProducts.map((wishlistProduct, index) => {
-
-
-          const cartItem = cartData.find((item) => item.itemId === wishlistProduct._id);
+          const cartItem = cartData.find(
+            (item) => item.itemId === wishlistProduct._id
+          );
           const quantity = cartItem ? cartItem.quantity : 0;
-
           return (
             <CartItem
               key={index}
@@ -91,20 +86,17 @@ const Cart = ({ accessToken, productFetch }) => {
               rating={wishlistProduct.product_rating}
               image={wishlistProduct.product_image}
               accessToken={accessToken}
-
-
               counter={quantity}
               setTotal={setTotal}
-
             />
           );
         })}
       </div>
-
-
-      <Checkout text={`Check Out - Total $${total}`} onClick={switchToCheckout} />
+      <Checkout
+        text={`Check Out - Total $${total}`}
+        onClick={switchToCheckout}
+      />
       <NavbarWishlist />
-
       <NavbarBottom />
     </div>
   );

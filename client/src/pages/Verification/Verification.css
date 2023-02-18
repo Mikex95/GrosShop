@@ -79,13 +79,18 @@
 .eye1 {
   position: absolute;
   right: 20px;
-  top: 505px;
+  top: 450px;
 }
 
 .eye2 {
   position: absolute;
   right: 20px;
-  bottom: 182px;
+  bottom: 240px;
+}
+
+.forgot-password {
+  display: flex;
+  justify-content: space-between;
 }
 
 
@@ -102,6 +107,7 @@
 .verification-form a {
   margin: 1rem 0rem 5rem;
 }
+
 .verification-forgotpw {
   align-self: center;
   margin-bottom: 2rem;

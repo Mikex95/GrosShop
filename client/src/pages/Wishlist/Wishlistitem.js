@@ -36,7 +36,9 @@ const WishlistItem = (props) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        props.setFilteredProducts((prevProducts) => prevProducts.filter((product) => product._id !== props.id));
+        props.setFilteredProducts((prevProducts) =>
+          prevProducts.filter((product) => product._id !== props.id)
+        );
         setIsDeleted(true);
       })
       .catch((err) => console.log(err));
