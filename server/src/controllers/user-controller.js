@@ -39,7 +39,8 @@ const loginUser = async (req, res) => {
       const Access_Token_Secrets = process.env.ACCESS_TOKEN_SECRETS;
       const Refresh_Token_Secrets = process.env.REFRESH_TOKEN_SECRETS;
       const accessToken = jwt.sign(payload, Access_Token_Secrets, {
-        expiresIn: "600m",
+        expiresIn: "10m",
+        // "expiresIn" should be a number of seconds or string representing a timespan eg: "1d", "20h", "60s"
       });
 
       const refreshToken = jwt.sign(payload, Refresh_Token_Secrets, {
@@ -49,8 +50,11 @@ const loginUser = async (req, res) => {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
         // signed: true,
+        samSite: "none",
         secure: true,
       });
+      console.log(colors.bgRed(accessToken));
+      console.log(colors.bgYellow(refreshToken));
       res
         .status(200)
         .json({ accessToken: accessToken, refreshToken: refreshToken });
@@ -191,10 +195,12 @@ const forgotPassword = async (req, res) => {
   const resetToken = user.generateResetPasswordToken();
   await user.save();
 
-  // 3) Send it to user's email
-  const resetURL = `${req.protocol}://${req.get(
-    "host"
-  )}/api/user/reset-password/?token=${resetToken}`;
+  // 3) Send it to user's email(the first one is only for tests)
+  // const resetURL = `${req.protocol}://${req.get(
+  //   "host"
+  // )}/api/user/reset-password/?token=${resetToken}`;
+
+  const resetURL = `http://localhost:3000/reset-password/?token=${resetToken}`;
 
   const message = `Forgot your password? Submit a PATCH request before 10 minutes with your New password and passwordConfirm to:<br>
   ${resetURL}`;
@@ -231,8 +237,8 @@ const forgotPassword = async (req, res) => {
 const resetPassword = async (req, res) => {
   const resetToken = crypto
     .createHash("sha256")
-    .update(req.query.token)
-    // .update(req.body.token)
+    // .update(req.query.token)
+    .update(req.body.resetPasswordToken) // wird in front end in body geschickt als resetPasswordToken
     .digest("hex");
   console.log(colors.bgRed(resetToken));
   const user = await User.findOne({
@@ -255,8 +261,8 @@ const resetPassword = async (req, res) => {
     const salt = await bcrypt.genSalt();
     const hashedNewPassword = await bcrypt.hash(newPassword, salt);
     user.password = hashedNewPassword;
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
+    delete user.resetPasswordToken;
+    delete user.resetPasswordExpires;
     await user.save();
     res
       .status(200)
@@ -332,7 +338,8 @@ const changeUserProfile = async (req, res) => {
 
 const getWishListItems = async (req, res) => {
   // const user = await User.findById(decoded._id);
-  const user = await User.findOne(req.user);
+  // const user = await User.findOne(req.user);
+  const user = req.user;
   if (user) {
     const theWishList = [...user.wishList];
     res.status(200).send(theWishList);
@@ -353,12 +360,19 @@ const addItemToUserWishList = async (req, res) => {
   // const { itemId, productName, productPrice, productImage, productRating } =
   //   req.body;
   const { itemId } = req.body;
-  const user = await User.findOne(req.user);
+  const user = req.user;
   const theItem = { itemId };
-  console.log(colors.bgGreen(theItem));
+
+  // const arr = user.wishList;
   user.wishList.push(theItem);
-  user.save();
-  console.log(colors.bgBlue(user));
+  const UniqueArr = Object.values(
+    user.wishList.reduce(
+      (acc, cur) => Object.assign(acc, { [cur.itemId]: cur }),
+      {}
+    )
+  );
+  user.wishList = UniqueArr;
+  await user.save();
   return res.status(200).send(user);
 };
 
@@ -413,28 +427,21 @@ const deleteAllItemsFromWishList = async (req, res) => {
   └─────────────────────────────────────────────────────────────────────────┘
  */
 const addItemToCart = async (req, res) => {
-  const user = await User.findOne(req.user);
-  const {
-    itemId,
-    productName,
-    productImage,
-    productPrice,
-    countInStock,
-    quantity,
-  } = req.body;
+  const user = req.user;
+  const { itemId } = req.body;
   if (user) {
-    const theItem = {
-      itemId,
-      productName,
-      productImage,
-      productPrice,
-      countInStock,
-      quantity,
-    };
-    console.log(colors.bgGreen(user.cartList));
+    const theItem = { itemId };
+
     user.cartList.push(theItem);
-    const savedUser = await user.save();
-    res.status(200).send(savedUser);
+    const UniqueArr = Object.values(
+      user.wishList.reduce(
+        (acc, cur) => Object.assign(acc, { [cur.itemId]: cur }),
+        {}
+      )
+    );
+    user.cartList = UniqueArr;
+    await user.save();
+    res.status(200).send(user);
   } else {
     res.stauts(404).json({ message: "can't find the user" });
   }

@@ -56,13 +56,41 @@
 }
 
 .verification-form input {
+  width: 100%;
   font-size: 1.6rem;
   padding: 1rem 0 0.5rem 0;
   border: none;
   border-bottom: 1px solid #707070;
 }
 
-input:focus {
+.password-container .email-container {
+  width: 100%;
+  font-size: 1.6rem;
+  padding: 1rem 0 0.5rem 0;
+  border: none;
+  border-bottom: 1px solid #707070;
+}
+
+.eye {
+  position: absolute;
+  right: 20px;
+  top: 425px;
+}
+
+.eye1 {
+  position: absolute;
+  right: 20px;
+  top: 505px;
+}
+
+.eye2 {
+  position: absolute;
+  right: 20px;
+  bottom: 182px;
+}
+
+
+*/ input:focus {
   outline: 2px solid lightblue;
   border-radius: 0.5rem;
 }
@@ -90,6 +118,7 @@ input:focus {
 .verification-to-signin a {
   color: white;
 }
+
 
 /* ==================== Success Page ====================== */
 

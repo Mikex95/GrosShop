@@ -10,7 +10,7 @@ const Success = () => {
         <div className="verification-headline">
           <h2>Welcome GrosShop</h2>
           <p>Successfully created your GrosShop account</p>
-          <Link to="/verify">
+          <Link to="/verify1">
             Check your E-Mail and type your verification code &rarr;
           </Link>
         </div>

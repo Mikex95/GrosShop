@@ -1,0 +1,27 @@
+.form-control {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5rem;
+  text-align: center;
+  font-size: 2rem;
+  min-width: 0;
+  /* padding: 1rem; */
+}
+
+.form-control:last-child {
+  margin-right: 0;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 120px; */
+}
+
+.verification-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem
+}

@@ -13,6 +13,29 @@ import OrdersGreenIcon from "../../img/DocumentGreen.svg";
 import HomeGreenIcon from "../../img/HomeGreen.svg";
 
 const NavbarWishlist = () => {
+  return (
+    <div className="navbar-wishlist-container">
+      <div className="navbar-wishlist">
+        <Link to="/home">
+          <HomeButton></HomeButton> <p>Home</p>
+        </Link>
+        <Link to="/order-history">
+          <Orders></Orders>
+          <p>Orders</p>
+        </Link>
+        <Link to="/cart" className="cart-button spin circle button">
+          <Cart></Cart>
+        </Link>
+        <Link to="/wishlist">
+          <Heart></Heart>
+          <p>Wishlist</p>
+        </Link>
+        <Link to="/profile">
+          <Profile></Profile> <p>Profile</p>
+        </Link>
+      </div>
+    </div>
+  );
   const [isChecked, setIsChecked] = useState(true);
 
   const toggleCheck = (event) => {

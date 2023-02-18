@@ -1,4 +1,4 @@
-/* .navbar-wishlist {
+.navbar-wishlist {
   background-color: white;
   position: absolute;
   right: 50;
@@ -18,21 +18,26 @@
   transition: 500ms;
   color: black;
   padding: 10px;
-  transition: 500ms;
-  color: black;
-  padding: 10px;
 }
 
-.navbar-wishlist a:hover {
+.active svg {
+  fill: green;
+}
+
+svg {
+  fill: grey
+}
+
+/* .navbar-wishlist a:hover {
   transform: translateY(-1px);
   transform: scale(1.03);
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   border-radius: 50px;
   border: 1px solid rgba(0, 128, 0, 0.12);
   padding: 7px;
-}
+} */
 
 .cart-button {
   padding-left: 7px;
   margin: 0 0 60px;
-} */
+}
