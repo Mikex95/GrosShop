@@ -56,9 +56,7 @@ const loginUser = async (req, res) => {
 
       console.log(colors.bgRed(accessToken));
       console.log(colors.bgYellow(refreshToken));
-      res
-        .status(200)
-        .json({ accessToken: accessToken, refreshToken: refreshToken });
+      res.status(200).json({ accessToken: accessToken, refreshToken: refreshToken });
     } else {
       res.status(404).json({ message: "Password doesn't match" });
     }
@@ -88,9 +86,7 @@ const signupUser = async (req, res) => {
     //3-check if the user exists and validate in database
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
-      return res
-        .status(409)
-        .json({ message: "User Already Exists. pleasde Login...." });
+      return res.status(409).json({ message: "User Already Exists. pleasde Login...." });
     }
     //4-hash and salt the user input password
     const salt = await bcrypt.genSalt();
@@ -98,10 +94,7 @@ const signupUser = async (req, res) => {
     //5-create the new user and save it in the Database
 
     //random six digit code
-    const randomVerificationCode = crypto
-      .randomInt(0, 999999)
-      .toString()
-      .padStart(6, "0");
+    const randomVerificationCode = crypto.randomInt(0, 999999).toString().padStart(6, "0");
     const user = {
       verificationCode: randomVerificationCode,
       // resetPasswordExpires: Date.now() + 10 * 60 * 1000,
@@ -145,9 +138,7 @@ const verificationEmail = async (req, res) => {
     return res.status(401).json({ message: "Invalid verification Code !!!" });
   }
   if (user.verify) {
-    return res
-      .status(401)
-      .json({ message: "You have already verified. Login to continue..." });
+    return res.status(401).json({ message: "You have already verified. Login to continue..." });
   }
   res.status(200).json({ message: "You have Succefully Verified your Email" });
   user.verify = true;
@@ -186,9 +177,7 @@ const forgotPassword = async (req, res) => {
   const user = await User.findOne({ email: email });
   if (!user) {
     console.log(colors.bgRed(err));
-    return res
-      .status(404)
-      .json({ message: "No user found with email ${email}" });
+    return res.status(404).json({ message: "No user found with email ${email}" });
   }
 
   // 2) Generate the random reset token
@@ -247,9 +236,7 @@ const resetPassword = async (req, res) => {
     resetPasswordExpires: { $gt: Date.now() },
   });
   if (!user) {
-    return res
-      .status(400)
-      .json({ message: "Password reset token is invalid or has been expired" });
+    return res.status(400).json({ message: "Password reset token is invalid or has been expired" });
   }
   const newPassword = req.body.newPassword;
   const confirmPassword = req.body.confirmPassword;
@@ -265,9 +252,7 @@ const resetPassword = async (req, res) => {
     delete user.resetPasswordToken;
     delete user.resetPasswordExpires;
     await user.save();
-    res
-      .status(200)
-      .json({ status: "success", message: "Your Password has beed changed" });
+    res.status(200).json({ status: "success", message: "Your Password has beed changed" });
   } catch {
     res.status(500).json({ message: "Password reset Failed" });
   }
@@ -296,13 +281,16 @@ const getUserProfile = async (req, res) => {
   └─────────────────────────────────────────────────────────────────────────┘
  */
 const changeUserProfile = async (req, res) => {
-  const user = await User.findById(req.user._id);
+  // const user = await User.findById(req.user._id);
+  const user = req.user;
   if (user) {
-    user.username = req.body.username;
-    if (req.body.password) {
-      user.password = req.body.password;
+    const { firstname, lastname, address, city, postalCode, state, phone, fullname } = req.body;
+    if (firstname) {
+      user.firstname = firstname;
     }
-    const { address, city, postalCode, state, phone, fullname } = req.body;
+    if (lastname) {
+      user.lastname = lastname;
+    }
     if (address) {
       user.shippingAddress.address = address;
     }
@@ -324,9 +312,7 @@ const changeUserProfile = async (req, res) => {
     await user.save();
     res.status(200).json(user);
   } else {
-    return res
-      .status(404)
-      .json({ message: "This is not suppose to be happening" });
+    return res.status(404).json({ message: "This is not supposed to be happening" });
   }
 };
 /* 
@@ -363,25 +349,16 @@ const addItemToUserWishList = async (req, res) => {
     const user = req.user;
     const theItem = { itemId };
     user.wishList.push(theItem);
-    const UniqueArr = Object.values(
-      user.wishList.reduce(
-        (acc, cur) => Object.assign(acc, { [cur.itemId]: cur }),
-        {}
-      )
-    );
+    const UniqueArr = Object.values(user.wishList.reduce((acc, cur) => Object.assign(acc, { [cur.itemId]: cur }), {}));
     user.wishList = UniqueArr;
     await user.save();
-    res
-      .status(200)
-      .json({ success: true, message: "Item added to wishlist successfully" });
+    res.status(200).json({ success: true, message: "Item added to wishlist successfully" });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Failed to add item to wishlist",
-        error: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Failed to add item to wishlist",
+      error: error.message,
+    });
   }
 };
 
@@ -430,9 +407,7 @@ const deleteAllItemsFromWishList = async (req, res) => {
     res.status(200).send("Clear all items in the wish list successfully");
     res.status(200).json({ success: true });
   } else {
-    res
-      .status(404)
-      .json({ message: "Can't find the user that you are looking for" });
+    res.status(404).json({ message: "Can't find the user that you are looking for" });
   }
 };
 /* 
@@ -444,14 +419,7 @@ const deleteAllItemsFromWishList = async (req, res) => {
  */
 const addItemToCart = async (req, res) => {
   const user = await User.findOne(req.user);
-  const {
-    itemId,
-    productName,
-    productImage,
-    productPrice,
-    countInStock,
-    quantity,
-  } = req.body;
+  const { itemId, productName, productImage, productPrice, countInStock, quantity } = req.body;
   if (user) {
     const theItem = {
       itemId,
@@ -490,9 +458,7 @@ const removeItemFromCart = async (req, res) => {
     }
     user.cartList.splice(deletedIndex, 1);
     await user.save();
-    res
-      .status(200)
-      .json({ message: "Item successfully deleted from cartList" });
+    res.status(200).json({ message: "Item successfully deleted from cartList" });
   } else {
     res.status(404).json({ message: "User is not existed" });
   }
