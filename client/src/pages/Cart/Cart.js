@@ -6,12 +6,15 @@ import BackArrow from "../../components/backArrow/BackArrow";
 import Checkout from "../../components/buttons/Checkout";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Cart = ({ accessToken, productFetch }) => {
   const [cartData, setCartData] = useState([]);
+
+  const [total, setTotal] = useState("");
   const [loading, setLoading] = useState(true);
   const [filteredProducts, setFilteredProducts] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
     fetch("http://localhost:2202/api/user/cart", {
@@ -25,7 +28,9 @@ const Cart = ({ accessToken, productFetch }) => {
         setCartData(data);
         setLoading(false);
       });
-  }, []);
+  }, [accessToken]);
+
+  console.log(cartData);
 
   useEffect(() => {
     const filtered = productFetch.filter((product) => {
@@ -34,6 +39,26 @@ const Cart = ({ accessToken, productFetch }) => {
 
     setFilteredProducts(filtered);
   }, [cartData, productFetch]);
+
+
+
+  useEffect(() => {
+    const total = filteredProducts.reduce((acc, curr) => {
+      const cartItem = cartData.find((item) => item.itemId === curr._id);
+      console.log(cartItem);
+      if (cartItem) {
+        return acc + cartItem.quantity * curr.product_price;
+      }
+      return acc;
+    }, 0);
+    setTotal(total);
+  }, [cartData, filteredProducts]);
+
+  const switchToCheckout = (event) => {
+    event.preventDefault();
+    navigate("/checkout");
+  };
+
 
   if (loading) {
     return (
@@ -51,6 +76,11 @@ const Cart = ({ accessToken, productFetch }) => {
       </div>
       <div className="grid-cart-item">
         {filteredProducts.map((wishlistProduct, index) => {
+
+
+          const cartItem = cartData.find((item) => item.itemId === wishlistProduct._id);
+          const quantity = cartItem ? cartItem.quantity : 0;
+
           return (
             <CartItem
               key={index}
@@ -61,12 +91,20 @@ const Cart = ({ accessToken, productFetch }) => {
               rating={wishlistProduct.product_rating}
               image={wishlistProduct.product_image}
               accessToken={accessToken}
+
+
+              counter={quantity}
+              setTotal={setTotal}
+
             />
           );
         })}
       </div>
-      <Checkout text="Check Out - Total $120" />
-      <NavbarWishlist1 />
+
+
+      <Checkout text={`Check Out - Total $${total}`} onClick={switchToCheckout} />
+      <NavbarWishlist />
+
       <NavbarBottom />
     </div>
   );

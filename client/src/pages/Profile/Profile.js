@@ -3,21 +3,17 @@ import UpdateProfile from "../../components/buttons/UpdateProfile";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import NavbarWishlist1 from "../../components/navbar/NavbarWishlist1";
+import Camera from "../../img/Camera.svg";
+
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Profile.css";
 
-const Profile = () => {
+
+const Profile = ({ accessToken }) => {
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
-  const pseudoUser = {
-    firstname: "Fadi",
-    lastname: "Michael",
-    email: "fadi3@fadi.com",
-    straße: "Musterstraße 7",
-    stadt: "Musterhausen",
-    plz: "1234",
-    telefon: "666 666",
-  };
+
 
   const eventOnClick = (event) => {
     event.preventDefault();
@@ -25,24 +21,26 @@ const Profile = () => {
     // Hier wird der Fetch mit "PUT" eingefügt!
   };
 
-  const token = "your_access_token";
-  const requestOptions = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  // der richtige Fetch für später =  fetch("http://localhost:2202/api/user/profile", requestOptions)
   console.log(user);
   useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:2202/api/user/profile")
+    fetch("http://localhost:2202/api/user/profile", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
+        setUser(data);
         setLoading(false);
-        setUser(pseudoUser);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+        setLoading(false);
+      });
   }, []);
+
+  console.log(user);
 
   if (loading) {
     return (
@@ -59,19 +57,28 @@ const Profile = () => {
           <BackArrow></BackArrow>
           <h5>My Profile</h5>
         </div>
-        <div className="profile-image">
-          <img
-            src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/5d2629105341497.5f770032e210d.png"
-            alt=""
-            width="150px"
-          />
+
+        <div>
+          <div className="profile-image">
+            <img
+              src="https://tse3.mm.bing.net/th?id=OIP.0l7k5zqRUVQ5Yq9eTpW2LgHaLJ&pid=Api"
+              alt=""
+              width="150px"
+              height="150px"
+            />
+          </div>
+
         </div>
       </div>
       <div className="profile-data">
         <div className="profile-item">
           <p>Name </p>
           <p>
-            {user.lastname}, {user.firstname}
+
+   
+
+            {user.lastname} {user.firstname}
+
           </p>
         </div>
         <div className="profile-item">
@@ -90,7 +97,9 @@ const Profile = () => {
         </div>
       </div>
       <UpdateProfile text="Update Profile" onClick={eventOnClick} />
+
       <NavbarWishlist1 />
+
       <NavbarBottom />
     </div>
   );

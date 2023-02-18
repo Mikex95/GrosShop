@@ -1,23 +1,24 @@
 .wishlist-container {
-	background-color: #f9faff;
-	height: 100%;
-	padding-bottom: 200px;
-	overflow: scroll;
+  background-color: #f9faff;
+  height: 100%;
+  padding-bottom: 200px;
+  overflow: scroll;
+  width: 101%;
 }
 
 .wishlist-container::-webkit-scrollbar {
-	height: 15px;
-	width: 0.2em;
-	background-color: #f9faff;
+  height: 15px;
+  width: 0.2em;
+  background-color: #f9faff;
 }
 .grid-cart-item {
-	display: grid;
-	grid-template-columns: repeat(1, 1fr);
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
 }
 
 .backarrow-trash-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-end;
-	padding-right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-right: 10px;
 }

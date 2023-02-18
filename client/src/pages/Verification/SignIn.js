@@ -1,7 +1,7 @@
 import GreenButton from "../../components/buttons/GreenButton";
 import { Link } from "react-router-dom";
 import { ReactComponent as Image } from "../../img/Logo-Login.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import showPasswordImg from "../../img/show-password.svg";
 import hidePasswordImg from "../../img/hide-password.svg";
@@ -9,7 +9,7 @@ import { apiBaseUrl } from "../../api";
 
 import "./Verification.css";
 import BackArrow from "../../components/backArrow/BackArrow";
-import HeaderTime from "../../components/headerTime/HeaderTime";
+import HeaderTimeWhite from "../../components/headerTime/HeaderTimeWhite";
 
 const SignIn = ({ setToken }) => {
   const [email, setEmail] = useState("");
@@ -49,7 +49,7 @@ const SignIn = ({ setToken }) => {
 
   return (
     <div className="verification">
-      <HeaderTime backgroundcolor="white" />
+      <HeaderTimeWhite backgroundcolor="white" />
       <div className="verification-upper">
         <div className="verification-arrow">
           <BackArrow backgroundcolor="white" />
@@ -74,6 +74,7 @@ const SignIn = ({ setToken }) => {
               <Link to="/forgot-password"> forgot your password? </Link>
             </span>
           </label>
+
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Type your password"
@@ -81,6 +82,7 @@ const SignIn = ({ setToken }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
           <div className="eye">
             <img
               title={showPassword ? "Hide Password" : "Show Password"}
@@ -89,10 +91,19 @@ const SignIn = ({ setToken }) => {
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           </div>
+
+          <div className="verification-forgotpw">
+            <label htmlFor="Email">
+              Password
+              <span>
+                <Link to="/forgot-password"> forgot your password? </Link>
+              </span>
+            </label>
+          </div>
+
+
           <GreenButton text="Sign In" onClick={login} />
-          {showErrorMessage && (
-            <p className="error-message">{showErrorMessage}</p>
-          )}
+          {showErrorMessage && <p className="error-message">{showErrorMessage}</p>}
         </form>
       </div>
       <div className="verification-to-signin">

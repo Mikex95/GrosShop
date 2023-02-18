@@ -62,12 +62,15 @@ const ResetPassword = () => {
         <form className="verification-form">
           <label htmlFor="new Password">New Password</label>
           <input
+
             type={showPassword ? "text" : "password"}
             placeholder="NEW Password"
+
             name="new Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
+
           <div className="eye1">
             <img
               title={showPassword ? "Hide Password" : "Show Password"}
@@ -76,7 +79,9 @@ const ResetPassword = () => {
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           </div>
-          <label htmlFor="confirm Password">confirm Password</label>
+          <label htmlFor="confirm new Password">Confirm Password</label>
+
+          
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Confirm password"
@@ -84,6 +89,7 @@ const ResetPassword = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
+
           <div className="eye2">
             <img
               title={showPassword ? "Hide Password" : "Show Password"}
@@ -92,7 +98,10 @@ const ResetPassword = () => {
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           </div>
-          <GreenButton text="save changes" onClick={saveChanges} />
+          <GreenButton text="Save Changes" onClick={saveChanges} />
+
+          
+
           {showErrorMessage && (
             <p className="error-message">{showErrorMessage}</p>
           )}

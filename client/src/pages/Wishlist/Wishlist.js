@@ -6,6 +6,7 @@ import AddToCart from "../../components/buttons/AddToCart";
 import { useState, useEffect } from "react";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import WishlistItem from "./Wishlistitem";
+import { useNavigate } from "react-router-dom";
 
 const Wishlist = ({ accessToken, productFetch }) => {
   const [wishlistData, setWishlistData] = useState([]);
@@ -13,6 +14,9 @@ const Wishlist = ({ accessToken, productFetch }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [counterValues, setCounterValues] = useState({});
   const [cartListData, setCartListData] = useState([]);
+
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     setLoading(true);
@@ -37,57 +41,56 @@ const Wishlist = ({ accessToken, productFetch }) => {
     setFilteredProducts(filtered);
   }, [wishlistData, productFetch]);
 
-  const cartProduct = filteredProducts.map((product) => ({
-    itemId: product._id,
-    productName: product.product_name,
-    productImage: product.product_image,
-    productPrice: product.product_price,
-    countInStock: product.product_stock,
-    quantity: counterValues[product._id] || 0,
-  }));
 
-  console.log(cartProduct);
+  const handleCounterChange = (id, value) => {
+    const newCounterValues = { ...counterValues, [id]: value || 0 };
+    setCounterValues(newCounterValues);
+  };
+
   const eventHandler = (e) => {
     e.preventDefault();
 
-    cartProduct.forEach((item) => {
-      fetch("http://localhost:2202/api/user/cart/additem", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + accessToken,
-        },
-        body: JSON.stringify(item),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setCartListData(data);
-        })
-        .catch((error) => {
-          console.log("Error:", error);
-        });
-    });
-  };
-
-  const handleCounterChange = (productId, newCounter) => {
-    setCounterValues((prevValues) => ({
-      ...prevValues,
-      [productId]: newCounter,
+    const cartProduct = filteredProducts.map((product) => ({
+      itemId: product._id,
+      productName: product.product_name,
+      productImage: product.product_image,
+      productPrice: product.product_price,
+      countInStock: product.product_stock,
+      quantity: counterValues[product._id] || 1,
     }));
+
+    Promise.all(
+      cartProduct.map((item) => {
+        return fetch("http://localhost:2202/api/user/cart/additem", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + accessToken,
+          },
+          body: JSON.stringify(item),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Added item to cart:", data);
+            return data;
+          })
+          .catch((error) => {
+            console.error("Error adding item to cart:", error);
+          });
+      })
+    )
+      .then((cartListData) => {
+        setCartListData(cartListData);
+        navigate("/cart");
+      })
+      .catch((error) => {
+        console.error("Error adding items to cart:", error);
+      });
   };
-
-  if (loading) {
-    return (
-      <div className="loader-container">
-        <div className="loader"></div>
-      </div>
-    );
-  }
-  console.log(filteredProducts);
-
   return (
     <div className="wishlist-container">
-      <HeaderTime backgroundcolor={"green"} />
+      <HeaderTime backgroundcolor={"green"} color={"white"} />
+
       <div className="backarrow-trash-container">
         <div className="headline-details">
           <BackArrow></BackArrow>
@@ -106,13 +109,18 @@ const Wishlist = ({ accessToken, productFetch }) => {
               rating={wishlistProduct.product_rating}
               image={wishlistProduct.product_image}
               accessToken={accessToken}
-              onCounterChange={handleCounterChange}
+
+              setFilteredProducts={setFilteredProducts}
+              onCounterChange={(value) => handleCounterChange(wishlistProduct._id, value)}
+
             />
           );
         })}
       </div>
       <AddToCart text={"Add to Cart"} onClick={eventHandler} />
+
       <NavbarWishlist1 />
+
       <NavbarBottom />
     </div>
   );

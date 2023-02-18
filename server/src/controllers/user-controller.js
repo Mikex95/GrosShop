@@ -53,11 +53,13 @@ const loginUser = async (req, res) => {
         samSite: "none",
         secure: true,
       });
+
       console.log(colors.bgRed(accessToken));
       console.log(colors.bgYellow(refreshToken));
       res
         .status(200)
         .json({ accessToken: accessToken, refreshToken: refreshToken });
+
     } else {
       res.status(404).json({ message: "Password doesn't match" });
     }
@@ -87,9 +89,7 @@ const signupUser = async (req, res) => {
     //3-check if the user exists and validate in database
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
-      return res
-        .status(409)
-        .json({ message: "User Already Exists. pleasde Login...." });
+      return res.status(409).json({ message: "User Already Exists. pleasde Login...." });
     }
     //4-hash and salt the user input password
     const salt = await bcrypt.genSalt();
@@ -97,10 +97,7 @@ const signupUser = async (req, res) => {
     //5-create the new user and save it in the Database
 
     //random six digit code
-    const randomVerificationCode = crypto
-      .randomInt(0, 999999)
-      .toString()
-      .padStart(6, "0");
+    const randomVerificationCode = crypto.randomInt(0, 999999).toString().padStart(6, "0");
     const user = {
       verificationCode: randomVerificationCode,
       // resetPasswordExpires: Date.now() + 10 * 60 * 1000,
@@ -144,9 +141,7 @@ const verificationEmail = async (req, res) => {
     return res.status(401).json({ message: "Invalid verification Code !!!" });
   }
   if (user.verify) {
-    return res
-      .status(401)
-      .json({ message: "You have already verified. Login to continue..." });
+    return res.status(401).json({ message: "You have already verified. Login to continue..." });
   }
   res.status(200).json({ message: "You have Succefully Verified your Email" });
   user.verify = true;
@@ -185,9 +180,7 @@ const forgotPassword = async (req, res) => {
   const user = await User.findOne({ email: email });
   if (!user) {
     console.log(colors.bgRed(err));
-    return res
-      .status(404)
-      .json({ message: "No user found with email ${email}" });
+    return res.status(404).json({ message: "No user found with email ${email}" });
   }
 
   // 2) Generate the random reset token
@@ -195,12 +188,14 @@ const forgotPassword = async (req, res) => {
   const resetToken = user.generateResetPasswordToken();
   await user.save();
 
+
   // 3) Send it to user's email(the first one is only for tests)
   // const resetURL = `${req.protocol}://${req.get(
   //   "host"
   // )}/api/user/reset-password/?token=${resetToken}`;
 
   const resetURL = `http://localhost:3000/reset-password/?token=${resetToken}`;
+
 
   const message = `Forgot your password? Submit a PATCH request before 10 minutes with your New password and passwordConfirm to:<br>
   ${resetURL}`;
@@ -246,9 +241,7 @@ const resetPassword = async (req, res) => {
     resetPasswordExpires: { $gt: Date.now() },
   });
   if (!user) {
-    return res
-      .status(400)
-      .json({ message: "Password reset token is invalid or has been expired" });
+    return res.status(400).json({ message: "Password reset token is invalid or has been expired" });
   }
   const newPassword = req.body.newPassword;
   const confirmPassword = req.body.confirmPassword;
@@ -264,9 +257,7 @@ const resetPassword = async (req, res) => {
     delete user.resetPasswordToken;
     delete user.resetPasswordExpires;
     await user.save();
-    res
-      .status(200)
-      .json({ status: "success", message: "Your Password has beed changed" });
+    res.status(200).json({ status: "success", message: "Your Password has beed changed" });
   } catch {
     res.status(500).json({ message: "Password reset Failed" });
   }
@@ -323,9 +314,7 @@ const changeUserProfile = async (req, res) => {
     await user.save();
     res.status(200).json(user);
   } else {
-    return res
-      .status(404)
-      .json({ message: "This is not suppose to be happening" });
+    return res.status(404).json({ message: "This is not suppose to be happening" });
   }
 };
 /* 
@@ -357,23 +346,20 @@ const getWishListItems = async (req, res) => {
  */
 
 const addItemToUserWishList = async (req, res) => {
-  // const { itemId, productName, productPrice, productImage, productRating } =
-  //   req.body;
-  const { itemId } = req.body;
-  const user = req.user;
-  const theItem = { itemId };
 
-  // const arr = user.wishList;
-  user.wishList.push(theItem);
-  const UniqueArr = Object.values(
-    user.wishList.reduce(
-      (acc, cur) => Object.assign(acc, { [cur.itemId]: cur }),
-      {}
-    )
-  );
-  user.wishList = UniqueArr;
-  await user.save();
-  return res.status(200).send(user);
+  try {
+    const { itemId } = req.body;
+    const user = req.user;
+    const theItem = { itemId };
+    user.wishList.push(theItem);
+    const UniqueArr = Object.values(user.wishList.reduce((acc, cur) => Object.assign(acc, { [cur.itemId]: cur }), {}));
+    user.wishList = UniqueArr;
+    await user.save();
+    res.status(200).json({ success: true, message: "Item added to wishlist successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to add item to wishlist", error: error.message });
+  }
+
 };
 
 /* 
@@ -384,25 +370,31 @@ const addItemToUserWishList = async (req, res) => {
   └─────────────────────────────────────────────────────────────────────────┘
  */
 const deleteAnItemFromWishList = async (req, res) => {
-  const wishListItemId = req.params.id;
-  const user = await User.findOne(req.user);
-  let deletedIndex;
-  for (let i = 0; i < user.wishList.length; i++) {
-    if (user.wishList[i]._id == wishListItemId) {
-      deletedIndex = i;
-      break;
+  try {
+    const wishListItemId = req.params.id;
+    const user = await User.findOne(req.user);
+    let deletedIndex;
+    for (let i = 0; i < user.wishList.length; i++) {
+      if (user.wishList[i]._id == wishListItemId) {
+        deletedIndex = i;
+        break;
+      }
     }
+    user.wishList.splice(deletedIndex, 1);
+    await user.save();
+    res.status(200);
+    res.send(true);
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+    res.send(false);
   }
-  user.wishList.splice(deletedIndex, 1);
-  await user.save();
-  res.status(200);
-  res.send("Deleting the item from User wishList was successfully");
 };
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ //?   @description : Delete all Items from the wishList                 │
-  │ //?   @method : DELETE /api/user/wishlist/deleteitem                    │
+  │ //?   @method : DELETE /api/user/wishlist/deleteitems                    │
   │ //?   @access : private                                                 │
   └─────────────────────────────────────────────────────────────────────────┘
  */
@@ -413,10 +405,9 @@ const deleteAllItemsFromWishList = async (req, res) => {
     user.wishList = [];
     await user.save();
     res.status(200).send("Clear all items in the wish list successfully");
+    res.status(200).json({ success: true });
   } else {
-    res
-      .status(404)
-      .json({ message: "Can't find the user that you are looking for" });
+    res.status(404).json({ message: "Can't find the user that you are looking for" });
   }
 };
 /* 
@@ -427,8 +418,10 @@ const deleteAllItemsFromWishList = async (req, res) => {
   └─────────────────────────────────────────────────────────────────────────┘
  */
 const addItemToCart = async (req, res) => {
+
   const user = req.user;
   const { itemId } = req.body;
+
   if (user) {
     const theItem = { itemId };
 
@@ -443,7 +436,7 @@ const addItemToCart = async (req, res) => {
     await user.save();
     res.status(200).send(user);
   } else {
-    res.stauts(404).json({ message: "can't find the user" });
+    res.status(404).json({ message: "can't find the user" });
   }
 };
 /* 
@@ -467,7 +460,7 @@ const removeItemFromCart = async (req, res) => {
     }
     user.cartList.splice(deletedIndex, 1);
     await user.save();
-    res.status(200).send("Delete item from cartList successfully");
+    res.status(200).json({ message: "Item successfully deleted from cartList" });
   } else {
     res.status(404).json({ message: "User is not existed" });
   }
