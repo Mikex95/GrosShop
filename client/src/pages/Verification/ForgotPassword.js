@@ -31,6 +31,7 @@ const ForgotPassword = () => {
         <div className="verification-headline">
           <h2>Enter Your E-mail</h2>
           <input
+            className="forgot-password-input"
             type="text"
             value={email}
             onChange={(e) => {

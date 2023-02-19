@@ -45,32 +45,6 @@ const userSchema = mongoose.Schema(
       state: { type: String, default: "" },
       phone: { type: String, default: "" },
     },
-
-    // wishList: [
-    //   {
-    //     itemId: {
-    //       type: mongoose.Schema.Types.ObjectId,
-    //       required: true,
-    //       ref: "Product",
-    //     },
-    //     productName: {
-    //       type: String,
-    //       required: true,
-    //     },
-    //     productPrice: {
-    //       type: Number,
-    //       required: true,
-    //     },
-    //     productImage: {
-    //       type: String,
-    //       required: true,
-    //     },
-    //     productRating: {
-    //       type: Number,
-    //       required: true,
-    //     },
-    //   },
-    // ],
     wishList: [
       {
         itemId: {
@@ -87,22 +61,6 @@ const userSchema = mongoose.Schema(
           required: true,
           ref: "Product",
         },
-        //   productName: {
-        //     type: String,
-        //     required: true,
-        //   },
-        //   productImage: {
-        //     type: String,
-        //     required: true,
-        //   },
-        //   productPrice: {
-        //     type: Number,
-        //     required: true,
-        //   },
-        //   countInStock: {
-        //     type: Number,
-        //     required: true,
-        //   },
         quantity: {
           type: Number,
           required: true,
@@ -123,9 +81,10 @@ userSchema.methods.generateResetPasswordToken = function () {
 
   //hash the resetToken and set it to this.resetPasswordToken
 
-  this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
-  // const salt = bcrypt.genSalt();
-  // this.resetPasswordToken = bcrypt.hash(resetToken, salt);
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
   this.resetPasswordExpires = Date.now() + 100 * 60 * 1000;
 
   return resetToken;

@@ -1,7 +1,7 @@
 import GreenButton from "../../components/buttons/GreenButton";
 import { Link } from "react-router-dom";
 import { ReactComponent as Image } from "../../img/Logo-Login.svg";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import showPasswordImg from "../../img/show-password.svg";
 import hidePasswordImg from "../../img/hide-password.svg";

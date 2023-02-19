@@ -1,6 +1,6 @@
 import CartItem from "./Cartitem";
 import "./Cart.css";
-import NavbarWishlist from "../../components/navbar/NavbarWishlist";
+import NavbarWishlist1 from "../../components/navbar/NavbarWishlist1";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import BackArrow from "../../components/backArrow/BackArrow";
 import Checkout from "../../components/buttons/Checkout";
@@ -96,7 +96,7 @@ const Cart = ({ accessToken, productFetch }) => {
         text={`Check Out - Total $${total}`}
         onClick={switchToCheckout}
       />
-      <NavbarWishlist />
+      <NavbarWishlist1 />
       <NavbarBottom />
     </div>
   );
