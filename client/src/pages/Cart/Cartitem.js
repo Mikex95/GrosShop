@@ -6,16 +6,18 @@ import heart from "../../img/heart.png";
 import { ReactComponent as Star } from "../../img/star7.svg";
 
 const CartItem = (props) => {
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(props.counter);
   const [isDeleted, setIsDeleted] = useState(false);
 
   const increase = () => {
-    setCounter((count) => count + 1);
+    setCounter(counter + 1);
+    props.onCounterChange(counter + 1);
   };
 
   const decrease = () => {
-    if (counter > 0) {
-      setCounter((count) => count - 1);
+    if (counter >= 1) {
+      setCounter((prevCounter) => prevCounter - 1);
+      props.onCounterChange(counter - 1);
     }
   };
 
@@ -63,7 +65,7 @@ const CartItem = (props) => {
           </div>
           <div className="cartitem-counter">
             <button onClick={decrease}>-</button>
-            <p>{props.counter}</p>
+            <p>{counter}</p>
             <button onClick={increase}>+</button>
           </div>
         </div>

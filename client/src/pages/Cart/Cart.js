@@ -10,10 +10,12 @@ import { useNavigate } from "react-router-dom";
 
 const Cart = ({ accessToken, productFetch }) => {
   const [cartData, setCartData] = useState([]);
-  const [total, setTotal] = useState("");
+  const [total, setTotal] = useState(1);
   const [loading, setLoading] = useState(true);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [counterValues, setCounterValues] = useState({});
   const navigate = useNavigate();
+
   useEffect(() => {
     setLoading(true);
     fetch("http://localhost:2202/api/user/cart", {
@@ -39,21 +41,64 @@ const Cart = ({ accessToken, productFetch }) => {
     setFilteredProducts(filtered);
   }, [cartData, productFetch]);
 
+  const handleCounterChange = (value, id) => {
+    const newCounterValues = { ...counterValues, [id]: value || 1 };
+    setCounterValues(newCounterValues);
+  };
+
   useEffect(() => {
-    const total = filteredProducts.reduce((acc, curr) => {
+    const newTotal = filteredProducts.reduce((acc, curr) => {
       const cartItem = cartData.find((item) => item.itemId === curr._id);
-      console.log(cartItem);
-      if (cartItem) {
-        return acc + cartItem.quantity * curr.product_price;
-      }
-      return acc;
+      const counterValue = counterValues[curr._id] || cartItem?.quantity || 0;
+      return acc + counterValue * curr.product_price;
     }, 0);
-    setTotal(total);
-  }, [cartData, filteredProducts]);
+    setTotal(newTotal);
+  }, [cartData, filteredProducts, counterValues]);
 
   const switchToCheckout = (event) => {
     event.preventDefault();
-    navigate("/checkout");
+
+    const cartProduct = filteredProducts.map((product) => {
+      const cartItem = cartData.find((item) => item.itemId === product._id);
+      const quantity = cartItem ? counterValues[product._id] - cartItem.quantity || 0 : counterValues[product._id] || 1;
+
+      return {
+        itemId: product._id,
+        productName: product.product_name,
+        productImage: product.product_image,
+        productPrice: product.product_price,
+        countInStock: product.product_stock,
+        quantity: quantity,
+      };
+    });
+
+    Promise.all(
+      cartProduct.map((item) => {
+        return fetch("http://localhost:2202/api/user/cart/additem", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + accessToken,
+          },
+          body: JSON.stringify(item),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Added item to cart:", data);
+            return data;
+          })
+          .catch((error) => {
+            console.error("Error adding item to cart:", error);
+          });
+      })
+    )
+      .then((cartData) => {
+        setCartData(cartData);
+        navigate("/checkout");
+      })
+      .catch((error) => {
+        console.error("Error adding items to cart:", error);
+      });
   };
 
   if (loading) {
@@ -72,10 +117,8 @@ const Cart = ({ accessToken, productFetch }) => {
       </div>
       <div className="grid-cart-item">
         {filteredProducts.map((wishlistProduct, index) => {
-          const cartItem = cartData.find(
-            (item) => item.itemId === wishlistProduct._id
-          );
-          const quantity = cartItem ? cartItem.quantity : 0;
+          const cartItem = cartData.find((item) => item.itemId === wishlistProduct._id);
+          const quantity = cartItem ? cartItem.quantity : 1;
           return (
             <CartItem
               key={index}
@@ -88,14 +131,12 @@ const Cart = ({ accessToken, productFetch }) => {
               accessToken={accessToken}
               counter={quantity}
               setTotal={setTotal}
+              onCounterChange={(value) => handleCounterChange(value, wishlistProduct._id)}
             />
           );
         })}
       </div>
-      <Checkout
-        text={`Check Out - Total $${total}`}
-        onClick={switchToCheckout}
-      />
+      <Checkout text={`Check Out - Total $${total}`} onClick={switchToCheckout} />
       <NavbarWishlist1 />
       <NavbarBottom />
     </div>

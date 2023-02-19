@@ -94,9 +94,7 @@ const Update = ({ accessToken }) => {
               name="Vorname"
               value={formData.firstname}
               onFocus={(e) => (e.target.placeholder = "")}
-              onChange={(e) =>
-                setFormData({ ...formData, firstname: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, firstname: e.target.value })}
             />
           </div>
           <div className="update-item">
@@ -107,9 +105,7 @@ const Update = ({ accessToken }) => {
               placeholder={userData.lastname}
               value={formData.lastname}
               onFocus={(e) => (e.target.placeholder = "")}
-              onChange={(e) =>
-                setFormData({ ...formData, lastname: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, lastname: e.target.value })}
             />
           </div>
           <div className="update-item">
@@ -120,9 +116,7 @@ const Update = ({ accessToken }) => {
               placeholder={userData.email}
               value={formData.email}
               readOnly
-              onChange={(e) =>
-                setFormData({ ...formData, lastname: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, lastname: e.target.value })}
             />
           </div>
         </fieldset>
@@ -136,13 +130,9 @@ const Update = ({ accessToken }) => {
                 name="fullname"
                 placeholder={`${userData.shippingAddress.fullname}`}
                 onFocus={(e) => (e.target.placeholder = "")}
-                onBlur={(e) =>
-                  (e.target.placeholder = `${userData.shippingAdress.fullname}`)
-                }
+                onBlur={(e) => (e.target.placeholder = `${userData.shippingAdress.fullname}`)}
                 value={formData.fullname ? formData.fullname : ""}
-                onChange={(e) =>
-                  setFormData({ ...formData, fullname: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, fullname: e.target.value })}
               />
             )}
           </div>
@@ -156,13 +146,9 @@ const Update = ({ accessToken }) => {
                   name="Straße"
                   placeholder={userData.shippingAddress.address}
                   onFocus={(e) => (e.target.placeholder = "")}
-                  onBlur={(e) =>
-                    (e.target.placeholder = userData.shippingAddress.address)
-                  }
+                  onBlur={(e) => (e.target.placeholder = userData.shippingAddress.address)}
                   value={formData.address ? formData.address : ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, address: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                 />
               )}
             </div>
@@ -173,13 +159,9 @@ const Update = ({ accessToken }) => {
                 name="Stadt"
                 placeholder={userData.shippingAddress.city}
                 onFocus={(e) => (e.target.placeholder = "")}
-                onBlur={(e) =>
-                  (e.target.placeholder = userData.shippingAddress.city)
-                }
+                onBlur={(e) => (e.target.placeholder = userData.shippingAddress.city)}
                 value={formData.city ? formData.city : ""}
-                onChange={(e) =>
-                  setFormData({ ...formData, city: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
               />
             )}
             <p>Postleitzahl</p>
@@ -189,13 +171,9 @@ const Update = ({ accessToken }) => {
                 name="PLZ"
                 placeholder={userData.shippingAddress.postalCode}
                 onFocus={(e) => (e.target.placeholder = "")}
-                onBlur={(e) =>
-                  (e.target.placeholder = userData.shippingAddress.postalCode)
-                }
+                onBlur={(e) => (e.target.placeholder = userData.shippingAddress.postalCode)}
                 value={formData.postalCode ? formData.postalCode : ""}
-                onChange={(e) =>
-                  setFormData({ ...formData, postalCode: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
               />
             )}
             <p>Land</p>
@@ -205,13 +183,9 @@ const Update = ({ accessToken }) => {
                 name="Land"
                 placeholder={userData.shippingAddress.state}
                 onFocus={(e) => (e.target.placeholder = "")}
-                onBlur={(e) =>
-                  (e.target.placeholder = userData.shippingAddress.state)
-                }
+                onBlur={(e) => (e.target.placeholder = userData.shippingAddress.state)}
                 value={formData.state ? formData.state : ""}
-                onChange={(e) =>
-                  setFormData({ ...formData, state: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, state: e.target.value })}
               />
             )}
             <p>Phone</p>
@@ -221,13 +195,9 @@ const Update = ({ accessToken }) => {
                 name="Land"
                 placeholder={userData.shippingAddress.phone}
                 onFocus={(e) => (e.target.placeholder = "")}
-                onBlur={(e) =>
-                  (e.target.placeholder = userData.shippingAddress.phone)
-                }
+                onBlur={(e) => (e.target.placeholder = userData.shippingAddress.phone)}
                 value={formData.phone ? formData.phone : ""}
-                onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               />
             )}
           </div>
@@ -244,7 +214,7 @@ const Update = ({ accessToken }) => {
           </div>
         </fieldset>
 
-        <UpdateProfile text="Update Profile" onClick={eventOnClick} />
+        <UpdateProfile text="Save Data" onClick={eventOnClick} />
       </div>
 
       <NavbarWishlist1 />
