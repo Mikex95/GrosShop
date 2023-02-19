@@ -1,11 +1,10 @@
 const colors = require("colors");
 const { Product } = require("../models/product-model");
-
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
-  │ //?   Fetch All Products                                                │
-  │ //?   /api/products                                                     │
-  │ //?   Public Route                                                      │
+  │ //?   @description : Fetch All Products                                                │
+  │ //?   @method : GET /api/products                                                     │
+  │ //?   @access : Public Route                                                      │
   └─────────────────────────────────────────────────────────────────────────┘
  */
 const getAllProducts = async (req, res) => {
@@ -15,9 +14,9 @@ const getAllProducts = async (req, res) => {
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
-  │ //? Get a single product based on ID                                    │
-  │ //? /api/product/:id                                                    │
-  │ //? Public Route                                                        │
+  │ //?   @description : Get a single product based on ID                                    │
+  │ //?   @method : /api/product/:id                                                    │
+  │ //?   @access : Public Route                                                        │
   └─────────────────────────────────────────────────────────────────────────┘
  */
 const getProductById = async (req, res) => {
