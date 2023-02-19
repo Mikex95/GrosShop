@@ -18,9 +18,9 @@ const NavbarWishlist1 = () => {
           <OrderIcon />
           <p>Orders</p>
         </NavLink>
-        <Link to="/cart" className="cart-button spin circle button">
+        <NavLink to="/cart" className="cart-button spin circle button">
           <Cart></Cart>
-        </Link>
+        </NavLink>
         <NavLink to="/wishlist">
           <WishlistIcon />
           <p>Wishlist</p>

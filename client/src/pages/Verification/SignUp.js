@@ -3,6 +3,8 @@ import GreenButton from "../../components/buttons/GreenButton";
 import HeaderTimeWhite from "../../components/headerTime/HeaderTime";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import showPasswordImg from "../../img/show-password.svg";
+import hidePasswordImg from "../../img/hide-password.svg";
 import { Link } from "react-router-dom";
 import "./Verification.css";
 
@@ -11,6 +13,7 @@ const SignUp = () => {
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
 
   const [showErrorMessage, setShowErrorMessage] = useState("");
@@ -21,7 +24,8 @@ const SignUp = () => {
     event.preventDefault();
     // setShowErrorMessage("Data is required");
 
-    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:2202/api/";
+    const apiBaseUrl =
+      process.env.REACT_APP_API_BASE_URL || "http://localhost:2202/api/";
     fetch(`${apiBaseUrl}user/signup`, {
       method: "POST",
       headers: {
@@ -98,13 +102,21 @@ const SignUp = () => {
           />
           <label htmlFor="Email">Password</label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Choose a password"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             // required
           />
+          <div className="eye-signup">
+            <img
+              title={showPassword ? "Hide Password" : "Show Password"}
+              alt="show or Hide Password"
+              src={showPassword ? hidePasswordImg : showPasswordImg}
+              onClick={() => setShowPassword((prevState) => !prevState)}
+            />
+          </div>
           <GreenButton text="Sign Up" onClick={(event) => register(event)} />
           {showErrorMessage && (
             <p className="error-message" style={{ color: "red" }}>
