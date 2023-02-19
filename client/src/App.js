@@ -29,7 +29,6 @@ import AddCreditCard from "./pages/AddCreditCard/AddCreditCard";
 import UpdateProfile from "./components/buttons/UpdateProfile";
 import Update from "./pages/Profile/Udate";
 
-
 function App() {
   const [token, setToken] = useState(null);
   console.log(Date.now(), token);
@@ -45,8 +44,7 @@ function App() {
     const nowInSeconds = Math.floor(Date.now() / 1000);
 
     const tenSecondsBefore = 10;
-    const triggerSilentTokenRefreshInSeconds =
-      exp - nowInSeconds - tenSecondsBefore;
+    const triggerSilentTokenRefreshInSeconds = exp - nowInSeconds - tenSecondsBefore;
 
     console.log({ triggerSilentTokenRefreshInSeconds });
 
@@ -54,8 +52,7 @@ function App() {
     //it take time in milli senods that is why triggerSilentTokenRefreshInSeconds * 1000
     const refreshTokenTimeoutID = setTimeout(() => {
       console.log("about to do SILENT REFRESH");
-      const apiBaseUrl =
-        process.env.REACT_APP_API_BASE_URL || "http://localhost:2202/api/";
+      const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:2202/api/";
       fetch(`${apiBaseUrl}user/silent-refresh`, {
         method: "POST",
         credentials: "include",
@@ -149,7 +146,7 @@ function App() {
               <Route path="/cart" element={<Cart accessToken={token} productFetch={articles} />}></Route>
               <Route path="/profile" element={<Profile accessToken={token} />}></Route>
               <Route path="/checkout" element={<Checkout accessToken={token} productFetch={articles} />}></Route>
-              <Route path="/update-profile" element={<Update />}></Route>
+              <Route path="/update-profile" element={<Update accessToken={token} />}></Route>
               <Route path="/order-history" element={<OrderHistory />} />
               <Route path="*" element={<Error404 />} />
               <Route path="/verify" element={<TypeCode />}></Route>

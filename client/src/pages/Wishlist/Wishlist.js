@@ -29,7 +29,7 @@ const Wishlist = ({ accessToken, productFetch }) => {
         setWishlistData(data);
         setLoading(false);
       });
-  }, []);
+  }, [accessToken]);
 
   useEffect(() => {
     const filtered = productFetch.filter((product) => {
@@ -106,9 +106,7 @@ const Wishlist = ({ accessToken, productFetch }) => {
               image={wishlistProduct.product_image}
               accessToken={accessToken}
               setFilteredProducts={setFilteredProducts}
-              onCounterChange={(value) =>
-                handleCounterChange(wishlistProduct._id, value)
-              }
+              onCounterChange={(value) => handleCounterChange(wishlistProduct._id, value)}
             />
           );
         })}

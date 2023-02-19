@@ -9,9 +9,6 @@ import Location from "../../components/location/Location";
 import CategoriesHome from "../../components/categoriesHome/CategoriesHome";
 import fries from "../../img/fries-home.png";
 import ProductItem from "../../components/productItem/ProductItem";
-
-
-
 import { useState, useEffect } from "react";
 
 const Home = ({ accessToken, productFetch }) => {
@@ -29,7 +26,7 @@ const Home = ({ accessToken, productFetch }) => {
       .then((data) => {
         setWishList(data);
       });
-  }, []);
+  }, [accessToken]);
 
   return (
     <div>
@@ -69,7 +66,6 @@ const Home = ({ accessToken, productFetch }) => {
           })}
         </div>
       </section>
-
 
       <NavbarWishlist1 />
 
