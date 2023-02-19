@@ -83,13 +83,13 @@ const Profile = ({ accessToken }) => {
           <div className="profile-item">
             <p>Adresse</p>
             <p>
-              {user.shippingAddress.address}, {user.shippingAddress.city}
+              {user.shippingAddress.address + ","} {user.shippingAddress.city}
             </p>
           </div>
         </fieldset>
       </div>
 
-      <div className="profile-data-shipping">
+      <div className="profile-data-shipping brna">
         <fieldset>
           <div className="profile-item">
             <h3>Shipping Information</h3>
@@ -117,9 +117,8 @@ const Profile = ({ accessToken }) => {
             <p>{user.shippingAddress.phone}</p>
           </div>
         </fieldset>
+        <UpdateProfile text="Update Profile" onClick={eventOnClick} />
       </div>
-
-      <UpdateProfile text="Update Profile" onClick={eventOnClick} />
 
       <NavbarWishlist1 />
 
