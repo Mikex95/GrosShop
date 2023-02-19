@@ -45,7 +45,7 @@ const ResetPassword = () => {
           setShowErrorMessage(data.message);
         });
       } else {
-        return navigate("/home");
+        return navigate("/signin");
       }
     });
   };
@@ -62,10 +62,8 @@ const ResetPassword = () => {
         <form className="verification-form">
           <label htmlFor="new Password">New Password</label>
           <input
-
             type={showPassword ? "text" : "password"}
             placeholder="NEW Password"
-
             name="new Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
@@ -81,7 +79,6 @@ const ResetPassword = () => {
           </div>
           <label htmlFor="confirm new Password">Confirm Password</label>
 
-          
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Confirm password"
@@ -99,8 +96,6 @@ const ResetPassword = () => {
             />
           </div>
           <GreenButton text="Save Changes" onClick={saveChanges} />
-
-          
 
           {showErrorMessage && (
             <p className="error-message">{showErrorMessage}</p>

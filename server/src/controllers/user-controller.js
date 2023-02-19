@@ -6,7 +6,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 const { User } = require("../models/user-model");
 const { verifyEmail } = require("../Utlis/verify-email");
-const { sendEmail } = require("../Utlis/send-email");
+const { sendEmail3 } = require("../Utlis/nodemailer-send-email");
+const { verifyEmail3 } = require("../Utlis/nodemailer-verify-email");
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -113,7 +114,7 @@ const signupUser = async (req, res) => {
       code: randomVerificationCode,
       name: newUser.firstname,
     };
-    await verifyEmail(options);
+    await verifyEmail3(options);
     return res.status(200).json({
       message: "Signup was Successful...",
     });
@@ -203,7 +204,7 @@ const forgotPassword = async (req, res) => {
       message,
       url: resetURL,
     };
-    await sendEmail(options);
+    await sendEmail3(options);
 
     res.status(200).json({
       message: "ResetPassword Token sent to email...",
