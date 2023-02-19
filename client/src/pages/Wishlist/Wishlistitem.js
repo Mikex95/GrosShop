@@ -11,13 +11,13 @@ const WishlistItem = (props) => {
   const [isDeleted, setIsDeleted] = useState(false);
 
   const increase = () => {
-    setCounter((count) => count + 1);
+    setCounter(counter + 1);
     props.onCounterChange(counter + 1);
   };
 
   const decrease = () => {
-    if (counter > 0) {
-      setCounter((count) => count - 1);
+    if (counter >= 1) {
+      setCounter((prevCounter) => prevCounter - 1);
       props.onCounterChange(counter - 1);
     }
   };
@@ -36,9 +36,7 @@ const WishlistItem = (props) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        props.setFilteredProducts((prevProducts) =>
-          prevProducts.filter((product) => product._id !== props.id)
-        );
+        props.setFilteredProducts((prevProducts) => prevProducts.filter((product) => product._id !== props.id));
         setIsDeleted(true);
       })
       .catch((err) => console.log(err));
