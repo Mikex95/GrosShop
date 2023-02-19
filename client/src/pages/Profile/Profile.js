@@ -6,18 +6,18 @@ import NavbarWishlist1 from "../../components/navbar/NavbarWishlist1";
 import Camera from "../../img/Camera.svg";
 
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Profile.css";
-
 
 const Profile = ({ accessToken }) => {
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
 
   const eventOnClick = (event) => {
     event.preventDefault();
-    console.log("hallo");
+
+    navigate("/update-profile");
     // Hier wird der Fetch mit "PUT" eingefügt!
   };
 
@@ -38,9 +38,7 @@ const Profile = ({ accessToken }) => {
         console.error("Error fetching user data:", error);
         setLoading(false);
       });
-  }, []);
-
-  console.log(user);
+  }, [accessToken]);
 
   if (loading) {
     return (
@@ -67,35 +65,60 @@ const Profile = ({ accessToken }) => {
               height="150px"
             />
           </div>
-
         </div>
       </div>
       <div className="profile-data">
-        <div className="profile-item">
-          <p>Name </p>
-          <p>
-
-   
-
-            {user.lastname} {user.firstname}
-
-          </p>
-        </div>
-        <div className="profile-item">
-          <p>E-Mail</p>
-          <p>{user.email}</p>
-        </div>
-        <div className="profile-item">
-          <p>Adresse</p>
-          <p>
-            {user.straße}, {user.stadt}
-          </p>
-        </div>
-        <div className="profile-item">
-          <p>Telefon</p>
-          <p>{user.telefon}</p>
-        </div>
+        <fieldset>
+          <div className="profile-item">
+            <h3>Profile Information</h3>
+            <p>Name </p>
+            <p>
+              {user.lastname} {user.firstname}
+            </p>
+          </div>
+          <div className="profile-item">
+            <p>E-Mail</p>
+            <p>{user.email}</p>
+          </div>
+          <div className="profile-item">
+            <p>Adresse</p>
+            <p>
+              {user.shippingAddress.address}, {user.shippingAddress.city}
+            </p>
+          </div>
+        </fieldset>
       </div>
+
+      <div className="profile-data-shipping">
+        <fieldset>
+          <div className="profile-item">
+            <h3>Shipping Information</h3>
+            <p>Vor- und Zuname</p>
+            <p>{user.shippingAddress.fullname}</p>
+          </div>
+          <div className="profile-item">
+            <p>Straße</p>
+            <p>{user.shippingAddress.address}</p>
+          </div>
+          <div className="profile-item">
+            <p>Stadt</p>
+            <p>{user.shippingAddress.city}</p>
+          </div>
+          <div className="profile-item">
+            <p>Postleitzahl</p>
+            <p>{user.shippingAddress.postalCode}</p>
+          </div>
+          <div className="profile-item">
+            <p>Land</p>
+            <p>{user.shippingAddress.state}</p>
+          </div>
+          <div className="profile-item">
+            <p>Phone</p>
+            <p>{user.shippingAddress.phone}</p>
+          </div>
+        </fieldset>
+      </div>
+
       <UpdateProfile text="Update Profile" onClick={eventOnClick} />
 
       <NavbarWishlist1 />

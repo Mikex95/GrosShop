@@ -1,9 +1,9 @@
-.profile-component-container {
+.update-component-container {
   background-color: #f2f3f9;
   width: 100%;
   height: 100%;
 }
-.profile-container {
+.update-container {
   background: rgb(64, 170, 84);
   background: linear-gradient(340deg, rgba(64, 170, 84, 1) 0%, rgba(255, 255, 255, 1) 100%);
   height: 259px;
@@ -12,73 +12,56 @@
   flex-direction: column;
 }
 
-.profile-data {
-  margin: 5px;
+.update-data {
+  padding: 10px;
   background-color: #f2f3f9;
-  padding: 10px;
+  padding-bottom: 200px;
 }
 
-.profile-data-shipping {
-  margin: 5px;
-  background-color: #f2f3f9;
-  padding: 10px 10px 100px;
-}
-
-.profile-data-shipping fieldset {
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.129);
-  margin-bottom: 5px;
-}
-
-.profile-data fieldset {
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.129);
-  margin-bottom: 5px;
-}
-
-.profile-data h3 {
+.update-data h3 {
   margin-bottom: 2rem;
+
   color: #2c3066;
 }
 
-.profile-data input {
+.update-data input {
+  margin-top: 5px;
   font-size: 1.6rem;
-  padding: 1rem 0 0.4rem 0;
+  padding: 1rem 0 0.4rem 5px;
   border: none;
-  border-bottom: 1px solid #707070;
+  border-bottom: 1px solid #70707030;
   width: 100%;
+  border-radius: 5px;
 }
 
-.profile-image {
+.update-image {
   display: flex;
   justify-content: center;
   align-items: flex-end;
 }
 
-.profile-image img {
+.update-image img {
   border-radius: 50%;
   object-fit: cover;
 }
 
-.profile-image img:nth-of-type(1) {
+.update-image img:nth-of-type(1) {
   border-radius: 50%;
   object-fit: cover;
   border: 5px #40aa54 solid;
 }
 
-.profile-image img:nth-of-type(2) {
+.update-image img:nth-of-type(2) {
   margin: 0rem -3rem;
   cursor: pointer;
 }
 
-.profile-item {
+.update-item {
   margin-bottom: 15px;
   border-bottom: 1px solid #e0dbdb;
 }
 
-.profile-item-input p {
+.update-item-input p {
   font-size: 1.2rem;
   padding: 1rem 0 0.4rem 0;
   border: none;
@@ -86,32 +69,38 @@
   color: #707070;
 }
 
-.profile-item-input-adresse {
+.update-item-input-adresse {
   font-size: 0.5;
   color: #707070;
 }
 
-.profile-item p:nth-of-type(1) {
+.update-item p:nth-of-type(1) {
   color: #8b8989;
   font-size: 12px;
-  margin: 0 0 5px;
 }
 
-.profile-item p:nth-of-type(2) {
+.update-item p:nth-of-type(2) {
   color: #2d2e4a;
   font-size: 15px;
   margin-bottom: 1rem;
 }
 
-.profile-edit-link {
+.update-edit-link {
   display: flex;
   gap: 1rem;
   justify-content: flex-end;
   margin: 1rem 2rem;
 }
 
-.profile-payment-icons {
+.update-payment-icons {
   margin-top: 1rem;
   display: flex;
   gap: 1rem;
+}
+
+.update-component-container fieldset {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.129);
+  margin-bottom: 20px;
 }
