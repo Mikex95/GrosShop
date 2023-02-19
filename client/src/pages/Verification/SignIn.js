@@ -68,8 +68,8 @@ const SignIn = ({ setToken }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <label htmlFor="Email">
-            Password
+          <label htmlFor="Email" className="forgot-password">
+            <span>Password</span>
             <span>
               <Link to="/forgot-password"> forgot your password? </Link>
             </span>
@@ -91,19 +91,10 @@ const SignIn = ({ setToken }) => {
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           </div>
-
-          <div className="verification-forgotpw">
-            <label htmlFor="Email">
-              Password
-              <span>
-                <Link to="/forgot-password"> forgot your password? </Link>
-              </span>
-            </label>
-          </div>
-
-
           <GreenButton text="Sign In" onClick={login} />
-          {showErrorMessage && <p className="error-message">{showErrorMessage}</p>}
+          {showErrorMessage && (
+            <p className="error-message">{showErrorMessage}</p>
+          )}
         </form>
       </div>
       <div className="verification-to-signin">
