@@ -24,7 +24,7 @@ import Checkout from "./pages/Checkout/Checkout";
 
 import TypeCode2 from "./pages/Verification/Typecode2";
 import AddCreditCard from "./pages/AddCreditCard/AddCreditCard";
-// import { apiBaseUrl } from "./api";
+import { apiBaseUrl } from "./api";
 
 import Update from "./pages/Profile/Udate";
 
@@ -73,7 +73,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
-  const [currentUrl, setCurrentUrl] = useState(`${apiBaseUrl}/products`);
+  const [currentUrl, setCurrentUrl] = useState(`${apiBaseUrl}products`);
   useEffect(() => {
     setLoading(true);
     fetch(currentUrl)

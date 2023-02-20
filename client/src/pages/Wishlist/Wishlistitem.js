@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ReactComponent as Trash } from "../../img/trash.svg";
 import heart from "../../img/heart.png";
 import { ReactComponent as Star } from "../../img/star7.svg";
+import { apiBaseUrl } from "../../api";
 
 const WishlistItem = (props) => {
   const [counter, setCounter] = useState(1);
@@ -27,7 +28,7 @@ const WishlistItem = (props) => {
     }
 
     const productId = props.id;
-    fetch(`http://localhost:2202/api/user/wishlist/deleteitem/${productId}`, {
+    fetch(`${apiBaseUrl}user/wishlist/deleteitem/${productId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${props.accessToken}`,

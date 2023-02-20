@@ -9,6 +9,7 @@ import Stripe from "../../img/Stripe.svg";
 import Camera from "../../img/Camera.svg";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiBaseUrl } from "../../api";
 import "./Profile.css";
 import "./Update.css";
 
@@ -27,7 +28,7 @@ const Update = ({ accessToken }) => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:2202/api/user/profile", {
+    fetch(`${apiBaseUrl}user/profile`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + accessToken,
@@ -43,7 +44,7 @@ const Update = ({ accessToken }) => {
   }, [accessToken]);
 
   const eventOnClick = () => {
-    fetch("http://localhost:2202/api/user/profile-update", {
+    fetch(`${apiBaseUrl}user/profile-update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

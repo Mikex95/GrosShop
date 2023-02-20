@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import WishlistItem from "./Wishlistitem";
 import { useNavigate } from "react-router-dom";
+import { apiBaseUrl } from "../../api";
 
 const Wishlist = ({ accessToken, productFetch }) => {
   const [wishlistData, setWishlistData] = useState([]);
@@ -14,10 +15,11 @@ const Wishlist = ({ accessToken, productFetch }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [counterValues, setCounterValues] = useState({});
   const [cartListData, setCartListData] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:2202/api/user/wishlist", {
+    fetch(`${apiBaseUrl}user/wishlist`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + accessToken,
@@ -56,7 +58,7 @@ const Wishlist = ({ accessToken, productFetch }) => {
 
     Promise.all(
       cartProduct.map((item) => {
-        return fetch("http://localhost:2202/api/user/cart/additem", {
+        return fetch(`${apiBaseUrl}user/cart/additem`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

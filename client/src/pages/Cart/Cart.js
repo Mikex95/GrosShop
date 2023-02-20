@@ -7,6 +7,7 @@ import Checkout from "../../components/buttons/Checkout";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiBaseUrl } from "../../api";
 
 const Cart = ({ accessToken, productFetch }) => {
   const [cartData, setCartData] = useState([]);
@@ -18,7 +19,7 @@ const Cart = ({ accessToken, productFetch }) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:2202/api/user/cart", {
+    fetch(`${apiBaseUrl}user/cart`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + accessToken,
@@ -74,7 +75,7 @@ const Cart = ({ accessToken, productFetch }) => {
 
     Promise.all(
       cartProduct.map((item) => {
-        return fetch("http://localhost:2202/api/user/cart/additem", {
+        return fetch(`${apiBaseUrl}user/cart/additem`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

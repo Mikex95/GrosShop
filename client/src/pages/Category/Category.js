@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import baguette from "../../img/baguette.png";
 import SearchBarCategory from "../../components/searchbar/SearchBarCategory";
 import { useLocation } from "react-router-dom";
+import { apiBaseUrl } from "../../api";
 import "./Category.css";
 const Category = ({ accessToken }) => {
   const location = useLocation();
@@ -23,7 +24,7 @@ const Category = ({ accessToken }) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:2202/api/products")
+    fetch(`${apiBaseUrl}/products`)
       .then((response) => response.json())
       .then((data) => {
         setCategories([...data.allProducts]);

@@ -5,6 +5,7 @@ import Edit from "../../img/edit.svg";
 import { Link } from "react-router-dom";
 import "./Checkout.css";
 import { useState, useEffect } from "react";
+import { apiBaseUrl } from "../../api";
 
 const Checkout = ({ accessToken, productFetch }) => {
   const [cartData, setCartData] = useState([]);
@@ -15,7 +16,7 @@ const Checkout = ({ accessToken, productFetch }) => {
 
   // Get Cart Data
   useEffect(() => {
-    fetch("http://localhost:2202/api/user/cart", {
+    fetch(`${apiBaseUrl}/user/cart`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + accessToken,
@@ -33,7 +34,7 @@ const Checkout = ({ accessToken, productFetch }) => {
 
   // Get User Data
   useEffect(() => {
-    fetch("http://localhost:2202/api/user/profile", {
+    fetch(`${apiBaseUrl}/user/profile`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + accessToken,
