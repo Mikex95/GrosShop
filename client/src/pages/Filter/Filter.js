@@ -6,7 +6,7 @@ import NavbarBottom from "../../components/navbar/NavbarBottom";
 import ProductItem from "../../components/productItem/ProductItem";
 import { apiBaseUrl } from "../../api";
 import { useState, useEffect } from "react";
-const Filter = () => {
+const Filter = ({ accessToken }) => {
   const [inputValue, setInputValue] = useState(10);
   const [activeButton, setActiveButton] = useState(0);
   const [activeBtnBottom, setActiveBtnBottom] = useState(0);
@@ -130,6 +130,7 @@ const Filter = () => {
         {filterInput.map((article, index) => {
           return (
             <ProductItem
+              accessToken={accessToken}
               key={index}
               name={article.product_name}
               price={article.product_price}

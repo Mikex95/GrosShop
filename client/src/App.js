@@ -102,7 +102,7 @@ function App() {
               <Route path="/product/:id" element={<DetailsPage accessToken={token} productFetch={articles} />} />
               <Route path="/onboarding" element={<Onboarding />}></Route>
               <Route path="/test" element={<TestComponents />}></Route>
-              <Route path="/filter" element={<Filter />}></Route>
+              <Route path="/filter" element={<Filter accessToken={token} />}></Route>
               <Route path="/signin" element={<SignIn setToken={setToken} />}></Route>
               <Route path="/forgot-password" element={<ForgotPassword />}></Route>
               <Route path="/reset-password" element={<ResetPassword />}></Route>
