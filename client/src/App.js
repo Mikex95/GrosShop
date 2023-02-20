@@ -71,6 +71,7 @@ function App() {
 
   const [articles, setArticle] = useState([]);
   const [loading, setLoading] = useState(true);
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
   const [currentUrl, setCurrentUrl] = useState(`${apiBaseUrl}/products`);
   useEffect(() => {
