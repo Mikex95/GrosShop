@@ -7,15 +7,14 @@ import Paypal from "../../img/Paypal.svg";
 import Klarna from "../../img/Klarna.svg";
 import Stripe from "../../img/Stripe.svg";
 import Camera from "../../img/Camera.svg";
-import { Link } from "react-router-dom";
-import Edit from "../../img/edit.svg";
 import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 import "./Update.css";
 
 const Update = ({ accessToken }) => {
   const [userData, setUserData] = useState([]);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -55,6 +54,7 @@ const Update = ({ accessToken }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Updated profile data:", data);
+        navigate("/profile");
       })
       .catch((error) => {
         console.error("Error updating profile data:", error);
@@ -78,7 +78,7 @@ const Update = ({ accessToken }) => {
               width="150px"
               height="150px"
             />
-            <img src={Camera} />
+            <img src={Camera} alt="camera-symbole" />
           </div>
         </div>
       </div>
@@ -214,7 +214,7 @@ const Update = ({ accessToken }) => {
           </div>
         </fieldset>
 
-        <UpdateProfile text="Save Data" onClick={eventOnClick} />
+        <UpdateProfile text="Save Changes" onClick={eventOnClick} />
       </div>
 
       <NavbarWishlist1 />

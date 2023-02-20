@@ -10,14 +10,13 @@ import { useNavigate } from "react-router-dom";
 
 const Wishlist = ({ accessToken, productFetch }) => {
   const [wishlistData, setWishlistData] = useState([]);
-  const [loading, setLoading] = useState(true);
+
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [counterValues, setCounterValues] = useState({});
   const [cartListData, setCartListData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(true);
     fetch("http://localhost:2202/api/user/wishlist", {
       method: "GET",
       headers: {
@@ -27,7 +26,6 @@ const Wishlist = ({ accessToken, productFetch }) => {
       .then((response) => response.json())
       .then((data) => {
         setWishlistData(data);
-        setLoading(false);
       });
   }, [accessToken]);
 

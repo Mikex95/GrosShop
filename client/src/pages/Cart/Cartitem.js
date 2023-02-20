@@ -1,7 +1,7 @@
 import "./Cart.css";
 import "../Home/Home.css";
 import { ReactComponent as Trash } from "../../img/trash.svg";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import heart from "../../img/heart.png";
 import { ReactComponent as Star } from "../../img/star7.svg";
 
