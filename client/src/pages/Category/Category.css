@@ -1,38 +1,39 @@
 .headline-category {
-	display: flex;
-	justify-content: space-around;
-	align-items: baseline;
-	margin-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+  margin-bottom: 10px;
 }
 
 .category-buttons {
-	display: grid;
-	justify-items: center;
-	grid-template-columns: repeat(6, 1fr);
-	border-top: 1px solid rgba(0, 0, 0, 0.095);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.095);
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(6, 1fr);
+  border-top: 1px solid rgba(0, 0, 0, 0.095);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.095);
 }
 
 .category-buttons-bottom {
-	display: grid;
-	grid-template-columns: repeat(6, 1fr);
-	border-top: 1px solid rgba(0, 0, 0, 0.095);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.095);
-	margin-bottom: 50px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border-top: 1px solid rgba(0, 0, 0, 0.095);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.095);
+  margin-bottom: 50px;
 }
 
 .category-buttons button {
-	border: none;
-	background-color: white;
-	color: #777777;
-	font-size: 14px;
-	font-weight: 500;
-	cursor: pointer;
-	padding: 14px 0 14px;
-	width: 60px;
+  border: none;
+  background-color: white;
+  color: #777777;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 14px 0 14px;
+  width: 60px;
 }
 
 .category-available-soon {
-	text-align: center;
-	color: #2c3066;
+  text-align: center;
+  color: #2c3066;
+  padding-bottom: 100px;
 }

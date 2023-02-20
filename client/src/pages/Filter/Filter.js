@@ -4,6 +4,7 @@ import BackArrow from "../../components/backArrow/BackArrow";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import ProductItem from "../../components/productItem/ProductItem";
+import { apiBaseUrl } from "../../api";
 import { useState, useEffect } from "react";
 const Filter = () => {
   const [inputValue, setInputValue] = useState(10);
@@ -12,19 +13,19 @@ const Filter = () => {
   const [filterInput, setFilterInput] = useState([]);
   const [productFetch, setProductFetch] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const buttonTop = ["Lowest", "Highest", "Best"];
   const buttonBottom = ["Fruits", "Seafood", "Bread", "Vegetables", "Organic", "Milk & Egg", "Meat"];
-  const [currentUrl, setCurrentUrl] = useState("http://localhost:2202/api/products");
 
   useEffect(() => {
     setLoading(true);
-    fetch(currentUrl)
+    fetch(`${apiBaseUrl}products`)
       .then((response) => response.json())
       .then((data) => {
         setProductFetch(data.allProducts);
         setLoading(false);
       });
-  }, [currentUrl]);
+  }, []);
 
   if (loading) {
     return (
