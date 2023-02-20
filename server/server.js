@@ -12,7 +12,7 @@ const { connectDB } = require("./src/database/connectDB");
 connectDB();
 
 //middlewares
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: ["http://localhost:3000", "https://gros-shop-app.onrender.com"] }));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
