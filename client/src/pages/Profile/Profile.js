@@ -3,7 +3,6 @@ import UpdateProfile from "../../components/buttons/UpdateProfile";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import NavbarWishlist1 from "../../components/navbar/NavbarWishlist1";
-import Camera from "../../img/Camera.svg";
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";

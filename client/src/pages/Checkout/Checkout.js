@@ -1,11 +1,10 @@
-import NavbarWishlist from "../../components/navbar/NavbarWishlist";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import BackArrow from "../../components/backArrow/BackArrow";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import Edit from "../../img/edit.svg";
+import { Link } from "react-router-dom";
 import "./Checkout.css";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Checkout = ({ accessToken, productFetch }) => {
   const [cartData, setCartData] = useState([]);
@@ -47,21 +46,21 @@ const Checkout = ({ accessToken, productFetch }) => {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  }, []);
+  }, [accessToken]);
 
   useEffect(() => {
     const totalPrice = cartData.reduce((acc, item) => {
       const product = productFetch.find((p) => p._id === item.itemId);
       return acc + item.quantity * product.product_price;
     }, 0);
-    setTaxes((totalPrice / 100) * 19);
-    setTotal(totalPrice);
-    setBrutto(totalPrice + taxes);
+    setTaxes((totalPrice / 107) * 7);
+    setTotal(totalPrice - taxes);
+    setBrutto(totalPrice);
   }, [cartData, productFetch]);
 
   return (
     <div className="checkout">
-      <HeaderTime backgroundcolor="white" />
+      <HeaderTime backgroundcolor="white" color="white" />
       <div className="checkout-upper">
         <div className="headline-details">
           <BackArrow></BackArrow>
@@ -70,31 +69,42 @@ const Checkout = ({ accessToken, productFetch }) => {
         <div className="checkout-items">
           <div className="checkout-headline">
             <h2>Shipping Information</h2>
-            <img src={Edit} alt="" width={30} />
+            <Link to="/update-profile">
+              <img src={Edit} alt="" width={30} />
+            </Link>
           </div>
-          <div>
-            <img src="" alt="" />
-            <p>
-              Name: {user.firstname} {user.lastname}
-            </p>
+          <div className="checkout-detail">
+            {user && (
+              <p>
+                Name: {user.firstname} {user.lastname}
+              </p>
+            )}
           </div>
-          <div>
-            <img src="" alt="" />
-            <p>Address: {user.address} Musterstraße 4</p>
+          <div className="checkout-detail">
+            {user && user.shippingAddress && <p>Straße: {user.shippingAddress.address}</p>}
           </div>
-          <div>
-            <img src="" alt="" />
-            <p>Phone: {user.phone} 666 666</p>
+          <div className="checkout-detail">
+            {user && user.shippingAddress && <p>Postleitzahl: {user.shippingAddress.postalCode}</p>}
+          </div>
+          <div className="checkout-detail">
+            {user && user.shippingAddress && <p>Stadt: {user.shippingAddress.city}</p>}
+          </div>
+          <div className="checkout-detail">
+            {user && user.shippingAddress && <p>Country: {user.shippingAddress.state}</p>}
+          </div>
+          <div className="checkout-detail">
+            {user && user.shippingAddress && <p>Phone: {user.shippingAddress.phone}</p>}
           </div>
         </div>
         <div className="checkout-items">
           <div className="checkout-headline">
             <h2>Payments</h2>
-            <img src={Edit} alt="" width={30} />
+            <Link to="/addcredit">
+              <img src={Edit} alt="" width={30} />
+            </Link>
           </div>
-          <div>
-            <img src="" alt="" />
-            <p>67849287623748596857</p>
+          <div className="checkout-detail">
+            <p>456878545648</p>
           </div>
         </div>
         <div className="checkout-total">
@@ -111,6 +121,7 @@ const Checkout = ({ accessToken, productFetch }) => {
             <p className="checkout-totalprice">{brutto.toFixed(2)}$</p>
           </div>
         </div>
+        <NavbarBottom />
       </div>
       <div className="verification-to-signin"></div>
     </div>
