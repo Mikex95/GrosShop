@@ -51,7 +51,7 @@ function App() {
     //it take time in milli senods that is why triggerSilentTokenRefreshInSeconds * 1000
     const refreshTokenTimeoutID = setTimeout(() => {
       console.log("about to do SILENT REFRESH");
-      const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:2202/api/";
+      const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
       fetch(`${apiBaseUrl}user/silent-refresh`, {
         method: "POST",
         credentials: "include",
@@ -72,7 +72,7 @@ function App() {
   const [articles, setArticle] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [currentUrl, setCurrentUrl] = useState("http://localhost:2202/api/products");
+  const [currentUrl, setCurrentUrl] = useState(`${apiBaseUrl}/products`);
   useEffect(() => {
     setLoading(true);
     fetch(currentUrl)
