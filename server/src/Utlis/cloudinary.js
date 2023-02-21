@@ -8,31 +8,22 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const uploadToCloudinary = (localFilePath) => {
-  new Promise((resolve) => {
-    // locaFilePath: path of image which was just
-    // uploaded to "app-data/uploads" folder
-    const mainFolderName = "main";
-    // filePathOnCloudinary: path of image we want
-    // to set when it is uploaded to cloudinary
-    const filePathOnCloudinary = mainFolderName + "/" + localFilePath;
+const uploadToCloudinary = (req, res, next) => {
+  const mainFolderName = "main";
+  const filePathOnCloudinary = mainFolderName + "/" + req.file.path;
 
-    cloudinary.uploader.upload(
-      localFilePath,
-      { public_id: filePathOnCloudinary },
-      (result) => {
-        fs.unlink(localFilePath, (err) => {
-          if (err) {
-            console.log("Error removeig file after successfull upload", err);
-          }
-          resolve({
-            url: result.url,
-            id: result.public_id,
-          });
-        });
-      }
-    );
-  });
+  cloudinary.uploader
+    .upload(req.file.path, { public_id: filePathOnCloudinary })
+    .then((result) => {
+      // console.log({ result });
+      fs.unlink(req.file.path, (err) => {
+        if (err) {
+          console.log("Error removeig file after successfull upload", err);
+        }
+        res.locals.cloudinaryUrl = result.url;
+        next();
+      });
+    });
 };
 module.exports = {
   uploadToCloudinary: uploadToCloudinary,

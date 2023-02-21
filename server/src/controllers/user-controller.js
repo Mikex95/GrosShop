@@ -3,11 +3,13 @@ const colors = require("colors");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const dotenv = require("dotenv");
+const { uploadToCloudinary } = require("../Utlis/cloudinary");
 dotenv.config();
 const { User } = require("../models/user-model");
 const { verifyEmail } = require("../Utlis/verify-email");
 const { sendEmail3 } = require("../Utlis/nodemailer-send-email");
 const { verifyEmail3 } = require("../Utlis/nodemailer-verify-email");
+const cloudinary = require("../Utlis/cloudinary");
 
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
@@ -282,7 +284,7 @@ const resetPassword = async (req, res) => {
   └─────────────────────────────────────────────────────────────────────────┘
  */
 const getUserProfile = async (req, res) => {
-  const user = await User.findById(req.user._id);
+  const user = req.user;
   if (user) {
     res.json(user);
   } else {
@@ -300,41 +302,60 @@ const changeUserProfile = async (req, res) => {
   // const user = await User.findById(req.user._id);
   const user = req.user;
   if (user) {
-    const {
-      firstname,
-      lastname,
-      address,
-      city,
-      postalCode,
-      state,
-      phone,
-      fullname,
-    } = req.body;
-    if (firstname) {
-      user.firstname = firstname;
+    // const {
+    //   firstname,
+    //   lastname,
+    //   address,
+    //   city,
+    //   postalCode,
+    //   state,
+    //   phone,
+    //   fullname,
+    // } = req.body;
+    const updateUser = {
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      address: req.body.address,
+      city: req.body.city,
+      postalCode: req.body.postalCode,
+      state: req.body.state,
+      phone: req.body.phone,
+      fullname: req.body.fullname,
+      profileImage: req.file.path,
+      cloudinaryUrl: res.locals.cloudinaryUrl,
+    };
+    if (updateUser.firstname) {
+      user.firstname = updateUser.firstname;
     }
-    if (lastname) {
-      user.lastname = lastname;
+    if (updateUser.lastname) {
+      user.lastname = updateUser.lastname;
     }
-    if (address) {
-      user.shippingAddress.address = address;
+    if (updateUser.address) {
+      user.shippingAddress.address = updateUser.address;
     }
-    if (city) {
-      user.shippingAddress.city = city;
+    if (updateUser.city) {
+      user.shippingAddress.city = updateUser.city;
     }
-    if (postalCode) {
-      user.shippingAddress.postalCode = postalCode;
+    if (updateUser.postalCode) {
+      user.shippingAddress.postalCode = updateUser.postalCode;
     }
-    if (state) {
-      user.shippingAddress.state = state;
+    if (updateUser.state) {
+      user.shippingAddress.state = updateUser.state;
     }
-    if (phone) {
-      user.shippingAddress.phone = phone;
+    if (updateUser.phone) {
+      user.shippingAddress.phone = updateUser.phone;
     }
-    if (fullname) {
-      user.shippingAddress.fullname = fullname;
+    if (updateUser.fullname) {
+      user.shippingAddress.fullname = updateUser.fullname;
     }
-    await user.save();
+    if (updateUser.profileImage) {
+      user.profileImage = updateUser.profileImage;
+    }
+    if (updateUser.cloudinaryUrl) {
+      user.cloudinaryUrl = updateUser.cloudinaryUrl;
+    }
+    // const uploader = async (path) => await cloudinary.uploadToCloudinary();
+    await user.save(updateUser);
     res.status(200).json(user);
   } else {
     return res

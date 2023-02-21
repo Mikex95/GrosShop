@@ -5,6 +5,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const colors = require("colors");
 const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
 dotenv.config();
 
 // required component
@@ -13,11 +14,13 @@ connectDB();
 
 //middlewares
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+
+// app.use("app-data/uploads", express.static("app-data/uploads"));
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-//routes
+app.use("/app-data/uploads", express.static("app-data/uploads")); //routes
 const { router } = require("./src/routes/routes");
 app.use("/api", router);
 

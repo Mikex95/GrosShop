@@ -1,5 +1,5 @@
-const colors = require("colors");
-const { User } = require("../models/user-model");
+// const colors = require("colors");
+// const { User } = require("../models/user-model");
 /* 
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ //?   @description : upload image                                       │
@@ -8,15 +8,15 @@ const { User } = require("../models/user-model");
   └─────────────────────────────────────────────────────────────────────────┘
  */
 
-const singleFileUpload = async (req, res) => {
-  try {
-    const file = req.file;
-    res.status(201).json({ message: "File uploaded successfully" });
-  } catch (error) {
-    res.status(400).json({ message: "Error uploading file" });
-  }
-};
+// const singleFileUpload = async (req, res) => {
+//   try {
+//     const file = req.file;
+//     res.status(201).json({ message: "File uploaded successfully" });
+//   } catch (error) {
+//     res.status(400).json({ message: "Error uploading file" });
+//   }
+// };
 
-module.exports = {
-  singleFileUpload: singleFileUpload,
-};
+// module.exports = {
+//   singleFileUpload: singleFileUpload,
+// };

@@ -6,8 +6,10 @@ import Edit from "../../img/edit.svg";
 import "./Checkout.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import SlideButton from "react-slide-button";
 
 const Checkout = ({ accessToken, productFetch }) => {
+  const navigate = useNavigate();
   const [cartData, setCartData] = useState([]);
   const [total, setTotal] = useState(0);
   const [taxes, setTaxes] = useState(0);
@@ -112,7 +114,18 @@ const Checkout = ({ accessToken, productFetch }) => {
           </div>
         </div>
       </div>
-      <div className="verification-to-signin"></div>
+      <div className="verification-to-signin">
+        <SlideButton
+          mainText="Slide to complete your Order"
+          overlayText="SWIPE"
+          classList="mainText"
+          caretClassList="my-cart-class"
+          overlayClassList="my-overlay-class"
+          onSlideDone={() => {
+            navigate("/order-history");
+          }}
+        />
+      </div>
     </div>
   );
 };

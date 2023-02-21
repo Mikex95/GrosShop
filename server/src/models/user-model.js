@@ -37,6 +37,14 @@ const userSchema = mongoose.Schema(
       enum: ["USER", "ADMIN"],
       default: "USER",
     },
+    profileImage: {
+      type: String,
+      default: "",
+    },
+    cloudinaryUrl: {
+      type: String,
+      default: "",
+    },
     shippingAddress: {
       fullname: { type: String, default: "" },
       address: { type: String, default: "" },
