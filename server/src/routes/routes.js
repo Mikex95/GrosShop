@@ -1,9 +1,12 @@
 const express = require("express");
+const bodyParser = require("body-parser"); //fixme:added at the end try to remove it
+
 const {
   Verify_Access_Token,
   Create_New_Access_Token,
 } = require("../middlewares/auth-controller");
 const router = express.Router();
+router.use(bodyParser.json()); //fixme:added at the end try to remove it
 const {
   loginUser,
   signupUser,

@@ -43,10 +43,6 @@ function App() {
     const exp = tokenPayload.exp;
     //check if the accessToken expired or not
     const nowInSeconds = Math.floor(Date.now() / 1000);
-    if (exp - nowInSeconds < 0) {
-      return redirect("/signin");
-    }
-
     const tenSecondsBefore = 10;
     const triggerSilentTokenRefreshInSeconds =
       exp - nowInSeconds - tenSecondsBefore;
