@@ -21,7 +21,8 @@ app.use(
 );
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use("/app-data/uploads", express.static("app-data/uploads")); //routes
 const { router } = require("./src/routes/routes");
