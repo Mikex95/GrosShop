@@ -66,10 +66,33 @@
   display: flex;
   justify-content: space-between;
 }
+
 .verification-to-signin a {
   color: white;
 }
 
 .checkout-detail p {
   margin-bottom: 10px;
+}
+
+.mainText {
+  font-weight: bold;
+  width: 95%;
+  border-radius: 10px;
+  height: 60px;
+  background: rgba(0, 0, 0, .6);
+  opacity: 70%;
+  background-color: white;
+  position: absolute;
+  bottom: 0;
+  top: -60px;
+  margin: auto;
+}
+
+.my-cart-class {
+  background: green !important;
+}
+
+.my-overlay-class {
+  background: green !important;
 }

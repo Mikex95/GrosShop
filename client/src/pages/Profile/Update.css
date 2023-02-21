@@ -3,6 +3,7 @@
   width: 100%;
   height: 100%;
 }
+
 .update-container {
   background: rgb(64, 170, 84);
   background: linear-gradient(340deg, rgba(64, 170, 84, 1) 0%, rgba(255, 255, 255, 1) 100%);
@@ -20,7 +21,6 @@
 
 .update-data h3 {
   margin-bottom: 2rem;
-
   color: #2c3066;
 }
 
@@ -103,4 +103,19 @@
   border-radius: 20px;
   border: 1px solid rgba(0, 0, 0, 0.129);
   margin-bottom: 20px;
+}
+
+.label-image-upload {
+  width: 50px;
+  margin-left: -55px;
+}
+
+.label-image-upload:hover {
+  cursor: pointer
+}
+
+
+.profile-image img {
+  border-radius: 50%;
+  object-fit: cover;
 }

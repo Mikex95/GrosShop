@@ -2,12 +2,14 @@ import NavbarBottom from "../../components/navbar/NavbarBottom";
 import BackArrow from "../../components/backArrow/BackArrow";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import Edit from "../../img/edit.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Checkout.css";
 import { useState, useEffect } from "react";
 import { apiBaseUrl } from "../../api";
+import SlideButton from "react-slide-button";
 
 const Checkout = ({ accessToken, productFetch }) => {
+  const navigate = useNavigate();
   const [cartData, setCartData] = useState([]);
   const [total, setTotal] = useState(0);
   const [taxes, setTaxes] = useState(0);
@@ -82,19 +84,29 @@ const Checkout = ({ accessToken, productFetch }) => {
             )}
           </div>
           <div className="checkout-detail">
-            {user && user.shippingAddress && <p>Straße: {user.shippingAddress.address}</p>}
+            {user && user.shippingAddress && (
+              <p>Straße: {user.shippingAddress.address}</p>
+            )}
           </div>
           <div className="checkout-detail">
-            {user && user.shippingAddress && <p>Postleitzahl: {user.shippingAddress.postalCode}</p>}
+            {user && user.shippingAddress && (
+              <p>Postleitzahl: {user.shippingAddress.postalCode}</p>
+            )}
           </div>
           <div className="checkout-detail">
-            {user && user.shippingAddress && <p>Stadt: {user.shippingAddress.city}</p>}
+            {user && user.shippingAddress && (
+              <p>Stadt: {user.shippingAddress.city}</p>
+            )}
           </div>
           <div className="checkout-detail">
-            {user && user.shippingAddress && <p>Country: {user.shippingAddress.state}</p>}
+            {user && user.shippingAddress && (
+              <p>Country: {user.shippingAddress.state}</p>
+            )}
           </div>
           <div className="checkout-detail">
-            {user && user.shippingAddress && <p>Phone: {user.shippingAddress.phone}</p>}
+            {user && user.shippingAddress && (
+              <p>Phone: {user.shippingAddress.phone}</p>
+            )}
           </div>
         </div>
         <div className="checkout-items">
@@ -124,7 +136,18 @@ const Checkout = ({ accessToken, productFetch }) => {
         </div>
         <NavbarBottom />
       </div>
-      <div className="verification-to-signin"></div>
+      <div className="verification-to-signin">
+        <SlideButton
+          mainText="Slide to complete your Order"
+          overlayText="SWIPE"
+          classList="mainText"
+          caretClassList="my-cart-class"
+          overlayClassList="my-overlay-class"
+          onSlideDone={() => {
+            navigate("/order-history");
+          }}
+        />
+      </div>
     </div>
   );
 };

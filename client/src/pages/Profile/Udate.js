@@ -25,6 +25,7 @@ const Update = ({ accessToken }) => {
     city: "",
     postalCode: "",
     state: "",
+    profileImage: "",
   });
 
   useEffect(() => {
@@ -44,13 +45,17 @@ const Update = ({ accessToken }) => {
   }, [accessToken]);
 
   const eventOnClick = () => {
+    const formDatas = new FormData();
+    for (let key in formData) {
+      formDatas.append(key, formData[key]);
+    }
     fetch(`${apiBaseUrl}user/profile-update`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + accessToken,
       },
-      body: JSON.stringify(formData),
+      body: formDatas, // JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -74,12 +79,23 @@ const Update = ({ accessToken }) => {
         <div>
           <div className="profile-image">
             <img
-              src="https://tse3.mm.bing.net/th?id=OIP.0l7k5zqRUVQ5Yq9eTpW2LgHaLJ&pid=Api"
-              alt=""
+              src={`${userData.cloudinaryUrl}`}
+              alt={userData.firstname}
               width="150px"
               height="150px"
             />
-            <img src={Camera} alt="camera-symbole" />
+            <label htmlFor="upload-input" className="label-image-upload">
+              <img src={Camera} alt="the owner of this profile" />
+            </label>
+            <input
+              id="upload-input"
+              type="file"
+              name="profileImage"
+              onChange={(e) =>
+                setFormData({ ...formData, profileImage: e.target.files[0] })
+              }
+              style={{ display: "none" }}
+            />
           </div>
         </div>
       </div>
@@ -95,7 +111,9 @@ const Update = ({ accessToken }) => {
               name="Vorname"
               value={formData.firstname}
               onFocus={(e) => (e.target.placeholder = "")}
-              onChange={(e) => setFormData({ ...formData, firstname: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, firstname: e.target.value })
+              }
             />
           </div>
           <div className="update-item">
@@ -106,7 +124,9 @@ const Update = ({ accessToken }) => {
               placeholder={userData.lastname}
               value={formData.lastname}
               onFocus={(e) => (e.target.placeholder = "")}
-              onChange={(e) => setFormData({ ...formData, lastname: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, lastname: e.target.value })
+              }
             />
           </div>
           <div className="update-item">
@@ -117,7 +137,9 @@ const Update = ({ accessToken }) => {
               placeholder={userData.email}
               value={formData.email}
               readOnly
-              onChange={(e) => setFormData({ ...formData, lastname: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, lastname: e.target.value })
+              }
             />
           </div>
         </fieldset>
@@ -131,9 +153,13 @@ const Update = ({ accessToken }) => {
                 name="fullname"
                 placeholder={`${userData.shippingAddress.fullname}`}
                 onFocus={(e) => (e.target.placeholder = "")}
-                onBlur={(e) => (e.target.placeholder = `${userData.shippingAdress.fullname}`)}
+                onBlur={(e) =>
+                  (e.target.placeholder = `${userData.shippingAdress.fullname}`)
+                }
                 value={formData.fullname ? formData.fullname : ""}
-                onChange={(e) => setFormData({ ...formData, fullname: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, fullname: e.target.value })
+                }
               />
             )}
           </div>
@@ -147,9 +173,13 @@ const Update = ({ accessToken }) => {
                   name="Straße"
                   placeholder={userData.shippingAddress.address}
                   onFocus={(e) => (e.target.placeholder = "")}
-                  onBlur={(e) => (e.target.placeholder = userData.shippingAddress.address)}
+                  onBlur={(e) =>
+                    (e.target.placeholder = userData.shippingAddress.address)
+                  }
                   value={formData.address ? formData.address : ""}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, address: e.target.value })
+                  }
                 />
               )}
             </div>
@@ -160,9 +190,13 @@ const Update = ({ accessToken }) => {
                 name="Stadt"
                 placeholder={userData.shippingAddress.city}
                 onFocus={(e) => (e.target.placeholder = "")}
-                onBlur={(e) => (e.target.placeholder = userData.shippingAddress.city)}
+                onBlur={(e) =>
+                  (e.target.placeholder = userData.shippingAddress.city)
+                }
                 value={formData.city ? formData.city : ""}
-                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, city: e.target.value })
+                }
               />
             )}
             <p>Postleitzahl</p>
@@ -172,9 +206,13 @@ const Update = ({ accessToken }) => {
                 name="PLZ"
                 placeholder={userData.shippingAddress.postalCode}
                 onFocus={(e) => (e.target.placeholder = "")}
-                onBlur={(e) => (e.target.placeholder = userData.shippingAddress.postalCode)}
+                onBlur={(e) =>
+                  (e.target.placeholder = userData.shippingAddress.postalCode)
+                }
                 value={formData.postalCode ? formData.postalCode : ""}
-                onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, postalCode: e.target.value })
+                }
               />
             )}
             <p>Land</p>
@@ -184,9 +222,13 @@ const Update = ({ accessToken }) => {
                 name="Land"
                 placeholder={userData.shippingAddress.state}
                 onFocus={(e) => (e.target.placeholder = "")}
-                onBlur={(e) => (e.target.placeholder = userData.shippingAddress.state)}
+                onBlur={(e) =>
+                  (e.target.placeholder = userData.shippingAddress.state)
+                }
                 value={formData.state ? formData.state : ""}
-                onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, state: e.target.value })
+                }
               />
             )}
             <p>Phone</p>
@@ -196,9 +238,13 @@ const Update = ({ accessToken }) => {
                 name="Land"
                 placeholder={userData.shippingAddress.phone}
                 onFocus={(e) => (e.target.placeholder = "")}
-                onBlur={(e) => (e.target.placeholder = userData.shippingAddress.phone)}
+                onBlur={(e) =>
+                  (e.target.placeholder = userData.shippingAddress.phone)
+                }
                 value={formData.phone ? formData.phone : ""}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
               />
             )}
           </div>

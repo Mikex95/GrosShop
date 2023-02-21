@@ -58,8 +58,11 @@ const Profile = ({ accessToken }) => {
         <div>
           <div className="profile-image">
             <img
-              src="https://tse3.mm.bing.net/th?id=OIP.0l7k5zqRUVQ5Yq9eTpW2LgHaLJ&pid=Api"
-              alt=""
+              src={
+                `${user.cloudinaryUrl}` ||
+                "https://tse3.mm.bing.net/th?id=OIP.0l7k5zqRUVQ5Yq9eTpW2LgHaLJ&pid=Api"
+              }
+              alt={user.name}
               width="150px"
               height="150px"
             />
