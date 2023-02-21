@@ -321,8 +321,8 @@ const changeUserProfile = async (req, res) => {
       state: req.body.state,
       phone: req.body.phone,
       fullname: req.body.fullname,
-      profileImage: req.file.path,
-      cloudinaryUrl: res.locals.cloudinaryUrl,
+      // profileImage: req.file.path,
+      // cloudinaryUrl: res.locals.cloudinaryUrl,
     };
     if (updateUser.firstname) {
       user.firstname = updateUser.firstname;
@@ -348,11 +348,11 @@ const changeUserProfile = async (req, res) => {
     if (updateUser.fullname) {
       user.shippingAddress.fullname = updateUser.fullname;
     }
-    if (updateUser.profileImage) {
-      user.profileImage = updateUser.profileImage;
+    if (updateUser.file && updateUser.file.path) {
+      user.profileImage = updateUser.file.path;
     }
-    if (updateUser.cloudinaryUrl) {
-      user.cloudinaryUrl = updateUser.cloudinaryUrl;
+    if (res.locals.cloudinaryUrl) {
+      user.cloudinaryUrl = res.locals.cloudinaryUrl;
     }
     // const uploader = async (path) => await cloudinary.uploadToCloudinary();
     await user.save(updateUser);

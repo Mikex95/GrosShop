@@ -23,6 +23,8 @@ const Verify_Access_Token = async (req, res, next) => {
     next();
   } catch (err) {
     console.log("verify access token error is :", err.message);
+    fixme: 401;
+    // return res.status(401).json({ message: "Access Token not found" });
   }
 };
 
@@ -39,7 +41,7 @@ const Create_New_Access_Token = async (req, res) => {
     //to get the user._id form the refreshToken payload
     const Payload = { sub: decodedPayload.sub };
     const newAccessToken = jwt.sign(Payload, Access_Token_Secrets, {
-      expiresIn: "10m",
+      expiresIn: "30m",
       // expiresIn: "25", darf nicht eingesezt weil ist schon in sign in fuction vorgegeben
     });
     return res.status(200).json({ accessToken: newAccessToken });
