@@ -42,7 +42,7 @@ const loginUser = async (req, res) => {
       const Access_Token_Secrets = process.env.ACCESS_TOKEN_SECRETS;
       const Refresh_Token_Secrets = process.env.REFRESH_TOKEN_SECRETS;
       const accessToken = jwt.sign(payload, Access_Token_Secrets, {
-        expiresIn: "30m",
+        expiresIn: "230m",
         // "expiresIn" should be a number of seconds or string representing a timespan eg: "1d", "20h", "60s"
       });
 
@@ -302,16 +302,6 @@ const changeUserProfile = async (req, res) => {
   // const user = await User.findById(req.user._id);
   const user = req.user;
   if (user) {
-    // const {
-    //   firstname,
-    //   lastname,
-    //   address,
-    //   city,
-    //   postalCode,
-    //   state,
-    //   phone,
-    //   fullname,
-    // } = req.body;
     const updateUser = {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
@@ -348,12 +338,13 @@ const changeUserProfile = async (req, res) => {
     if (updateUser.fullname) {
       user.shippingAddress.fullname = updateUser.fullname;
     }
-    if (updateUser.file && updateUser.file.path) {
-      user.profileImage = updateUser.file.path;
+    if (updateUser.profileImage && updateUser.file) {
+      user.profileImage = req.file.filename;
     }
     if (res.locals.cloudinaryUrl) {
       user.cloudinaryUrl = res.locals.cloudinaryUrl;
     }
+    // const uploader = async (path) => await cloudinary.uploadToCloudinary();
     await user.save(updateUser);
     res.status(200).json(user);
   } else {
