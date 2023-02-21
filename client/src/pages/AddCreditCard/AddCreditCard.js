@@ -47,7 +47,9 @@ const AddCreditCard = (e) => {
 
         <form>
           <div id="inputWrapper">
-            <label htmlFor="cardNumberInput">Card Number</label>
+            <label className="add-credit-label" htmlFor="cardNumberInput">
+              Card Number
+            </label>
             <input
               className="input-style"
               type="tel"
@@ -62,7 +64,9 @@ const AddCreditCard = (e) => {
             />
             {/* <small>E.g.: 49..., 51..., 36..., 37...</small> */}
 
-            <label htmlFor="cardHolderInput">Card holder</label>
+            <label className="add-credit-label" htmlFor="cardHolderInput">
+              Card holder
+            </label>
             <input
               className="input-style"
               type="text"
@@ -77,7 +81,9 @@ const AddCreditCard = (e) => {
 
             <div id="validWrapper">
               <div id="validThru2">
-                <label htmlFor="expiry">expiry</label>
+                <label className="add-credit-label" htmlFor="expiry">
+                  expiry
+                </label>
                 <input
                   className="input-style"
                   id="expiry"
@@ -93,7 +99,9 @@ const AddCreditCard = (e) => {
                 />
               </div>
             </div>
-            <label htmlFor="cvcInput">CVC</label>
+            <label className="add-credit-label" htmlFor="cvcInput">
+              CVC
+            </label>
             <input
               className="input-style"
               type="tel"
