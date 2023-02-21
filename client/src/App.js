@@ -1,6 +1,7 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import SplashScreen from "./pages/SplashScreen";
 import Onboarding from "./pages/Onboarding";
 import SignIn from "./pages/Verification/SignIn";
@@ -25,12 +26,12 @@ import Checkout from "./pages/Checkout/Checkout";
 import TypeCode2 from "./pages/Verification/Typecode2";
 import AddCreditCard from "./pages/AddCreditCard/AddCreditCard";
 import { apiBaseUrl } from "./api";
-
 import Update from "./pages/Profile/Udate";
 
 function App() {
   const [token, setToken] = useState(null);
   console.log(Date.now(), token);
+  // const navigate = useNavigate();
   useEffect(() => {
     if (!token) {
       return;
@@ -40,10 +41,15 @@ function App() {
     const tokenPayloadJsonStr = atob(tokenPayloadBase64Str);
     const tokenPayload = JSON.parse(tokenPayloadJsonStr);
     const exp = tokenPayload.exp;
+    //check if the accessToken expired or not
     const nowInSeconds = Math.floor(Date.now() / 1000);
+    if (exp - nowInSeconds < 0) {
+      return redirect("/signin");
+    }
 
     const tenSecondsBefore = 10;
-    const triggerSilentTokenRefreshInSeconds = exp - nowInSeconds - tenSecondsBefore;
+    const triggerSilentTokenRefreshInSeconds =
+      exp - nowInSeconds - tenSecondsBefore;
 
     console.log({ triggerSilentTokenRefreshInSeconds });
 
@@ -99,22 +105,55 @@ function App() {
           <div className="content">
             <Routes>
               <Route path="/" element={<SplashScreen />}></Route>
-              <Route path="/product/:id" element={<DetailsPage accessToken={token} productFetch={articles} />} />
+              <Route
+                path="/product/:id"
+                element={
+                  <DetailsPage accessToken={token} productFetch={articles} />
+                }
+              />
               <Route path="/onboarding" element={<Onboarding />}></Route>
               <Route path="/test" element={<TestComponents />}></Route>
-              <Route path="/filter" element={<Filter accessToken={token} />}></Route>
-              <Route path="/signin" element={<SignIn setToken={setToken} />}></Route>
-              <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+              <Route
+                path="/filter"
+                element={<Filter accessToken={token} />}></Route>
+              <Route
+                path="/signin"
+                element={<SignIn setToken={setToken} />}></Route>
+              <Route
+                path="/forgot-password"
+                element={<ForgotPassword />}></Route>
               <Route path="/reset-password" element={<ResetPassword />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
-              <Route path="/categories" element={<Category accessToken={token} />}></Route>
+              <Route
+                path="/categories"
+                element={<Category accessToken={token} />}></Route>
               <Route path="/success" element={<Success />}></Route>
-              <Route path="/home" element={<Home accessToken={token} productFetch={articles} />}></Route>
-              <Route path="/wishlist" element={<Wishlist accessToken={token} productFetch={articles} />}></Route>
-              <Route path="/cart" element={<Cart accessToken={token} productFetch={articles} />}></Route>
-              <Route path="/profile" element={<Profile accessToken={token} />}></Route>
-              <Route path="/checkout" element={<Checkout accessToken={token} productFetch={articles} />}></Route>
-              <Route path="/update-profile" element={<Update accessToken={token} />}></Route>
+              <Route
+                path="/home"
+                element={
+                  <Home accessToken={token} productFetch={articles} />
+                }></Route>
+              <Route
+                path="/wishlist"
+                element={
+                  <Wishlist accessToken={token} productFetch={articles} />
+                }></Route>
+              <Route
+                path="/cart"
+                element={
+                  <Cart accessToken={token} productFetch={articles} />
+                }></Route>
+              <Route
+                path="/profile"
+                element={<Profile accessToken={token} />}></Route>
+              <Route
+                path="/checkout"
+                element={
+                  <Checkout accessToken={token} productFetch={articles} />
+                }></Route>
+              <Route
+                path="/update-profile"
+                element={<Update accessToken={token} />}></Route>
               <Route path="/order-history" element={<OrderHistory />} />
               <Route path="*" element={<Error404 />} />
               <Route path="/verify" element={<TypeCode />}></Route>

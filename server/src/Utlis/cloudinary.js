@@ -9,6 +9,10 @@ cloudinary.config({
 });
 
 const uploadToCloudinary = (req, res, next) => {
+  if (!req.file) {
+    return next();
+  }
+  console.log({ req });
   const mainFolderName = "main";
   const filePathOnCloudinary = mainFolderName + "/" + req.file.path;
 
@@ -20,6 +24,7 @@ const uploadToCloudinary = (req, res, next) => {
         if (err) {
           console.log("Error removeig file after successfull upload", err);
         }
+        // res.locals.cloudinaryUrl = result.url;
         res.locals.cloudinaryUrl = result.url;
         next();
       });
