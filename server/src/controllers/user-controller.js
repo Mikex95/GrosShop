@@ -354,7 +354,6 @@ const changeUserProfile = async (req, res) => {
     if (res.locals.cloudinaryUrl) {
       user.cloudinaryUrl = res.locals.cloudinaryUrl;
     }
-    // const uploader = async (path) => await cloudinary.uploadToCloudinary();
     await user.save(updateUser);
     res.status(200).json(user);
   } else {
