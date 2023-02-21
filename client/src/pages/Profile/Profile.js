@@ -59,8 +59,8 @@ const Profile = ({ accessToken }) => {
           <div className="profile-image">
             <img
               src={
-                `${user.cloudinaryUrl}` ||
-                "https://tse3.mm.bing.net/th?id=OIP.0l7k5zqRUVQ5Yq9eTpW2LgHaLJ&pid=Api"
+                `${user.cloudinaryUrl}`
+                // "https://tse3.mm.bing.net/th?id=OIP.0l7k5zqRUVQ5Yq9eTpW2LgHaLJ&pid=Api"
               }
               alt={user.name}
               width="150px"
@@ -73,7 +73,7 @@ const Profile = ({ accessToken }) => {
         <fieldset>
           <div className="profile-item">
             <h3>Profile Information</h3>
-            <p>Name </p>
+            <p>Full Name </p>
             <p>
               {user.lastname} {user.firstname}
             </p>
@@ -83,7 +83,7 @@ const Profile = ({ accessToken }) => {
             <p>{user.email}</p>
           </div>
           <div className="profile-item">
-            <p>Adresse</p>
+            <p>Address</p>
             <p>
               {user.shippingAddress.address + ","} {user.shippingAddress.city}
             </p>
@@ -95,23 +95,23 @@ const Profile = ({ accessToken }) => {
         <fieldset>
           <div className="profile-item">
             <h3>Shipping Information</h3>
-            <p>Vor- und Zuname</p>
+            <p>Full Name</p>
             <p>{user.shippingAddress.fullname}</p>
           </div>
           <div className="profile-item">
-            <p>Straße</p>
+            <p>Street</p>
             <p>{user.shippingAddress.address}</p>
           </div>
           <div className="profile-item">
-            <p>Stadt</p>
+            <p>City</p>
             <p>{user.shippingAddress.city}</p>
           </div>
           <div className="profile-item">
-            <p>Postleitzahl</p>
+            <p>Postalcode</p>
             <p>{user.shippingAddress.postalCode}</p>
           </div>
           <div className="profile-item">
-            <p>Land</p>
+            <p>State</p>
             <p>{user.shippingAddress.state}</p>
           </div>
           <div className="profile-item">

@@ -80,7 +80,7 @@ const Update = ({ accessToken }) => {
           <div className="profile-image">
             <img
               src={`${userData.cloudinaryUrl}`}
-              alt={userData.firstname}
+              alt=""
               width="150px"
               height="150px"
             />
@@ -104,7 +104,7 @@ const Update = ({ accessToken }) => {
         <fieldset>
           <h3> Profile Information</h3>
           <div className="update-item">
-            <p>Vorname </p>
+            <p>First Name </p>
             <input
               placeholder={userData.firstname}
               type="text"
@@ -117,7 +117,7 @@ const Update = ({ accessToken }) => {
             />
           </div>
           <div className="update-item">
-            <p>Nachname </p>
+            <p>Last Name </p>
             <input
               type="text"
               name="Nachname"
@@ -146,7 +146,7 @@ const Update = ({ accessToken }) => {
         <fieldset>
           <div className="update-item-input">
             <h3>Shipping Information</h3>
-            <p>Vor- und Zuname</p>
+            <p>Full Name</p>
             {userData && userData.shippingAddress && (
               <input
                 type="text"
@@ -166,7 +166,7 @@ const Update = ({ accessToken }) => {
 
           <div className="update-item-input">
             <div className="update-item-adresse">
-              <p>Straße</p>
+              <p>Street</p>
               {userData && userData.shippingAddress && (
                 <input
                   type="text"
@@ -183,7 +183,7 @@ const Update = ({ accessToken }) => {
                 />
               )}
             </div>
-            <p>Stadt</p>
+            <p>City</p>
             {userData && userData.shippingAddress && (
               <input
                 type="text"
@@ -199,7 +199,7 @@ const Update = ({ accessToken }) => {
                 }
               />
             )}
-            <p>Postleitzahl</p>
+            <p>Postalcode</p>
             {userData && userData.shippingAddress && (
               <input
                 type="text"
@@ -215,7 +215,7 @@ const Update = ({ accessToken }) => {
                 }
               />
             )}
-            <p>Land</p>
+            <p>State</p>
             {userData && userData.shippingAddress && (
               <input
                 type="text"
@@ -252,7 +252,7 @@ const Update = ({ accessToken }) => {
         <fieldset>
           <div>
             <h3>Payment Information</h3>
-            <p>Wähle eine Zahlungsmethode:</p>
+            <p>Choose your Payment Method:</p>
             <div className="update-payment-icons">
               <img src={Paypal} alt="" width={20} />
               <img src={Klarna} alt="" width={30} />
