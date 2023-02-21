@@ -7,6 +7,7 @@ import baguette from "../../img/baguette.png";
 import SearchBarCategory from "../../components/searchbar/SearchBarCategory";
 import { useLocation } from "react-router-dom";
 import { apiBaseUrl } from "../../api";
+import NavbarWishlist1 from "../../components/navbar/NavbarWishlist1";
 import "./Category.css";
 const Category = ({ accessToken }) => {
   const location = useLocation();
@@ -20,7 +21,14 @@ const Category = ({ accessToken }) => {
   const [loading, setLoading] = useState(true);
   const [isActive, setIsActive] = useState(0);
 
-  const categoryButtons = ["All", "Vegetables", "Fruits", "Meat", "Seafood", "Bread"];
+  const categoryButtons = [
+    "All",
+    "Vegetables",
+    "Fruits",
+    "Meat",
+    "Seafood",
+    "Bread",
+  ];
 
   useEffect(() => {
     setLoading(true);
@@ -56,7 +64,9 @@ const Category = ({ accessToken }) => {
     if (selectedCategory === "All") {
       return categories;
     }
-    return categories.filter((category) => category.product_category === selectedCategory);
+    return categories.filter(
+      (category) => category.product_category === selectedCategory
+    );
   }
 
   const filteredList = getFilteredList();
@@ -75,7 +85,10 @@ const Category = ({ accessToken }) => {
       </div>
       <div className="headline-category">
         <BackArrow></BackArrow>
-        <SearchBarCategory fetch={allProducts} onFilter={handleFilteredProducts} />
+        <SearchBarCategory
+          fetch={allProducts}
+          onFilter={handleFilteredProducts}
+        />
       </div>
       <div className="category-buttons">
         {categoryButtons.map((category, index) => {
@@ -122,7 +135,10 @@ const Category = ({ accessToken }) => {
           );
         })}
       </div>
-      <h3 className="category-available-soon">More products will be available soon!</h3>
+      <h3 className="category-available-soon">
+        More products will be available soon!
+      </h3>
+      <NavbarWishlist1 />
       <NavbarBottom></NavbarBottom>
     </div>
   );

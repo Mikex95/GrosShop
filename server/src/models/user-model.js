@@ -39,11 +39,13 @@ const userSchema = mongoose.Schema(
     },
     profileImage: {
       type: String,
-      default: "",
+      default:
+        "https://res.cloudinary.com/dkvtafy5y/image/upload/v1676833093/samples/cloudinary-icon.png",
     },
     cloudinaryUrl: {
       type: String,
-      default: "",
+      default:
+        "https://res.cloudinary.com/dkvtafy5y/image/upload/v1676833093/samples/cloudinary-icon.png",
     },
     shippingAddress: {
       fullname: { type: String, default: "" },
