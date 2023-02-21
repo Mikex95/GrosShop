@@ -7,15 +7,15 @@ import Paypal from "../../img/Paypal.svg";
 import Klarna from "../../img/Klarna.svg";
 import Stripe from "../../img/Stripe.svg";
 import Camera from "../../img/Camera.svg";
-import { Link } from "react-router-dom";
-import Edit from "../../img/edit.svg";
 import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
+import { apiBaseUrl } from "../../api";
 import "./Profile.css";
 import "./Update.css";
 
 const Update = ({ accessToken }) => {
   const [userData, setUserData] = useState([]);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -29,7 +29,7 @@ const Update = ({ accessToken }) => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:2202/api/user/profile", {
+    fetch(`${apiBaseUrl}user/profile`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + accessToken,
@@ -45,21 +45,22 @@ const Update = ({ accessToken }) => {
   }, [accessToken]);
 
   const eventOnClick = () => {
-    const data = new FormData();
+    const formDatas = new FormData();
     for (let key in formData) {
-      data.append(key, formData[key]);
+      formDatas.append(key, formData[key]);
     }
-    fetch("http://localhost:2202/api/user/profile-update", {
+    fetch(`${apiBaseUrl}user/profile-update`, {
       method: "PUT",
       headers: {
         // "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + accessToken,
       },
-      body: data, // JSON.stringify(formData),
+      body: formDatas, // JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Updated profile data:", data);
+        navigate("/profile");
       })
       .catch((error) => {
         console.error("Error updating profile data:", error);
@@ -260,7 +261,7 @@ const Update = ({ accessToken }) => {
           </div>
         </fieldset>
 
-        <UpdateProfile text="Save Data" onClick={eventOnClick} />
+        <UpdateProfile text="Save Changes" onClick={eventOnClick} />
       </div>
 
       <NavbarWishlist1 />

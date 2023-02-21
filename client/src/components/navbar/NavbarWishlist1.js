@@ -1,5 +1,5 @@
 import "./NavbarWishlist1.css";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { ReactComponent as Cart } from "../../img/Cart.svg";
 import HomeIcon from "../../img/HomeIcon";
 import OrderIcon from "../../img/OrderIcon";

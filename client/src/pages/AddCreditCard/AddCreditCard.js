@@ -107,11 +107,13 @@ const AddCreditCard = (e) => {
               onFocus={(e) => e.target.value}
             />
           </div>
-          <button className="add-card-btn" type="button">
-            Add card
-          </button>
         </form>
       </fieldset>
+      <div className="add-card-btn">
+        <button className="add-card-button" type="button">
+          Add card
+        </button>
+      </div>
     </div>
   );
 };

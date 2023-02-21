@@ -5,7 +5,6 @@
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   overflow: hidden;
-  /* text-align: center; */
 }
 
 .input-style {
@@ -66,30 +65,28 @@ a {
   text-align: center;
 }
 
-.add-card-btn {
-  margin-top: 20px;
+.add-card-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: green;
   border: 2px solid green;
   font-weight: bold;
   border-radius: 6px;
-  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-  box-sizing: border-box;
   color: #ffffff;
   cursor: pointer;
-  display: inline-block;
-  font-family: "Poppins", sans-serif;
-  text-transform: uppercase;
   font-weight: bold;
   width: 331px;
   font-size: 16px;
-  line-height: 16px;
   min-height: 50px;
-  outline: 0;
-  padding: 12px 14px;
   text-align: center;
-  text-rendering: geometricprecision;
-  touch-action: manipulation;
-  vertical-align: middle;
+
+}
+
+.add-card-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card fieldset {

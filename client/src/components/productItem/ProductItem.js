@@ -3,6 +3,7 @@ import heartRed from "../../img/heart-red.png";
 import { Link } from "react-router-dom";
 import { ReactComponent as Star } from "../../img/star7.svg";
 import { useEffect, useState } from "react";
+import { apiBaseUrl } from "../../api";
 
 import "./ProductItem.css";
 const ProductItem = (props) => {
@@ -10,7 +11,7 @@ const ProductItem = (props) => {
 
   useEffect(() => {
     const fetchWishlistData = async () => {
-      const response = await fetch("http://localhost:2202/api/user/wishlist", {
+      const response = await fetch(`${apiBaseUrl}user/wishlist`, {
         headers: {
           Authorization: `Bearer ${props.accessToken}`,
         },
@@ -39,7 +40,7 @@ const ProductItem = (props) => {
     const product = {
       itemId: props.id,
     };
-    fetch("http://localhost:2202/api/user/wishlist/additem", {
+    fetch(`${apiBaseUrl}user/wishlist/additem`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +60,7 @@ const ProductItem = (props) => {
   const removeItemFromWishList = (event) => {
     event.preventDefault();
     const productId = props.id;
-    fetch(`http://localhost:2202/api/user/wishlist/deleteitem/${productId}`, {
+    fetch(`${apiBaseUrl}user/wishlist/deleteitem/${productId}`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + props.accessToken,

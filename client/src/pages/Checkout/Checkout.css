@@ -1,11 +1,6 @@
 .checkout {
   background-color: #707070;
   height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .checkout-upper {
@@ -13,10 +8,9 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  height: 80%;
+  height: 75%;
   border-radius: 0 0 3rem 3rem;
-  gap: 2rem;
-  margin: 0rem 2rem;
+  gap: 5px;
 }
 
 .verification-arrow {
@@ -73,19 +67,12 @@
   justify-content: space-between;
 }
 
-.verification-to-signin {
-  /* background-color: #707070; */
-  color: #555555;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  height: 30%;
-  width: 100%;
-}
-
 .verification-to-signin a {
   color: white;
+}
+
+.checkout-detail p {
+  margin-bottom: 10px;
 }
 
 .mainText {
@@ -94,9 +81,11 @@
   border-radius: 10px;
   height: 60px;
   background: rgba(0, 0, 0, .6);
+  opacity: 70%;
+  background-color: white;
   position: absolute;
   bottom: 0;
-  top: 0;
+  top: -60px;
   margin: auto;
 }
 

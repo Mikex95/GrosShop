@@ -1,42 +1,43 @@
 .order-history-container {
-	background: #f2f3f9;
-	height: 100%;
+  background: #f2f3f9;
+  height: 100%;
 }
 
 .order-history-back-arrow {
-	display: flex;
-	justify-content: flex-start;
-	align-items: baseline;
-	gap: 15px;
-	background-color: #f2f3f9;
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 15px;
+  background-color: #f2f3f9;
 }
 
 .order-history-back-arrow h5 {
-	font-size: 18px;
+  font-size: 18px;
 }
 
 .history-button-container {
-	height: 45px;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	border-top: 1px solid rgba(0, 0, 0, 0.111);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.111);
-	margin: 14px 0 20px;
+  height: 45px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.111);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.111);
+  margin: 14px 0 20px;
 }
 
-.history-button-container button {
-	border: none;
-	font-size: 18px;
-	font-weight: 500;
-	color: #2c3066;
-	margin-left: 3px;
-	border-bottom: green 1px solid;
-	padding: 11px 20px;
+.history-button-container .oder-history-button {
+  border: none;
+  background-color: #f2f3f9;
+  font-size: 18px;
+  font-weight: 500;
+  color: #2c3066;
+  margin-left: 3px;
+  border-bottom: green 1px solid;
+  padding: 11px 20px;
 }
 
 .order-grid-component {
-	display: grid;
-	grid-template-columns: repeat(1, 1fr);
-	gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 10px;
 }

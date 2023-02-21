@@ -42,7 +42,7 @@ const loginUser = async (req, res) => {
       const Access_Token_Secrets = process.env.ACCESS_TOKEN_SECRETS;
       const Refresh_Token_Secrets = process.env.REFRESH_TOKEN_SECRETS;
       const accessToken = jwt.sign(payload, Access_Token_Secrets, {
-        expiresIn: "10m",
+        expiresIn: "30m",
         // "expiresIn" should be a number of seconds or string representing a timespan eg: "1d", "20h", "60s"
       });
 

@@ -5,6 +5,7 @@ import BackArrow from "../../components/backArrow/BackArrow";
 import { ReactComponent as CartDetails } from "../../img/shopping-cart-detail.svg";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { apiBaseUrl } from "../../api";
 
 const DetailsPage = ({ productFetch, accessToken }) => {
   const [count, setCount] = useState(1);
@@ -16,7 +17,7 @@ const DetailsPage = ({ productFetch, accessToken }) => {
   const foodDetails = productFetch.find((product) => product._id === id);
 
   useEffect(() => {
-    fetch("http://localhost:2202/api/user/cart", {
+    fetch(`${apiBaseUrl}user/cart`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + accessToken,
@@ -49,7 +50,7 @@ const DetailsPage = ({ productFetch, accessToken }) => {
 
     Promise.all(
       cartProduct.map((item) => {
-        return fetch("http://localhost:2202/api/user/cart/additem", {
+        return fetch(`${apiBaseUrl}user/cart/additem`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

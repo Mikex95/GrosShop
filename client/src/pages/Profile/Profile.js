@@ -3,8 +3,7 @@ import UpdateProfile from "../../components/buttons/UpdateProfile";
 import HeaderTime from "../../components/headerTime/HeaderTime";
 import NavbarBottom from "../../components/navbar/NavbarBottom";
 import NavbarWishlist1 from "../../components/navbar/NavbarWishlist1";
-import Camera from "../../img/Camera.svg";
-
+import { apiBaseUrl } from "../../api";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
@@ -23,7 +22,7 @@ const Profile = ({ accessToken }) => {
 
   console.log(user);
   useEffect(() => {
-    fetch("http://localhost:2202/api/user/profile", {
+    fetch(`${apiBaseUrl}user/profile`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + accessToken,

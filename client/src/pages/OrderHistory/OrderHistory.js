@@ -14,7 +14,7 @@ const OrderHistory = () => {
         <h5>Order History</h5>
       </div>
       <section className="history-button-container">
-        <button>All</button>
+        <button className="oder-history-button">All</button>
       </section>
       <section className="order-grid-component">
         <Order

@@ -1,9 +1,10 @@
 import "./Cart.css";
 import "../Home/Home.css";
 import { ReactComponent as Trash } from "../../img/trash.svg";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import heart from "../../img/heart.png";
 import { ReactComponent as Star } from "../../img/star7.svg";
+import { apiBaseUrl } from "../../api";
 
 const CartItem = (props) => {
   const [counter, setCounter] = useState(props.counter);
@@ -27,7 +28,7 @@ const CartItem = (props) => {
     const quantity = props.counter;
     console.log(quantity);
     console.log(productId);
-    fetch(`http://localhost:2202/api/user/cart/removeitem/${productId}`, {
+    fetch(`${apiBaseUrl}user/cart/removeitem/${productId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${props.accessToken}`,
